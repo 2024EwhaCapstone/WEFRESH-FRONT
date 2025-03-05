@@ -4,7 +4,7 @@ import { View, Text, StyleSheet } from 'react-native';
 const AddFoodScreen = () => {
   return (
     <View style={styles.container}>
-      <Text>🏠 add food Screen</Text>
+      <Text> add food Screen</Text>
     </View>
   );
 };
