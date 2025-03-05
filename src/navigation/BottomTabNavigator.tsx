@@ -4,7 +4,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { Image } from 'react-native';
 import HomeScreen from '../screens/HomeScreen';
 import RefrigeratorScreen from '../screens/RefrigeratorScreen';
-import RecipeScreen from '../screens/RecipeScreen';
+import AddFoodScreen from '../screens/AddFoodScreen';
 import MyPageScreen from '../screens/MyPageScreen';
 
 const Tab = createBottomTabNavigator();
@@ -21,8 +21,8 @@ const BottomTabNavigator = () => {
               iconSource = require('../assets/icons/homeicon.png');
             } else if (route.name === '냉장고') {
               iconSource = require('../assets/icons/refriicon.png');  
-            } else if (route.name === '레시피') {
-              iconSource = require('../assets/icons/recipeicon.png');
+            } else if (route.name === '추가') {
+              iconSource = require('../assets/icons/cameraicon.png');
             } else if (route.name === '마이페이지') {
               iconSource = require('../assets/icons/mypageicon.png');
             }
@@ -44,7 +44,7 @@ const BottomTabNavigator = () => {
       >
         <Tab.Screen name="홈" component={HomeScreen} />
         <Tab.Screen name="냉장고" component={RefrigeratorScreen} />
-        <Tab.Screen name="레시피" component={RecipeScreen} />
+        <Tab.Screen name="추가" component={AddFoodScreen} />
         <Tab.Screen name="마이페이지" component={MyPageScreen} />
       </Tab.Navigator>
     </NavigationContainer>
