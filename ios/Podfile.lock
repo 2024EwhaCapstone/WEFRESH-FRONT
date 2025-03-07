@@ -1238,6 +1238,35 @@ PODS:
     - React-jsiexecutor
     - React-RCTFBReactNativeSpec
     - ReactCommon/turbomodule/core
+  - react-native-camera (4.2.1):
+    - React-Core
+    - react-native-camera/RCT (= 4.2.1)
+    - react-native-camera/RN (= 4.2.1)
+  - react-native-camera/RCT (4.2.1):
+    - React-Core
+  - react-native-camera/RN (4.2.1):
+    - React-Core
+  - react-native-image-picker (8.2.0):
+    - DoubleConversion
+    - glog
+    - hermes-engine
+    - RCT-Folly (= 2024.11.18.00)
+    - RCTRequired
+    - RCTTypeSafety
+    - React-Core
+    - React-debug
+    - React-Fabric
+    - React-featureflags
+    - React-graphics
+    - React-ImageManager
+    - React-NativeModulesApple
+    - React-RCTFabric
+    - React-rendererdebug
+    - React-utils
+    - ReactCodegen
+    - ReactCommon/turbomodule/bridging
+    - ReactCommon/turbomodule/core
+    - Yoga
   - react-native-safe-area-context (5.3.0):
     - DoubleConversion
     - glog
@@ -1591,6 +1620,48 @@ PODS:
     - React-logger (= 0.78.0)
     - React-perflogger (= 0.78.0)
     - React-utils (= 0.78.0)
+  - RNCPicker (2.11.0):
+    - DoubleConversion
+    - glog
+    - hermes-engine
+    - RCT-Folly (= 2024.11.18.00)
+    - RCTRequired
+    - RCTTypeSafety
+    - React-Core
+    - React-debug
+    - React-Fabric
+    - React-featureflags
+    - React-graphics
+    - React-ImageManager
+    - React-NativeModulesApple
+    - React-RCTFabric
+    - React-rendererdebug
+    - React-utils
+    - ReactCodegen
+    - ReactCommon/turbomodule/bridging
+    - ReactCommon/turbomodule/core
+    - Yoga
+  - RNDateTimePicker (8.3.0):
+    - DoubleConversion
+    - glog
+    - hermes-engine
+    - RCT-Folly (= 2024.11.18.00)
+    - RCTRequired
+    - RCTTypeSafety
+    - React-Core
+    - React-debug
+    - React-Fabric
+    - React-featureflags
+    - React-graphics
+    - React-ImageManager
+    - React-NativeModulesApple
+    - React-RCTFabric
+    - React-rendererdebug
+    - React-utils
+    - ReactCodegen
+    - ReactCommon/turbomodule/bridging
+    - ReactCommon/turbomodule/core
+    - Yoga
   - RNGestureHandler (2.24.0):
     - DoubleConversion
     - glog
@@ -1840,6 +1911,8 @@ DEPENDENCIES:
   - React-logger (from `../node_modules/react-native/ReactCommon/logger`)
   - React-Mapbuffer (from `../node_modules/react-native/ReactCommon`)
   - React-microtasksnativemodule (from `../node_modules/react-native/ReactCommon/react/nativemodule/microtasks`)
+  - react-native-camera (from `../node_modules/react-native-camera`)
+  - react-native-image-picker (from `../node_modules/react-native-image-picker`)
   - react-native-safe-area-context (from `../node_modules/react-native-safe-area-context`)
   - React-NativeModulesApple (from `../node_modules/react-native/ReactCommon/react/nativemodule/core/platform/ios`)
   - React-perflogger (from `../node_modules/react-native/ReactCommon/reactperflogger`)
@@ -1869,6 +1942,8 @@ DEPENDENCIES:
   - ReactAppDependencyProvider (from `build/generated/ios`)
   - ReactCodegen (from `build/generated/ios`)
   - ReactCommon/turbomodule/core (from `../node_modules/react-native/ReactCommon`)
+  - "RNCPicker (from `../node_modules/@react-native-picker/picker`)"
+  - "RNDateTimePicker (from `../node_modules/@react-native-community/datetimepicker`)"
   - RNGestureHandler (from `../node_modules/react-native-gesture-handler`)
   - RNReanimated (from `../node_modules/react-native-reanimated`)
   - RNScreens (from `../node_modules/react-native-screens`)
@@ -1955,6 +2030,10 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon"
   React-microtasksnativemodule:
     :path: "../node_modules/react-native/ReactCommon/react/nativemodule/microtasks"
+  react-native-camera:
+    :path: "../node_modules/react-native-camera"
+  react-native-image-picker:
+    :path: "../node_modules/react-native-image-picker"
   react-native-safe-area-context:
     :path: "../node_modules/react-native-safe-area-context"
   React-NativeModulesApple:
@@ -2013,6 +2092,10 @@ EXTERNAL SOURCES:
     :path: build/generated/ios
   ReactCommon:
     :path: "../node_modules/react-native/ReactCommon"
+  RNCPicker:
+    :path: "../node_modules/@react-native-picker/picker"
+  RNDateTimePicker:
+    :path: "../node_modules/@react-native-community/datetimepicker"
   RNGestureHandler:
     :path: "../node_modules/react-native-gesture-handler"
   RNReanimated:
@@ -2062,6 +2145,8 @@ SPEC CHECKSUMS:
   React-logger: 018826bfd51b9f18e87f67db1590bc510ad20664
   React-Mapbuffer: 3c11cee7737609275c7b66bd0b1de475f094cedf
   React-microtasksnativemodule: 843f352b32aacbe13a9c750190d34df44c3e6c2c
+  react-native-camera: 079d80421f0572d6b4e836908114d614d0adb553
+  react-native-image-picker: df2b20cdfa981f7288f4019774d9baa26a4772c1
   react-native-safe-area-context: 0f14bce545abcdfbff79ce2e3c78c109f0be283e
   React-NativeModulesApple: 88433b6946778bea9c153e27b671de15411bf225
   React-perflogger: 9e8d3c0dc0194eb932162812a168aa5dc662f418
@@ -2091,6 +2176,8 @@ SPEC CHECKSUMS:
   ReactAppDependencyProvider: a1fb08dfdc7ebc387b2e54cfc9decd283ed821d8
   ReactCodegen: 008c319179d681a6a00966edfc67fda68f9fbb2e
   ReactCommon: 0c097b53f03d6bf166edbcd0915da32f3015dd90
+  RNCPicker: cfb51a08c6e10357d9a65832e791825b0747b483
+  RNDateTimePicker: e30677c15dfba25452b1434181970162115cc4fe
   RNGestureHandler: 8b1080a6db0be82dbca18550d6212b885bfab6b2
   RNReanimated: 6383cd0d805e48768b97bd65bcb1d06f0e69ab8e
   RNScreens: 0d4cb9afe052607ad0aa71f645a88bb7c7f2e64c
