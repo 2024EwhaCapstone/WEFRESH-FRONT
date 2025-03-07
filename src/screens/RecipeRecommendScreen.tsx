@@ -1,12 +1,25 @@
-import React from 'react';
-import { View, Text, StyleSheet, Image, Dimensions } from 'react-native';
+import React,  { useCallback, useMemo, useRef } from 'react';
+import { View, Text, StyleSheet, Image, Dimensions , TouchableOpacity } from 'react-native';
 import CloseButton from '../components/CloseButton'; // X 버튼 컴포넌트
 import StarRating from '../components/StarRating';
 import IngredientTag from '../components/recipe/IngredientTag';
 import InfoCard from '../components/recipe/InfoCard';
+import DetailNoticeBar from '../components/recipe/DetailNoticeBar';
+import GreenButton from '../components/GreenButton';
+import { NavigationProp, useNavigation } from '@react-navigation/native';
+import { RootStackParamList } from '../navigation/RootNavigator'; 
+
 const { width, height } = Dimensions.get('window');
 
 const RecipeRecommendScreen = () => {
+  const navigation = useNavigation<NavigationProp<RootStackParamList>>();
+
+ 
+  const handleNavigateToDetail = useCallback(() => {
+    navigation.navigate('RecipeDetailScreen');
+  }, [navigation]);
+
+
   return (
     <View style={styles.container}>
       
@@ -21,7 +34,7 @@ const RecipeRecommendScreen = () => {
       <View style={styles.imageContainer}>
         <Image 
           source={require('../assets/icons/double_right_icon.png')} 
-          style={[styles.double_icon, { marginHorizontal: 40 }]} // 간격 추가
+          style={[styles.double_icon, { marginHorizontal: 30 }]} 
         />
         <Image 
           source={require('../assets/images/img_recipe1.png')} 
@@ -29,7 +42,7 @@ const RecipeRecommendScreen = () => {
         />
         <Image 
           source={require('../assets/icons/double_left_icon.png')} 
-          style={[styles.double_icon, { marginHorizontal: 40 }]} // 간격 추가
+          style={[styles.double_icon, { marginHorizontal: 30 }]} 
         />
       </View>
 
@@ -50,10 +63,16 @@ const RecipeRecommendScreen = () => {
           <IngredientTag name="당근" daysLeft={4} />
         </View>
         <View style={styles.infoContainer}>
-  <InfoCard value="30분" label="조리시간" />
-  <InfoCard value="780 kcal" label="칼로리" />
-  <InfoCard value="100" label="LIKES" />
-</View>
+          <InfoCard value="30분" label="조리시간" />
+          <InfoCard value="780 kcal" label="칼로리" />
+          <InfoCard value="100" label="LIKES" />
+        </View>
+        
+      
+        <View style={styles.buttonContainer}>
+        <GreenButton title="자세한 내용을 보려면 클릭" onPress={handleNavigateToDetail} />
+      </View>
+       
       </View>
     </View>
   );
@@ -93,9 +112,9 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: height * 0.35, 
     alignSelf: 'center',
-    width: width * 0.6,
-    height: width * 0.6,
-    borderRadius: (width * 0.6) / 2, 
+    width: width * 0.7,
+    height: width * 0.7,
+    borderRadius: (width * 0.7) / 2, 
     justifyContent: 'center',
     alignItems: 'center',
     shadowColor: '#000',
@@ -122,7 +141,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: 'white',
     alignItems: 'center',
-    marginTop: 50, 
+    marginTop: 90, 
   },
   recipeTitle: {
     fontSize: 24,
@@ -141,6 +160,16 @@ const styles = StyleSheet.create({
     width: '80%', 
     alignSelf: 'center',
     marginTop: 15,
+  },
+  contentContainer: {
+    flex: 1,
+    alignItems: 'center',
+  },
+  buttonContainer: {
+    position: 'absolute',
+    bottom: 50, 
+    width: '100%',
+    alignItems: 'center',
   },
 });
 

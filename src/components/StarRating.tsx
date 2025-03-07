@@ -23,7 +23,7 @@ const StarRating = ({ rating }: { rating: number }) => {
 const styles = StyleSheet.create({
   starContainer: {
     flexDirection: 'row',
-    marginTop: 19,
+    marginTop: 10,
   },
   star: {
     width: 20,

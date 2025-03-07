@@ -18,17 +18,19 @@ const InfoCard: React.FC<InfoCardProps> = ({ value, label }) => {
 
 const styles = StyleSheet.create({
   card: {
-    backgroundColor: '#08A90014', 
+    backgroundColor: "rgba(8, 169, 0, 0.08)",
+
     borderRadius: 15,
     paddingVertical: 10,
     paddingHorizontal: 10,
     alignItems: 'center',
     justifyContent: 'center',
     width: 100, 
-    shadowColor: '#000',
+    shadowColor: "rgba(0, 0, 0, 0.25)",
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.1,
     shadowRadius: 4,
+    elevation: 4,
   },
   value: {
     fontSize: 15,

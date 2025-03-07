@@ -2,10 +2,11 @@ import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import BottomTabNavigator from './BottomTabNavigator';
 import RecipeRecommendScreen from '../screens/RecipeRecommendScreen';
-
+import RecipeDetailScreen from '../screens/RecipeDetailScreen';
 export type RootStackParamList = {
   MainTabs: undefined;
   RecipeRecommend: undefined;
+  RecipeDetailScreen: undefined;
 };
 
 const Stack = createStackNavigator<RootStackParamList>();
@@ -20,8 +21,14 @@ const RootNavigator = () => {
       <Stack.Screen 
         name="RecipeRecommend" 
         component={RecipeRecommendScreen} 
-        options={{ presentation: 'card', headerShown: false }} // 바텀탭 숨기기
+        options={{ presentation: 'card', headerShown: false }} 
       />
+      <Stack.Screen 
+        name="RecipeDetailScreen"  
+        component={RecipeDetailScreen} 
+        options={{ presentation: 'card', headerShown: false }} 
+      />
+      
     </Stack.Navigator>
   );
 };
