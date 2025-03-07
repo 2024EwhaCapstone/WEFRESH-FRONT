@@ -10,8 +10,8 @@ const StarRating = ({ rating }: { rating: number }) => {
           key={index}
           source={
             index < rating
-              ? require('../assets/icons/star_icon_green.png') 
-              : require('../assets/icons/star_icon.png') 
+              ? require('../../assets/icons/star_icon_green.png') 
+              : require('../../assets/icons/star_icon.png') 
           }
           style={styles.star}
         />

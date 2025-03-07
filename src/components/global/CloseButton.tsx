@@ -23,7 +23,7 @@ const CloseButton: React.FC<CloseButtonProps> = ({
       onPress={onPress ? onPress : () => navigation.goBack()}
     >
       <Image
-        source={require('../assets/icons/closeicon.png')}
+        source={require('../../assets/icons/closeicon.png')}
         style={[styles.image, { tintColor: iconColor }]} 
       />
     </TouchableOpacity>

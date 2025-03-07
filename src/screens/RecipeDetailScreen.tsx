@@ -1,15 +1,22 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, ScrollView, Image } from 'react-native';
-import CloseButton from '../components/CloseButton';
+import CloseButton from '../components/global/CloseButton';
 import RecipeIngredients from '../components/recipe/RecipeIngredients';
 import RecipeSteps from '../components/recipe/RecipeSteps';
-import StarRating from '../components/StarRating';
+import StarRating from '../components/global/StarRating';
 import InfoCard from '../components/recipe/InfoCard';
-import GreenButton from '../components/GreenButton';
-import { ColorLabelRow } from '../components/ColorLabel';
+import GreenButton from '../components/global/GreenButton';
+import { ColorLabelRow } from '../components/global/ColorLabel';
 const RecipeDetailScreen: React.FC = () => {
   const [activeTab, setActiveTab] = useState<'ingredients' | 'steps'>('ingredients');
 
+  const ingredientsData = [
+    { name: '간장', amount: '20ml' },
+    { name: '아보카도', amount: '300g' },
+    { name: '연어', amount: '300g' },
+    { name: '당근', amount: '300g' },
+  ];
+  
   return (
     <View style={styles.container}>
       
@@ -58,7 +65,7 @@ const RecipeDetailScreen: React.FC = () => {
 
        
         <ScrollView style={styles.scrollContent}>
-          {activeTab === 'ingredients' ? <RecipeIngredients /> : <RecipeSteps />}
+          {activeTab === 'ingredients' ? <RecipeIngredients ingredients={ingredientsData} /> : <RecipeSteps />}
         </ScrollView>
         <View style={styles.buttonContainer}>
           <GreenButton title="다른 음식 추천 받기" onPress={() => {}} />

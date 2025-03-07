@@ -1,11 +1,11 @@
 import React,  { useCallback, useMemo, useRef } from 'react';
 import { View, Text, StyleSheet, Image, Dimensions , TouchableOpacity } from 'react-native';
-import CloseButton from '../components/CloseButton'; // X 버튼 컴포넌트
-import StarRating from '../components/StarRating';
+import CloseButton from '../components/global/CloseButton'; // X 버튼 컴포넌트
+import StarRating from '../components/global/StarRating';
 import IngredientTag from '../components/recipe/IngredientTag';
 import InfoCard from '../components/recipe/InfoCard';
 import DetailNoticeBar from '../components/recipe/DetailNoticeBar';
-import GreenButton from '../components/GreenButton';
+import GreenButton from '../components/global/GreenButton';
 import { NavigationProp, useNavigation } from '@react-navigation/native';
 import { RootStackParamList } from '../navigation/RootNavigator'; 
 

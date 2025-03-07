@@ -1,36 +1,62 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, Image } from 'react-native';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
-const RecipeIngredients = () => {
+interface Ingredient {
+  name: string;
+  amount: string;
+}
+
+interface RecipeIngredientsProps {
+  ingredients: Ingredient[];
+}
+
+const RecipeIngredients: React.FC<RecipeIngredientsProps> = ({ ingredients }) => {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>재료 목록</Text>
-      <View style={styles.ingredientList}>
-        <Text>- 간장 20ml</Text>
-        <Text>- 아보카도 300g</Text>
-        <Text>- 연어 300g</Text>
-        <Text>- 당근 300g</Text>
-      </View>
+      {ingredients.map((item, index) => (
+        <View key={index} style={styles.ingredientRow}>
+          <View style={styles.ingredientNameContainer}>
+            <Image source={require('../../assets/icons/green_dot_icon.png')} style={styles.dotIcon} />
+            <Text style={styles.ingredientName}>{item.name}</Text>
+          </View>
+          <Text style={styles.ingredientAmount}>{item.amount}</Text>
+        </View>
+      ))}
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    padding: 20,
-    backgroundColor: 'white',
-    borderRadius: 10,
-    elevation: 2,
+    width: '100%',
+    paddingHorizontal: 20,
+    marginTop: 10,
   },
-  title: {
-    fontSize: 20,
+  ingredientRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingVertical: 8,
+    
+  },
+  ingredientNameContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  dotIcon: {
+    marginRight: 8,
+    
+  },
+  ingredientName: {
+    fontSize: 16,
+    fontWeight: '400',
+    color: '#333',
+  },
+  ingredientAmount: {
+    fontSize: 16,
     fontWeight: 'bold',
-    marginBottom: 10,
-  },
-  ingredientList: {
-    padding: 10,
-    backgroundColor: '#f9f9f9',
-    borderRadius: 5,
+    color: '#000',
   },
 });
 
