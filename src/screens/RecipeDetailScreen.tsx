@@ -16,7 +16,15 @@ const RecipeDetailScreen: React.FC = () => {
     { name: '연어', amount: '300g' },
     { name: '당근', amount: '300g' },
   ];
-  
+  const stepsData = [
+    { id: 1, title: 'Step 1', description: '밥 200g, 김 5g, 양파 30g을 준비합니다.' },
+    { id: 2, title: 'Step 2', description: '연어 150g을 한입 크기로 썰고, 소스 10ml를 뿌려 5분간 재워줍니다.' },
+    { id: 3, title: 'Step 3', description: '그릇에 밥 200g, 김 5g, 양파 30g을 올린 후 연어를 얹어주세요.' },
+    { id: 4, title: 'Step 4', description: '쪽파 5g, 참깨 3g을 뿌리고, 남은 소스 10ml를 추가해주세요.' },
+    { id: 5, title: 'Step 5', description: '쪽파 5g, 참깨 3g을 뿌리고, 남은 소스 10ml를 추가해주세요.' },
+    { id: 6, title: 'Step 6', description: '쪽파 5g, 참깨 3g을 뿌리고, 남은 소스 10ml를 추가해주세요.' },
+   
+  ];
   return (
     <View style={styles.container}>
       
@@ -64,9 +72,9 @@ const RecipeDetailScreen: React.FC = () => {
         </View>
 
        
-        <ScrollView style={styles.scrollContent}>
-          {activeTab === 'ingredients' ? <RecipeIngredients ingredients={ingredientsData} /> : <RecipeSteps />}
-        </ScrollView>
+        <View style={styles.contentWrapper}>
+          {activeTab === 'ingredients' ? <RecipeIngredients ingredients={ingredientsData} /> : <RecipeSteps steps={stepsData} />}
+        </View>
         <View style={styles.buttonContainer}>
           <GreenButton title="다른 음식 추천 받기" onPress={() => {}} />
           <GreenButton title="저장하기" onPress={() => {}} />
@@ -81,6 +89,12 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#F5F5F5',
     alignItems: 'center',
+  },
+  contentWrapper: {
+    width: '100%',
+    height: '45%',
+    marginTop: 20,
+    marginBottom: 20,
   },
   closeButton: {
     position: 'absolute',
