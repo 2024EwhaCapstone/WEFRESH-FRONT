@@ -4,7 +4,7 @@ import { View, Text, StyleSheet } from 'react-native';
 const MyPageScreen = () => {
   return (
     <View style={styles.container}>
-      <Text>🏠 Mypage Screen</Text>
+      <Text> Mypage Screen</Text>
     </View>
   );
 };
