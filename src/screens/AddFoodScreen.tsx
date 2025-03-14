@@ -55,7 +55,7 @@ import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RootStackParamList } from '../navigation/RootNavigator';
-import PreviewScreen from './PreviewScreen';
+import FoodRegisterScreen from './FoodRegisterScreen';
 
 type NavigationProp = StackNavigationProp<RootStackParamList, 'MainTabs'>;
 
@@ -69,7 +69,7 @@ const AddFoodScreen = () => {
 
       <TouchableOpacity 
         style={styles.button} 
-        onPress={() => navigation.navigate('PreviewScreen')}
+        onPress={() => navigation.navigate('FoodRegisterScreen')}
       >
         <Text style={styles.buttonText}>사진 찍기</Text>
       </TouchableOpacity>
