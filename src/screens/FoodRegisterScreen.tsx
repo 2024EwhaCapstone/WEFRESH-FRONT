@@ -32,7 +32,7 @@ const FoodRegisterScreen = () => {
         </View>
         
         <View style={styles.infoContainer}>
-          {/* 음식 이름 */}
+         
           <View style={styles.nameInput}>
             <TextInput
               style={styles.foodName}

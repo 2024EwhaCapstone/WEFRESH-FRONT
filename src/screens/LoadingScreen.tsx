@@ -9,7 +9,7 @@ const LoadingScreen = () => {
   const navigation = useNavigation<NavigationProp>();
 
   useEffect(() => {
-    // ✅ 2초 후에 FoodRegisterScreen으로 이동
+    
     const timer = setTimeout(() => {
       navigation.replace('FoodRegisterScreen'); 
     }, 2000);
