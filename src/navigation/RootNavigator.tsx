@@ -6,13 +6,13 @@ import RecipeRecommendScreen from '../screens/RecipeRecommendScreen';
 import RecipeDetailScreen from '../screens/RecipeDetailScreen';
 import AddFoodScreen from '../screens/AddFoodScreen';
 import FoodRegisterScreen from '../screens/FoodRegisterScreen';
-import CustomHeader from '../components/global/CustomHeader';
+import LoadingScreen from '../screens/LoadingScreen';
 export type RootStackParamList = {
   MainTabs: undefined;
   RecipeRecommend: undefined;
   RecipeDetailScreen: undefined;
   AddFoodScreen: undefined;
-  // PreviewScreen: { photoUri: string };
+  LoadingScreen: undefined;
   FoodRegisterScreen: undefined;
 };
 
@@ -36,6 +36,7 @@ const RootNavigator = () => {
         options={{ presentation: 'card', headerShown: false }} 
       />
       <Stack.Screen name="AddFoodScreen" component={AddFoodScreen} />
+      <Stack.Screen name="LoadingScreen" component={LoadingScreen} />
       <Stack.Screen name="FoodRegisterScreen" component={FoodRegisterScreen}/>
       
       
