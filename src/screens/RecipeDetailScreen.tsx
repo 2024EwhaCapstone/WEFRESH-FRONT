@@ -49,11 +49,17 @@ const RecipeDetailScreen: React.FC<RecipeDetailScreenProps> = ({ route }) => {
   }, [recipeId]);
 
   const handleSaveRecipe = async () => {
+    if (!recipeId) {
+      Alert.alert("오류", "레시피 ID가 없습니다.");
+      return;
+    }
+  
     try {
       const response = await saveRecipe(recipeId, 'general');
       console.log("Recipe saved successfully!", response);
       Alert.alert("저장 완료", "레시피가 저장되었습니다.");
     } catch (error) {
+      console.error("Error saving recipe:", error);
       Alert.alert("저장 실패", "레시피 저장 중 오류가 발생했습니다.");
     }
   };
