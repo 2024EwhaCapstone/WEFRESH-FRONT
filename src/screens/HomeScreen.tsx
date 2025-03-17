@@ -1,5 +1,6 @@
 import React from 'react';
-import TopBar from '../components/home/TopBar';
+// import TopBar from '../components/home/TopBar';
+import CustomHeader from '../components/global/CustomHeader';
 import Divider from '../components/home/Divider';
 import Item from '../components/home/Item';
 import DateAlert from '../components/home/DateAlert';
@@ -24,7 +25,8 @@ const HomeScreen = () => {
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView style={styles.scrollView}>
-        <TopBar />
+        {/* <TopBar /> */}
+        {/* <CustomHeader isHome={true} /> */}
         <View style={styles.backView}>
           <View style={styles.view1}>
             <View style={styles.view2}>
@@ -50,10 +52,10 @@ const HomeScreen = () => {
           numColumns={2}
           columnWrapperStyle={{
             justifyContent: 'space-between',
-            marginBottom: 32,
+            marginTop: 12,
+            marginBottom: 20,
           }}
           contentContainerStyle={{paddingHorizontal: 28}}
-          style={styles.flatList}
           scrollEnabled={false}
         />
       </ScrollView>
@@ -82,7 +84,7 @@ const styles = StyleSheet.create({
 
     zIndex: -1,
   },
-  flatList: {marginTop: 12},
+
   dateAlertContainer: {
     alignItems: 'center',
     justifyContent: 'center',
