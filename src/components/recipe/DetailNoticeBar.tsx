@@ -1,20 +1,26 @@
 import React from 'react';
-import { View, Text, StyleSheet, Dimensions } from 'react-native';
+import { TouchableOpacity, Text, StyleSheet, Dimensions } from 'react-native';
 
 const { width } = Dimensions.get('window');
 
-const DetailNoticeBar = () => {
+interface DetailNoticeBarProps {
+  title: string;
+  onPress: () => void;
+}
+const DetailNoticeBar: React.FC<DetailNoticeBarProps> = ({onPress}) => {
   return (
-    <View style={styles.noticeContainer}>
+    <TouchableOpacity style={styles.noticeContainer} onPress={onPress} activeOpacity={0.7}>
       <Text style={styles.noticeText}>자세한 내용을 보려면 클릭</Text>
-    </View>
+      </TouchableOpacity>
+    
+       
   );
 };
 
 const styles = StyleSheet.create({
   noticeContainer: {
     position: 'absolute',
-    bottom: -60, 
+    bottom: 10, 
     width: 200, 
     alignSelf: 'center',
     backgroundColor: '#079300', 
@@ -33,7 +39,7 @@ const styles = StyleSheet.create({
 },
   noticeText: {
     color: 'white',
-    fontSize: 12,
+    fontSize: 14,
     
   },
 });

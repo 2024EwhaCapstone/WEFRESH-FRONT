@@ -105,7 +105,7 @@ const styles = StyleSheet.create({
     height: height * 0.12, 
   },
   step: {
-    width: '90%',
+    width: '88%',
     padding: 12,
     borderRadius: 15,
     shadowColor: '#000',

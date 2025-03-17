@@ -10,7 +10,7 @@ import LoadingScreen from '../screens/LoadingScreen';
 export type RootStackParamList = {
   MainTabs: undefined;
   RecipeRecommend: undefined;
-  RecipeDetailScreen: undefined;
+  RecipeDetailScreen: { recipeId: number };
   AddFoodScreen: undefined;
   LoadingScreen: undefined;
   FoodRegisterScreen: undefined;
@@ -31,10 +31,11 @@ const RootNavigator = () => {
         options={{ presentation: 'card', headerShown: false }} 
       />
       <Stack.Screen 
-        name="RecipeDetailScreen"  
-        component={RecipeDetailScreen} 
-        options={{ presentation: 'card', headerShown: false }} 
+        name="RecipeDetailScreen"
+        component={RecipeDetailScreen}
+        options={{ presentation: 'card', headerShown: false }}
       />
+
       <Stack.Screen name="AddFoodScreen" component={AddFoodScreen} />
       <Stack.Screen name="LoadingScreen" component={LoadingScreen} />
       <Stack.Screen name="FoodRegisterScreen" component={FoodRegisterScreen}/>
