@@ -21,7 +21,7 @@ const FoodRegisterScreen = () => {
 
   const [isCategoryEditing, setIsCategoryEditing] = useState(false);
   const [isDateEditing, setIsDateEditing] = useState(false);
-
+  const [isEditing, setIsEditing] = useState(false); // 전체 수정 여부
   return (
     <View style={styles.container}>
       
@@ -42,7 +42,7 @@ const FoodRegisterScreen = () => {
           </View>
           
            
-            <TouchableOpacity onPress={() => setIsCategoryEditing(true)} activeOpacity={0.8}>
+          <TouchableOpacity onPress={() => setIsCategoryEditing(true)} activeOpacity={0.8}>
             <View style={styles.detailRow}>
               <Text style={styles.detailTitle}>카테고리</Text>
               <Text style={styles.detailText}>{category}</Text>

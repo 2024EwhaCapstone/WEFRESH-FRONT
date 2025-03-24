@@ -16,7 +16,7 @@ const RecipeRecommendScreen = () => {
 
  
   const handleNavigateToDetail = useCallback(() => {
-    navigation.navigate('RecipeDetailScreen');
+    navigation.navigate('RecipeDetailScreen', { recipeId: 1 });
   }, [navigation]);
 
 
@@ -70,7 +70,7 @@ const RecipeRecommendScreen = () => {
         
       
         <View style={styles.buttonContainer}>
-        <GreenButton title="자세한 내용을 보려면 클릭" onPress={handleNavigateToDetail} />
+        <DetailNoticeBar title="눌러서 자세히 보기" onPress={handleNavigateToDetail} />
       </View>
        
       </View>
@@ -167,7 +167,7 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     position: 'absolute',
-    bottom: 50, 
+    bottom: 80, 
     width: '100%',
     alignItems: 'center',
   },

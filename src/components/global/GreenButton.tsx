@@ -17,8 +17,8 @@ const GreenButton: React.FC<GreenButtonProps> = ({ title, onPress }) => {
 const styles = StyleSheet.create({
   button: {
     backgroundColor: '#08A900',
-    height:28,
-    width:152,
+    height:35,
+    width:160,
     borderRadius: 50,
     alignItems: 'center',
     justifyContent: 'center',
@@ -34,7 +34,7 @@ const styles = StyleSheet.create({
     
   },
   buttonText: {
-    fontSize: 12,
+    fontSize: 16,
     color: 'white',
   },
 });
