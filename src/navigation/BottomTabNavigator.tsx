@@ -6,27 +6,11 @@ import HomeScreen from '../screens/HomeScreen';
 import RefrigeratorScreen from '../screens/RefrigeratorScreen';
 import AddFoodScreen from '../screens/AddFoodScreen';
 import MyPageScreen from '../screens/MyPageScreen';
-import FoodRegisterScreen from '../screens/FoodRegisterScreen';
+import FoodDetailScreen from '../screens/FoodDetailScreen';
 import CustomHeader from '../components/global/CustomHeader';
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
 
-
-const AddFoodStack = () => {
-  return (
-    <Stack.Navigator screenOptions={{ headerShown: false }}>
-      <Stack.Screen name="AddFoodScreen" component={AddFoodScreen} />
-      <Stack.Screen 
-        name="FoodRegisterScreen" 
-        component={FoodRegisterScreen} 
-        options={{
-          headerTitle: () => <CustomHeader />, 
-          
-        }} 
-      />
-    </Stack.Navigator>
-  );
-};
 
 const BottomTabNavigator = () => {
   return (
@@ -73,10 +57,8 @@ const BottomTabNavigator = () => {
     
       <Tab.Screen 
         name="추가" 
-        component={AddFoodStack} 
-        options={{
-          header: () => <CustomHeader />, 
-        }} 
+        component={AddFoodScreen} 
+        options={{ headerShown: false }} 
         />
       <Tab.Screen name="마이페이지" component={MyPageScreen}
       options={{

@@ -5,7 +5,7 @@ import BottomTabNavigator from './BottomTabNavigator';
 import RecipeRecommendScreen from '../screens/RecipeRecommendScreen';
 import RecipeDetailScreen from '../screens/RecipeDetailScreen';
 import AddFoodScreen from '../screens/AddFoodScreen';
-import FoodRegisterScreen from '../screens/FoodRegisterScreen';
+import FoodDetailScreen from '../screens/FoodDetailScreen';
 import LoadingScreen from '../screens/LoadingScreen';
 export type RootStackParamList = {
   MainTabs: undefined;
@@ -13,7 +13,14 @@ export type RootStackParamList = {
   RecipeDetailScreen: { recipeId: number };
   AddFoodScreen: undefined;
   LoadingScreen: undefined;
-  FoodRegisterScreen: undefined;
+  FoodDetailScreen:  { 
+    foodId: number | null; 
+    foodName?: string;     
+    category?: string;
+    expirationDate?: { year: string; month: string; day: string };
+    foodCount?: number;
+    foodMemo?: string;
+};
 };
 
 const Stack = createStackNavigator<RootStackParamList>();
@@ -38,7 +45,7 @@ const RootNavigator = () => {
 
       <Stack.Screen name="AddFoodScreen" component={AddFoodScreen} />
       <Stack.Screen name="LoadingScreen" component={LoadingScreen} />
-      <Stack.Screen name="FoodRegisterScreen" component={FoodRegisterScreen}/>
+      <Stack.Screen name="FoodDetailScreen" component={FoodDetailScreen}/>
       
       
     </Stack.Navigator>

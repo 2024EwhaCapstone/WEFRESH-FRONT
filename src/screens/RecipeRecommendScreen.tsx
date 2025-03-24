@@ -70,7 +70,7 @@ const RecipeRecommendScreen = () => {
         
       
         <View style={styles.buttonContainer}>
-        <DetailNoticeBar title="자세히 보기" onPress={handleNavigateToDetail} />
+        <DetailNoticeBar title="눌러서 자세히 보기" onPress={handleNavigateToDetail} />
       </View>
        
       </View>
@@ -167,7 +167,7 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     position: 'absolute',
-    bottom: 50, 
+    bottom: 80, 
     width: '100%',
     alignItems: 'center',
   },

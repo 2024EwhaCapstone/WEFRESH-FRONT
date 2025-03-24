@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, Image } from 'react-native';
+import { View, Text, StyleSheet, Image, ScrollView } from 'react-native';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
 interface Ingredient {
@@ -13,6 +13,7 @@ interface RecipeIngredientsProps {
 
 const RecipeIngredients: React.FC<RecipeIngredientsProps> = ({ ingredients }) => {
   return (
+    <ScrollView contentContainerStyle={styles.scrollContent}>
     <View style={styles.container}>
       {ingredients.map((item, index) => (
         <View key={index} style={styles.ingredientRow}>
@@ -24,6 +25,7 @@ const RecipeIngredients: React.FC<RecipeIngredientsProps> = ({ ingredients }) =>
         </View>
       ))}
     </View>
+    </ScrollView>
   );
 };
 
@@ -32,6 +34,10 @@ const styles = StyleSheet.create({
     width: '100%',
     paddingHorizontal: 20,
     marginTop: 10,
+  },
+  scrollContent: {
+    width: '100%',
+    paddingVertical: 0,
   },
   ingredientRow: {
     flexDirection: 'row',

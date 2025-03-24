@@ -141,7 +141,7 @@ const styles = StyleSheet.create({
   
   contentWrapper: {
     width: '100%',
-    height: '45%',
+    height: '40%',
     marginTop: 20,
     marginBottom: 20,
   },
@@ -153,7 +153,7 @@ const styles = StyleSheet.create({
   },
   recipeImage: {
     width: '100%',
-    height: '40%',
+    height: '45%',
     resizeMode: 'cover',
   },
   contentContainer: {
@@ -162,7 +162,7 @@ const styles = StyleSheet.create({
     width: '100%',
     borderTopLeftRadius: 30,
     borderTopRightRadius: 30,
-    marginTop: -50, 
+    marginTop: -30, 
     padding: 20,
     alignItems: 'center',
     elevation: 5,
@@ -191,7 +191,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     backgroundColor: '#D9D9D9CC',
     borderRadius: 20,
-    marginTop: 30,
+    marginTop: 20,
     width: '100%',
     height: 32,
     justifyContent: 'space-around',
