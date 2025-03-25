@@ -7,6 +7,7 @@ import RecipeDetailScreen from '../screens/RecipeDetailScreen';
 import AddFoodScreen from '../screens/AddFoodScreen';
 import FoodDetailScreen from '../screens/FoodDetailScreen';
 import LoadingScreen from '../screens/LoadingScreen';
+import { Asset } from 'react-native-image-picker';
 export type RootStackParamList = {
   MainTabs: undefined;
   RecipeRecommend: undefined;
@@ -20,6 +21,7 @@ export type RootStackParamList = {
     expirationDate?: { year: string; month: string; day: string };
     foodCount?: number;
     foodMemo?: string;
+    selectedImage?: Asset;
 };
 };
 

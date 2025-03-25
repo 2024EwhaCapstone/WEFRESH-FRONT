@@ -8,12 +8,13 @@ import { RootStackParamList } from '../navigation/RootNavigator';
 import DetailNoticeBar from '../components/recipe/DetailNoticeBar';
 import { createFood, updateFood } from '../api/foodApi';
 import { useNavigation } from '@react-navigation/native';
+
 interface FoodDetailScreenProps {
   route: RouteProp<RootStackParamList, 'FoodDetailScreen'>;
 }
 
 const FoodDetailScreen: React.FC<FoodDetailScreenProps> = ({ route }) => {
-  const { foodId, foodName: initialFood , category: initialCategory, expirationDate: initialExpirationDate, foodCount : initialCount ,foodMemo : initialMemo } = route.params || {};
+  const { foodName: initialFood , category: initialCategory, expirationDate: initialExpirationDate, foodCount : initialCount ,foodMemo : initialMemo } = route.params || {};
   const [foodName, setFoodName] = useState(initialFood || '연어');
   const [activeTab, setActiveTab] = useState<'info' | 'freshness'>('info');
   const [category, setCategory] = useState(initialCategory || '미지정');
@@ -28,9 +29,12 @@ const FoodDetailScreen: React.FC<FoodDetailScreenProps> = ({ route }) => {
   
   const [isFoodMemoEditing, setIsFoodMemoEditing] = useState(false);
   
-  const [isEditing, setIsEditing] = useState(false); // 수정 모드 상태
+  const [isEditing, setIsEditing] = useState(false); 
+  const { foodId, selectedImage } = route.params || {};
+  const [image, setImage] = useState(selectedImage || null);
 
-  // 수정 모드 활성화
+  
+  
   const handleEditMode = () => {
     setIsEditing(true);
     setIsCategoryEditing(true);
@@ -40,7 +44,7 @@ const FoodDetailScreen: React.FC<FoodDetailScreenProps> = ({ route }) => {
     setIsDateEditing(true);
   };
 
-  // 수정 완료 (모든 수정 상태를 false로 변경)
+  
   const handleCompleteEdit = () => {
     setIsEditing(false);
     setIsCategoryEditing(false);
@@ -64,7 +68,7 @@ const FoodDetailScreen: React.FC<FoodDetailScreenProps> = ({ route }) => {
       date: `${expirationDate.year}-${expirationDate.month}-${expirationDate.day}`,
       count: foodCount,
       memo: foodMemo,
-      image: null,
+      image: selectedImage,
     };
 
     try {
@@ -85,13 +89,20 @@ const FoodDetailScreen: React.FC<FoodDetailScreenProps> = ({ route }) => {
   return (
     <View style={styles.container}>
       <CloseButton style={styles.closeButton} backgroundColor="#08A900" iconColor="white" />
-      <Image source={require('../assets/images/img_recipe2.png')} style={styles.foodImage} />
+      {/* <Image source={require('../assets/images/img_recipe2.png')} style={styles.foodImage} /> */}
+      
 
+      {image && (
+        <Image
+          source={{ uri: image.uri }}
+          style={styles.foodImage}
+        />
+      )}
       <View style={styles.contentContainer}>
         
         <Text style={styles.title}>{foodName || '식품 이름 없음'}</Text>
 
-        {/* 탭 컨트롤 */}
+        
         <View style={styles.tabContainer}>
           <TouchableOpacity
             style={[styles.tabButton, activeTab === 'info' && styles.activeTab]}
@@ -107,7 +118,7 @@ const FoodDetailScreen: React.FC<FoodDetailScreenProps> = ({ route }) => {
           </TouchableOpacity>
         </View>
 
-        {/* 상세 정보 & 신선도 분석 내용 */}
+        
         <View style={styles.contentWrapper}>
           {activeTab === 'info' ? (
         <View>
@@ -117,7 +128,7 @@ const FoodDetailScreen: React.FC<FoodDetailScreenProps> = ({ route }) => {
           onPress={isEditing ? handleCompleteEdit : handleEditMode}
         /> 
         </View>
-      {/* 식품 이름 수정 가능 */}
+      
       <ScrollView contentContainerStyle={[styles.scrollContent]}>
   
         <View style={[styles.detailRow, { marginBottom: 10 }]}>
@@ -137,7 +148,7 @@ const FoodDetailScreen: React.FC<FoodDetailScreenProps> = ({ route }) => {
           )}
         </View>
 
-        {/* 카테고리 수정 가능 */}
+        
         <TouchableOpacity onPress={() => setIsCategoryEditing(true)} activeOpacity={0.8}>
           <View style={styles.detailRow}>
             <Text style={styles.detailTitle}>카테고리</Text>
@@ -157,7 +168,7 @@ const FoodDetailScreen: React.FC<FoodDetailScreenProps> = ({ route }) => {
           </View>
         )}
 
-        {/* 유통기한 수정 가능 */}
+      
         <View style={[styles.detailRow, { marginTop:10,marginBottom: 10 }]}>
           <Text style={styles.detailTitle}>유통기한</Text>
           {isDateEditing ? (
