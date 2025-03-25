@@ -1,25 +1,50 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RootStackParamList } from '../navigation/RootNavigator';
 import FoodDetailScreen from './FoodDetailScreen';
+import { launchImageLibrary, Asset } from 'react-native-image-picker';
 
 type NavigationProp = StackNavigationProp<RootStackParamList, 'MainTabs'>;
 
 const AddFoodScreen = () => {
   const navigation = useNavigation<NavigationProp>();
+  const [selectedImage, setSelectedImage] = useState<Asset | null>(null);
 
+const pickImage = () => {
+    launchImageLibrary({ mediaType: 'photo' }, (response) => {
+      if (response.didCancel) {
+        console.log('사용자 취소');
+      } else if (response.errorCode) {
+        console.error('에러:', response.errorMessage);
+      } else {
+        const asset = response.assets?.[0];
+        if (asset) {
+          setSelectedImage(asset);
+          console.log('선택된 이미지:', asset);
+
+          navigation.navigate('FoodDetailScreen', { foodId: null, selectedImage: asset });
+       
+        }
+      }
+    });
+  };
+  
   return (
     <View style={styles.container}>
       <Text style={styles.title}>카메라</Text>
 
 
-      <TouchableOpacity 
+      {/* <TouchableOpacity 
         style={styles.button} 
         onPress={() => navigation.navigate('FoodDetailScreen', {foodId : null})}
       >
         <Text style={styles.buttonText}>사진 찍기</Text>
+      </TouchableOpacity> */}
+      
+      <TouchableOpacity onPress={pickImage} style={styles.button}>
+        <Text style={styles.buttonText}>이미지 선택하기</Text>
       </TouchableOpacity>
     </View>
   );
