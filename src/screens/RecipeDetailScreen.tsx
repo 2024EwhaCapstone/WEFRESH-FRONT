@@ -1,30 +1,86 @@
-import React, { useState } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, ScrollView, Image } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { View, Text, StyleSheet, TouchableOpacity, ActivityIndicator, Image, Alert } from 'react-native';
 import CloseButton from '../components/global/CloseButton';
 import RecipeIngredients from '../components/recipe/RecipeIngredients';
 import RecipeSteps from '../components/recipe/RecipeSteps';
 import StarRating from '../components/global/StarRating';
 import InfoCard from '../components/recipe/InfoCard';
 import GreenButton from '../components/global/GreenButton';
-import { ColorLabelRow } from '../components/global/ColorLabel';
-const RecipeDetailScreen: React.FC = () => {
-  const [activeTab, setActiveTab] = useState<'ingredients' | 'steps'>('ingredients');
+import { getRecipeDetail, saveRecipe } from '../api/recipeApi';
+import { RouteProp } from '@react-navigation/native';
+import { RootStackParamList } from '../navigation/RootNavigator';
 
-  const ingredientsData = [
-    { name: '간장', amount: '20ml' },
-    { name: '아보카도', amount: '300g' },
-    { name: '연어', amount: '300g' },
-    { name: '당근', amount: '300g' },
-  ];
-  const stepsData = [
-    { id: 1, title: 'Step 1', description: '밥 200g, 김 5g, 양파 30g을 준비합니다.' },
-    { id: 2, title: 'Step 2', description: '연어 150g을 한입 크기로 썰고, 소스 10ml를 뿌려 5분간 재워줍니다.' },
-    { id: 3, title: 'Step 3', description: '그릇에 밥 200g, 김 5g, 양파 30g을 올린 후 연어를 얹어주세요.' },
-    { id: 4, title: 'Step 4', description: '쪽파 5g, 참깨 3g을 뿌리고, 남은 소스 10ml를 추가해주세요.' },
-    { id: 5, title: 'Step 5', description: '쪽파 5g, 참깨 3g을 뿌리고, 남은 소스 10ml를 추가해주세요.' },
-    { id: 6, title: 'Step 6', description: '쪽파 5g, 참깨 3g을 뿌리고, 남은 소스 10ml를 추가해주세요.' },
-   
-  ];
+
+interface RecipeDetailScreenProps {
+  route: RouteProp<RootStackParamList, 'RecipeDetailScreen'>;
+}
+
+const RecipeDetailScreen: React.FC<RecipeDetailScreenProps> = ({ route }) => {
+  const recipeId = route?.params?.recipeId || null;
+
+  console.log("Route params:", route); 
+
+  const [activeTab, setActiveTab] = useState<'ingredients' | 'steps'>('ingredients');
+  const [recipe, setRecipe] = useState<{ 
+    name: string;
+    image: string;
+    difficulty: number;
+    time: number;
+    calorie: number;
+    ingredients: { name: string; amount: string }[];
+    recipe: string;
+    likes: number;
+  } | null>(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchRecipe = async () => {
+      try {
+        const data = await getRecipeDetail(recipeId, 'general');
+        setRecipe(data.data);
+      } catch (error) {
+        console.error("Failed to fetch recipe", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchRecipe();
+  }, [recipeId]);
+
+  const handleSaveRecipe = async () => {
+    if (!recipeId) {
+      Alert.alert("오류", "레시피 ID가 없습니다.");
+      return;
+    }
+  
+    try {
+      const response = await saveRecipe(recipeId, 'general');
+      console.log("Recipe saved successfully!", response);
+      Alert.alert("저장 완료", "레시피가 저장되었습니다.");
+    } catch (error) {
+      console.error("Error saving recipe:", error);
+      Alert.alert("저장 실패", "레시피 저장 중 오류가 발생했습니다.");
+    }
+  };
+
+  if (loading) {
+    return (
+      <View style={styles.loadingContainer}>
+        <ActivityIndicator size="large" color="#08A900" />
+      </View>
+    );
+  }
+
+  const steps = recipe?.recipe
+    ?.split(/Step\d+\./) 
+    ?.filter(Boolean) 
+    ?.map((step: string, index: number) => ({
+      id: index + 1,
+      title: `Step ${index + 1}`,
+      description: step.trim(),
+    })) || [];
+
   return (
     <View style={styles.container}>
       
@@ -33,28 +89,19 @@ const RecipeDetailScreen: React.FC = () => {
         backgroundColor="#08A900"  
         iconColor="white"  
       />
+      <Image source={{ uri: recipe?.image } } style={styles.recipeImage} />
 
       
-      <Image source={require('../assets/images/img_recipe1.png')} style={styles.recipeImage} />
-
-     
       <View style={styles.contentContainer}>
-        <Text style={styles.title}>연어 덮밥</Text>
+        <Text style={styles.title}>{recipe?.name}</Text>
 
         
-        <StarRating rating={4} />
-        <ColorLabelRow
-            labels={[
-              { text: '연어', color: '#E57373' },
-              { text: '당근', color: '#FBC02D' },
-              { text: '당근', color: '#FBC02D' },
-            ]}
-          />
+        <StarRating rating={recipe?.difficulty ?? 0} />
         <View style={styles.infoContainer}>
-          <InfoCard value="30분" label="조리시간" />
-          <InfoCard value="780 kcal" label="칼로리" />
-          <InfoCard value="Easy" label="난이도" />
-        </View>
+        <InfoCard value={`${recipe?.time || 0}분`} label="조리시간" />
+          <InfoCard value={`${recipe?.calorie || 0} kcal`} label="칼로리" />
+          <InfoCard value={`${recipe?.likes || 0}`} label="Likes" />
+          </View>
        
         <View style={styles.tabContainer}>
           <TouchableOpacity
@@ -73,11 +120,11 @@ const RecipeDetailScreen: React.FC = () => {
 
        
         <View style={styles.contentWrapper}>
-          {activeTab === 'ingredients' ? <RecipeIngredients ingredients={ingredientsData} /> : <RecipeSteps steps={stepsData} />}
+          {activeTab === 'ingredients' ? <RecipeIngredients ingredients={recipe?.ingredients || []} /> : <RecipeSteps steps={steps} />}
         </View>
         <View style={styles.buttonContainer}>
           <GreenButton title="다른 음식 추천 받기" onPress={() => {}} />
-          <GreenButton title="저장하기" onPress={() => {}} />
+          <GreenButton title="저장하기" onPress={handleSaveRecipe} />
         </View>
         </View>
     </View>
@@ -90,9 +137,11 @@ const styles = StyleSheet.create({
     backgroundColor: '#F5F5F5',
     alignItems: 'center',
   },
+  loadingContainer: { flex: 1, justifyContent: 'center', alignItems: 'center' },
+  
   contentWrapper: {
     width: '100%',
-    height: '45%',
+    height: '40%',
     marginTop: 20,
     marginBottom: 20,
   },
@@ -104,7 +153,7 @@ const styles = StyleSheet.create({
   },
   recipeImage: {
     width: '100%',
-    height: '40%',
+    height: '45%',
     resizeMode: 'cover',
   },
   contentContainer: {
@@ -113,7 +162,7 @@ const styles = StyleSheet.create({
     width: '100%',
     borderTopLeftRadius: 30,
     borderTopRightRadius: 30,
-    marginTop: -80, 
+    marginTop: -30, 
     padding: 20,
     alignItems: 'center',
     elevation: 5,
@@ -172,6 +221,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between', 
     width: '90%',
     marginBottom: 20,
+    gap:20,
   },
 });
 

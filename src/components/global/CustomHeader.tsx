@@ -1,13 +1,7 @@
 import React from 'react';
-import {
-  View,
-  Image,
-  StyleSheet,
-  SafeAreaView,
-  TouchableOpacity,
-} from 'react-native';
+import {View, Image, StyleSheet, SafeAreaView} from 'react-native';
 
-const CustomHeader = ({isHome = false}) => {
+const CustomHeader = () => {
   return (
     <SafeAreaView style={styles.safeArea}>
       <View style={styles.header}>
@@ -15,14 +9,6 @@ const CustomHeader = ({isHome = false}) => {
           source={require('../../assets/images/wefresh-white.png')}
           style={styles.header_logo}
         />
-        {isHome && (
-          <TouchableOpacity onPress={() => console.log('설정 버튼 클릭')}>
-            <Image
-              source={require('../../assets/icons/home/settings.png')}
-              style={{width: 20, height: 20}}
-            />
-          </TouchableOpacity>
-        )}
       </View>
     </SafeAreaView>
   );

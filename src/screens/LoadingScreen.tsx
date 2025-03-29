@@ -3,20 +3,13 @@ import { View, Text, ActivityIndicator, StyleSheet } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RootStackParamList } from '../navigation/RootNavigator';
+import FoodDetailScreen from './FoodDetailScreen';
 type NavigationProp = StackNavigationProp<RootStackParamList, 'LoadingScreen'>;
 
 const LoadingScreen = () => {
   const navigation = useNavigation<NavigationProp>();
 
-  useEffect(() => {
-    
-    const timer = setTimeout(() => {
-      navigation.replace('FoodRegisterScreen'); 
-    }, 2000);
-
-    return () => clearTimeout(timer);
-  }, []);
-
+  
   return (
     <View style={styles.container}>
       <Text style={styles.logoText}>WeFresh</Text>
