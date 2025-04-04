@@ -6,7 +6,7 @@ export const getRecipeDetail = async (recipeId, type = 'general') => {
     console.log(`요청 보냄: /recipes/${recipeId}?type=${type}`);
 
     const response = await api.get(`/recipes/${recipeId}?type=${type}`, {
-      headers: { Authorization: `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzM4NCJ9.eyJpYXQiOjE3NDIzMTEzMjEsImV4cCI6MTc0MzUyMDkyMSwidXNlcklkIjoxfQ.1HLUQTxvoRy4BCyr7nBbuF2HU47x5RUGHFE-vQYqsBug1qyc5GkQTk5Q6Scj-w1Y` }, 
+      headers: { Authorization: `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzM4NCJ9.eyJpYXQiOjE3NDM3NzA1ODYsImV4cCI6MTc0NDk4MDE4NiwidXNlcklkIjoxfQ.pnvGUa9G6hLHnvw9lSQFWy13XsmS50WWN74KjtJ8HmKACmWOw1k_sQpu5LTvA6xH` }, 
     });
     console.log("응답 받음:", response.data);
     return response.data;
@@ -23,7 +23,7 @@ export const saveRecipe = async (recipeId, type = 'general') => {
       {}, 
       {
         headers: { 
-          Authorization: `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzM4NCJ9.eyJpYXQiOjE3NDIzMTEzMjEsImV4cCI6MTc0MzUyMDkyMSwidXNlcklkIjoxfQ.1HLUQTxvoRy4BCyr7nBbuF2HU47x5RUGHFE-vQYqsBug1qyc5GkQTk5Q6Scj-w1Y` , 
+          Authorization: `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzM4NCJ9.eyJpYXQiOjE3NDM3NzA1ODYsImV4cCI6MTc0NDk4MDE4NiwidXNlcklkIjoxfQ.pnvGUa9G6hLHnvw9lSQFWy13XsmS50WWN74KjtJ8HmKACmWOw1k_sQpu5LTvA6xH` , 
           "Content-Type": "application/json",
         },
       }

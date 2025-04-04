@@ -5,7 +5,7 @@ const API_BASE_URL = 'https://wefresh.store';
 const api = axios.create({
   baseURL: API_BASE_URL,
   headers: {
-    Authorization: `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzM4NCJ9.eyJpYXQiOjE3NDIzMTEzMjEsImV4cCI6MTc0MzUyMDkyMSwidXNlcklkIjoxfQ.1HLUQTxvoRy4BCyr7nBbuF2HU47x5RUGHFE-vQYqsBug1qyc5GkQTk5Q6Scj-w1Y` , 
+    Authorization: `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzM4NCJ9.eyJpYXQiOjE3NDM3NzA1ODYsImV4cCI6MTc0NDk4MDE4NiwidXNlcklkIjoxfQ.pnvGUa9G6hLHnvw9lSQFWy13XsmS50WWN74KjtJ8HmKACmWOw1k_sQpu5LTvA6xH` , 
   },
 });
 
@@ -32,6 +32,15 @@ export const createFood = async (foodData) => {
     return response.data;
   } catch (error) {
     console.error('Error creating food:', error);
+    throw error;
+  }
+};
+export const getFreshness = async (foodId) => {
+  try {
+    const response = await api.get(`/foods/${foodId}/freshness`);
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching freshness:', error);
     throw error;
   }
 };
