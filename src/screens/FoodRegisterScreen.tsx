@@ -21,7 +21,7 @@ const FoodRegisterScreen = () => {
 
   const [isCategoryEditing, setIsCategoryEditing] = useState(false);
   const [isDateEditing, setIsDateEditing] = useState(false);
-  const [isEditing, setIsEditing] = useState(false); // 전체 수정 여부
+  const [isEditing, setIsEditing] = useState(false); 
   return (
     <View style={styles.container}>
       
