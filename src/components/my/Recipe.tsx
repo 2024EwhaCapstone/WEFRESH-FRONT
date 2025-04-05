@@ -1,9 +1,17 @@
 import React from 'react';
 import {View, Text, Image, StyleSheet, TouchableOpacity} from 'react-native';
+import {useNavigation} from '@react-navigation/native';
 
 const Recipe = ({data}) => {
+  const navigation = useNavigation();
+
+  const handlePress = () => {
+    navigation.navigate('SavedRecipeDetailScreen', {
+      bookmarkId: data.bookmarkId,
+    });
+  };
   return (
-    <TouchableOpacity style={styles.Recipe}>
+    <TouchableOpacity style={styles.Recipe} onPress={handlePress}>
       <Image
         source={{uri: data.image}}
         style={{flex: 1, borderTopLeftRadius: 10, borderTopRightRadius: 10}}

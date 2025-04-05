@@ -9,6 +9,7 @@ import FoodDetailScreen from '../screens/FoodDetailScreen';
 import LoadingScreen from '../screens/LoadingScreen';
 import RecipeListScreen from '../screens/RecipeListScreen';
 import MyPageScreen from '../screens/MyPageScreen';
+import SavedRecipeDetailScreen from '../screens/SavedRecipeDetailScreen';
 import {Asset} from 'react-native-image-picker';
 
 export type RootStackParamList = {
@@ -28,6 +29,7 @@ export type RootStackParamList = {
   };
   RecipeListScreen: undefined;
   MyPageScreen: undefined;
+  SavedRecipeDetailScreen: undefined;
 };
 
 const Stack = createStackNavigator<RootStackParamList>();
@@ -45,6 +47,11 @@ const RootNavigator = () => {
       <Stack.Screen
         name="RecipeDetailScreen"
         component={RecipeDetailScreen}
+        options={{presentation: 'card', headerShown: false}}
+      />
+      <Stack.Screen
+        name="SavedRecipeDetailScreen"
+        component={SavedRecipeDetailScreen}
         options={{presentation: 'card', headerShown: false}}
       />
 
