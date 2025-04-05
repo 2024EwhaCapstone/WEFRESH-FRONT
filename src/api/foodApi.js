@@ -49,7 +49,7 @@ export const getFreshness = async (foodId) => {
 export const updateFood = async (foodId, foodData) => {
   try {
     const response = await api.put(`/foods/${foodId}`, foodData, {
-      headers: { 'Content-Type': 'application/json' },
+      headers: { 'Content-Type':  'multipart/form-data'},
     });
 
     return response.data;
