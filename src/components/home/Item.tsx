@@ -1,7 +1,7 @@
 import React from 'react';
 import {View, Text, Image, StyleSheet, TouchableOpacity} from 'react-native';
 
-const Item = () => {
+const Item = ({data}) => {
   const handlePress = () => {
     // 아이템이 눌렸을 때의 동작을 여기에 추가
     console.log('아이템 클릭됨');
@@ -10,14 +10,11 @@ const Item = () => {
   return (
     <TouchableOpacity onPress={handlePress} style={styles.item}>
       <View style={styles.date}>
-        <Text style={styles.text1}>D-1</Text>
+        <Text style={styles.text1}>D-{data.dday}</Text>
       </View>
       <View style={styles.content}>
-        <Image
-          source={require('../../assets/icons/home/Lemon.png')}
-          style={{width: 102, height: 102}}
-        />
-        <Text style={styles.text2}>레몬</Text>
+        <Image source={{uri: data.image}} style={{width: 102, height: 102}} />
+        <Text style={styles.text2}>{data.name}</Text>
       </View>
     </TouchableOpacity>
   );

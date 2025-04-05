@@ -1,9 +1,10 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 // import TopBar from '../components/home/TopBar';
 import CustomHeader from '../components/global/CustomHeader';
 import Divider from '../components/home/Divider';
 import Item from '../components/home/Item';
 import DateAlert from '../components/home/DateAlert';
+import {getMainFoods} from '../api/main';
 
 import {
   SafeAreaView,
@@ -17,10 +18,23 @@ import {
   Alert,
   FlatList,
 } from 'react-native';
-const HomeScreen = () => {
-  const data = Array.from({length: 6}, (_, index) => ({id: index.toString()})); // 예시
 
-  const renderItem = ({item}) => <Item />;
+const HomeScreen = () => {
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const foods = await getMainFoods();
+        setData(foods.data.foods);
+      } catch (error) {
+        console.error('Error fetching main foods:', error);
+      }
+    };
+    fetchData();
+  }, []); // 컴포넌트 마운트 시 데이터 가져오기
+
+  const renderItem = ({item}) => <Item data={item} />;
 
   return (
     <SafeAreaView style={styles.container}>
@@ -46,9 +60,9 @@ const HomeScreen = () => {
           <DateAlert />
         </View>
         <FlatList
-          data={data}
+          data={data} // 상태에서 데이터 사용
           renderItem={renderItem}
-          keyExtractor={item => item.id}
+          keyExtractor={item => item.foodId.toString()}
           numColumns={2}
           columnWrapperStyle={{
             justifyContent: 'space-between',
