@@ -27,3 +27,14 @@ export const getAllFoods = async (category = '', name = '') => {
     throw error;
   }
 };
+
+//음식 상세정보 조회
+export const getFoodDetail = async foodId => {
+  try {
+    const response = await api.get(`foods/${foodId}`);
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching recipe details:', error);
+    throw error;
+  }
+};

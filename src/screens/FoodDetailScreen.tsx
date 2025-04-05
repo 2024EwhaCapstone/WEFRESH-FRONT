@@ -21,6 +21,7 @@ import {
   updateFood,
   postFreshness,
 } from '../api/foodApi';
+import {getFoodDetail} from '../api/main';
 import {useNavigation} from '@react-navigation/native';
 
 interface FoodDetailScreenProps {
@@ -28,32 +29,57 @@ interface FoodDetailScreenProps {
 }
 
 const FoodDetailScreen: React.FC<FoodDetailScreenProps> = ({route}) => {
-  const {
-    foodName: initialFood,
-    category: initialCategory,
-    expirationDate: initialExpirationDate,
-    foodCount: initialCount,
-    foodMemo: initialMemo,
-  } = route.params || {};
-  const [foodName, setFoodName] = useState(initialFood || '알수없음');
+  const {foodId} = route.params;
+  const [foodName, setFoodName] = useState();
   const [activeTab, setActiveTab] = useState<'info' | 'freshness'>('info');
-  const [category, setCategory] = useState(initialCategory || '미지정');
-  const [foodCount, setFoodCount] = useState(initialCount || 0);
-  const [foodMemo, setfoodMemo] = useState(initialMemo || 'dd');
+  const [category, setCategory] = useState();
+  const [foodCount, setFoodCount] = useState();
+  const [foodMemo, setFoodMemo] = useState();
+  const [expirationDate, setExpirationDate] = useState({
+    year: '2025',
+    month: '01',
+    day: '01',
+  });
+  const [image, setImage] = useState();
+  const navigation = useNavigation();
+
+  useEffect(() => {
+    const fetchFoodDetail = async () => {
+      try {
+        const detail = await getFoodDetail(foodId);
+        if (detail.isSuccess) {
+          const fetchedDetail = detail.data;
+          setFoodName(fetchedDetail.name || '알수없음');
+          setCategory(fetchedDetail.category || '미지정');
+          setFoodCount(fetchedDetail.count || 0);
+          setFoodMemo(fetchedDetail.memo || '없음');
+          const formattedDate = formatDate(fetchedDetail.date) || '정보 없음';
+          const [year, month, day] = formattedDate.split('-');
+          setExpirationDate({year, month, day});
+          setImage(fetchedDetail.image || '');
+        } else {
+          Alert.alert('오류', '식품 정보를 불러오는 데 실패했습니다.');
+        }
+      } catch (error) {
+        Alert.alert('오류', '식품 정보를 불러오는 데 실패했습니다.');
+      }
+    };
+
+    if (foodId) {
+      fetchFoodDetail();
+    }
+  }, [foodId]);
+
   const [isCategoryEditing, setIsCategoryEditing] = useState(false);
   const [isFoodNameEditing, setIsFoodNameEditing] = useState(false);
   const [isFoodCountEditing, setIsFoodCountEditing] = useState(false);
 
-  const [expirationDate, setExpirationDate] = useState(
-    initialExpirationDate || {year: '2025', month: '01', day: '01'},
-  );
   const [isDateEditing, setIsDateEditing] = useState(false);
 
   const [isFoodMemoEditing, setIsFoodMemoEditing] = useState(false);
 
   const [isEditing, setIsEditing] = useState(false);
-  const {foodId, selectedImage} = route.params || {};
-  const [image, setImage] = useState(selectedImage || null);
+  const {selectedImage} = route.params || {};
 
   interface FreshnessData {
     data: {
@@ -84,7 +110,7 @@ const FoodDetailScreen: React.FC<FoodDetailScreenProps> = ({route}) => {
     setIsDateEditing(false);
     Alert.alert('수정 완료', '변경 사항이 저장되었습니다.');
   };
-  const navigation = useNavigation();
+
   const isNewFood = foodId === null;
 
   const handleSave = async () => {
@@ -130,6 +156,15 @@ const FoodDetailScreen: React.FC<FoodDetailScreenProps> = ({route}) => {
     fetchFreshness();
   }, [activeTab, foodId]);
 
+  const formatDate = (dateString: string) => {
+    const dateParts = dateString.split('년');
+    const year = dateParts[0].trim();
+    const monthDay = dateParts[1].split('월');
+    const month = monthDay[0].trim();
+    const day = monthDay[1].replace('일', '').trim();
+    return `${year}-${month}-${day}`;
+  };
+
   return (
     <View style={styles.container}>
       <CloseButton
@@ -137,10 +172,10 @@ const FoodDetailScreen: React.FC<FoodDetailScreenProps> = ({route}) => {
         backgroundColor="#08A900"
         iconColor="white"
       />
-     
-      {image && <Image source={{uri: image.uri}} style={styles.foodImage} />}
+
+      {image && <Image source={{uri: image}} style={styles.foodImage} />}
       <View style={styles.contentContainer}>
-        <Text style={styles.title}>{foodName || '식품 이름 없음'}</Text>
+        <Text style={styles.title}>{foodName}</Text>
 
         <View style={styles.tabContainer}>
           <TouchableOpacity
@@ -150,9 +185,6 @@ const FoodDetailScreen: React.FC<FoodDetailScreenProps> = ({route}) => {
               !foodId && {flex: 1},
             ]}
             onPress={() => setActiveTab('info')}>
-            {/* <TouchableOpacity
-            style={[styles.tabButton, activeTab === 'info' && styles.activeTab]}
-            onPress={() => setActiveTab('info')}> */}
             <Text style={styles.tabText}>상세 정보</Text>
           </TouchableOpacity>
           {foodId && (
@@ -165,26 +197,11 @@ const FoodDetailScreen: React.FC<FoodDetailScreenProps> = ({route}) => {
               <Text style={styles.tabText}>신선도 분석</Text>
             </TouchableOpacity>
           )}
-          {/* <TouchableOpacity
-            style={[
-              styles.tabButton,
-              activeTab === 'freshness' && styles.activeTab,
-            ]}
-            onPress={() => setActiveTab('freshness')}>
-            <Text style={styles.tabText}>신선도 분석</Text>
-          </TouchableOpacity> */}
         </View>
 
         <View style={styles.contentWrapper}>
           {activeTab === 'info' ? (
             <View>
-              {/* <View style={{marginTop: 0, marginBottom: 32}}>
-                <DetailNoticeBar
-                  title={isEditing ? '수정 완료하기' : '클릭해서 수정하기'}
-                  onPress={isEditing ? handleCompleteEdit : handleEditMode}
-                />
-              </View> */}
-
               <ScrollView contentContainerStyle={[styles.scrollContent]}>
                 <View style={[styles.detailRow, {marginBottom: 10}]}>
                   <Text style={styles.detailTitle}>식품 이름</Text>
@@ -320,11 +337,11 @@ const FoodDetailScreen: React.FC<FoodDetailScreenProps> = ({route}) => {
                       },
                     ]}
                     value={foodMemo}
-                    onChangeText={setfoodMemo}
+                    onChangeText={setFoodMemo}
                     multiline={true}
                     numberOfLines={4}
                     scrollEnabled={false}
-                    onBlur={() => setIsFoodNameEditing(false)}
+                    onBlur={() => setIsFoodMemoEditing(false)}
                     autoFocus
                   />
                 ) : (
@@ -337,17 +354,6 @@ const FoodDetailScreen: React.FC<FoodDetailScreenProps> = ({route}) => {
           ) : (
             <View>
               <View style={{marginTop: 0, marginBottom: 32}}>
-                {/* <DetailNoticeBar
-                  title="신선도 다시 측정하기"
-                  onPress={() => {
-                    if (!foodId) {
-                      Alert.alert('안내', '등록 후 신선도 측정이 가능합니다.');
-                    } else {
-                      setFreshnessData(null);
-                      getFreshness(foodId).then(setFreshnessData);
-                    }
-                  }}
-                /> */}
                 <DetailNoticeBar
                   title="신선도 다시 측정하기"
                   onPress={async () => {
@@ -412,13 +418,11 @@ const FoodDetailScreen: React.FC<FoodDetailScreenProps> = ({route}) => {
                     신선도 데이터를 불러오는 중입니다...
                   </Text>
                 )}
-                
               </ScrollView>
             </View>
           )}
         </View>
 
-        {/* 버튼 영역 */}
         <View style={styles.buttonContainer}>
           <GreenButton
             title={isEditing ? '수정완료' : '수정하기'}

@@ -1,10 +1,12 @@
 import React from 'react';
 import {View, Text, Image, StyleSheet, TouchableOpacity} from 'react-native';
+import {useNavigation} from '@react-navigation/native';
 
 const Item = ({data}) => {
+  const navigation = useNavigation();
+
   const handlePress = () => {
-    // 아이템이 눌렸을 때의 동작을 여기에 추가
-    console.log('아이템 클릭됨');
+    navigation.navigate('FoodDetailScreen', {foodId: data.foodId});
   };
 
   return (
