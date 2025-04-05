@@ -21,6 +21,7 @@ const mockRecipes = [
       { name: '연어', daysLeft: 1 },
       { name: '대파', daysLeft: 4 },
       { name: '양파', daysLeft: 24 },
+      { name: '양파', daysLeft: 24 },
     ],
     cookTime: '30분',
     calories: '780 kcal',
@@ -34,7 +35,7 @@ const mockRecipes = [
     rating: 5,
     ingredients: [
       { name: '소고기', daysLeft: 2 },
-      { name: '간장', daysLeft: 100 },
+      { name: '간장', daysLeft: 10 },
       { name: '양파', daysLeft: 15 },
     ],
     cookTime: '25분',
@@ -55,7 +56,7 @@ const mockRecipes = [
     cookTime: '40분',
     calories: '590 kcal',
     likes: '89',
-    image: require('../assets/images/img_recipe3.png'),
+    image: require('../assets/images/img_recipe2.png'),
   },
 ];
 
@@ -63,8 +64,16 @@ const RecipeRecommendScreen = () => {
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
   const [currentIndex, setCurrentIndex] = useState(0);
   const recipe = mockRecipes[currentIndex];
-
- 
+  
+  // 오늘날짜
+  const getTodayDate = () => {
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = String(today.getMonth() + 1).padStart(2, '0'); 
+    const day = String(today.getDate()).padStart(2, '0');
+    return `${year}.${month}.${day}`;
+  };
+  
   const handleNext = () => {
     setCurrentIndex((prev) => (prev + 1) % mockRecipes.length);
   };
@@ -111,7 +120,7 @@ const RecipeRecommendScreen = () => {
       
       <View style={styles.header}>
         <Text style={styles.title}>추천 레시피</Text>
-        <Text style={styles.date}>2024.02.12</Text>
+        <Text style={styles.date}>{getTodayDate()}</Text>
       </View>
 
       
