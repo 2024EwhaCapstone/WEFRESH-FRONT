@@ -6,18 +6,24 @@ const Item = ({data}) => {
   const navigation = useNavigation();
 
   const handlePress = () => {
-    // 아이템이 눌렸을 때의 동작을 여기에 추가
-    console.log('아이템 클릭됨');
     navigation.navigate('FoodDetailScreen', {foodId: data.foodId});
+  };
+
+  // dday 포맷팅 함수
+  const formatDday = dday => {
+    return dday >= 0 ? `D+${dday}` : `D${dday}`; // 음수일 경우 'D-4' 형식으로 표시
   };
 
   return (
     <TouchableOpacity onPress={handlePress} style={styles.item}>
       <View style={[styles.date, {backgroundColor: data.color}]}>
-        <Text style={styles.text1}>D-{data.dday}</Text>
+        <Text style={styles.text1}>{formatDday(data.dday)}</Text>
       </View>
       <View style={styles.content}>
-        <Image source={{uri: data.image}} style={{width: 102, height: 102}} />
+        <Image
+          source={{uri: data.image}}
+          style={{width: 102, height: 102, marginVertical: 6}}
+        />
         <Text style={styles.text2}>{data.name}</Text>
       </View>
     </TouchableOpacity>
@@ -27,7 +33,7 @@ const Item = ({data}) => {
 const styles = StyleSheet.create({
   item: {
     width: 150,
-    height: 150,
+    height: 162,
     backgroundColor: '#FFFFFF',
     padding: 8,
     borderRadius: 8,

@@ -1,25 +1,41 @@
 import React, {useEffect, useState} from 'react';
-import {View, Text, StyleSheet, FlatList, ScrollView} from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  FlatList,
+  ScrollView,
+  Alert,
+  TouchableOpacity,
+} from 'react-native';
 import Recipe from '../components/my/Recipe';
 import Title from '../components/my/Title';
 import Post from '../components/my/Post';
 import {getSixRecipe} from '../api/my';
+
 const MyPageScreen = () => {
   const [data, setData] = useState([]);
 
+  const fetchData = async () => {
+    try {
+      const recipes = await getSixRecipe();
+      setData(recipes.data.bookmarks);
+    } catch (error) {
+      console.error('Error fetching main foods:', error);
+    }
+  };
+
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const recipes = await getSixRecipe();
-        setData(recipes.data.bookmarks);
-      } catch (error) {
-        console.error('Error fetching main recipes:', error);
-      }
-    };
     fetchData();
   }, []);
 
-  const renderItem = ({item}) => <Recipe data={item} />;
+  const handleDeleteRecipe = bookmarkId => {
+    fetchData();
+  };
+
+  const renderItem = ({item}) => (
+    <Recipe data={item} onDelete={handleDeleteRecipe} />
+  );
 
   return (
     <ScrollView style={styles.container}>
@@ -43,12 +59,11 @@ const MyPageScreen = () => {
         <View style={styles.recipeContainer}>
           <FlatList
             data={data}
-            renderItem={({item}) => <Recipe data={item} />}
+            renderItem={renderItem}
             keyExtractor={item => item.bookmarkId.toString()}
             numColumns={3}
             columnWrapperStyle={{
-              justifyContent: 'justify-start',
-              gap: 4,
+              justifyContent: 'space-between',
               paddingVertical: 5,
             }}
             scrollEnabled={false}
@@ -56,8 +71,23 @@ const MyPageScreen = () => {
         </View>
         <Title text="내가 작성한 게시글 모음" targetScreen="RecipeListScreen" />
         <View style={styles.PostContainer}>
-          {[1, 2, 3].map(item => (
-            <Post key={item} />
+          {[
+            {
+              title: '부산 파스타 만드는 방법',
+              content:
+                '코카콜라 맛있다 맛있으면 또 먹으면 배탈나 척척박사님께 물어봅시다.',
+            },
+            {
+              title: '유통기한 한달 지난 식빵',
+              content: '유통기한 한달 지난 식빵 아빠한테 줬는데 괜찮겠죠? ',
+            },
+            {
+              title: '떨어진거 3초안에 주우면',
+              content:
+                '떨어진거 3초안에 주우면 먹어도 되는거 아닌가요?? 먹었는데 친구가 경멸의 눈빛으로 쳐다..',
+            },
+          ].map((post, index) => (
+            <Post key={index} title={post.title} content={post.content} />
           ))}
         </View>
       </View>

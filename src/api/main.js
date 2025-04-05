@@ -38,3 +38,14 @@ export const getFoodDetail = async foodId => {
     throw error;
   }
 };
+
+//오늘의 추천 레시피 조회
+export const getTodaysRecipe = async () => {
+  try {
+    const response = await api.get(`/recipes/today`);
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching today recipe:', error);
+    throw error;
+  }
+};

@@ -9,6 +9,11 @@ const Item = ({data}) => {
     navigation.navigate('FoodDetailScreen', {foodId: data.foodId});
   };
 
+  // dday 포맷팅 함수
+  const formatDday = dday => {
+    return dday >= 0 ? `${dday}일 지남` : `${-dday}일 남음`; // 음수일 경우 'D-4' 형식으로 표시
+  };
+
   return (
     <TouchableOpacity onPress={handlePress} style={styles.item}>
       <Image
@@ -24,7 +29,7 @@ const Item = ({data}) => {
         <View style={styles.view1}>
           <Text style={styles.text1}>{data.name}</Text>
           <View style={[styles.view2, {backgroundColor: data.color}]}>
-            <Text style={styles.text2}>{data.dday}일 남음</Text>
+            <Text style={styles.text2}>{formatDday(data.dday)}</Text>
           </View>
         </View>
         <Text style={styles.text3}>{data.date}까지</Text>

@@ -4,7 +4,7 @@ import CustomHeader from '../components/global/CustomHeader';
 import Divider from '../components/home/Divider';
 import Item from '../components/home/Item';
 import DateAlert from '../components/home/DateAlert';
-import {getMainFoods} from '../api/main';
+import {getMainFoods, getTodaysRecipe} from '../api/main';
 
 import {
   SafeAreaView,
@@ -21,6 +21,8 @@ import {
 
 const HomeScreen = () => {
   const [data, setData] = useState([]);
+  const [recipeData, setRecipeData] = useState([]);
+  const [currentRecipeIndex, setCurrentRecipeIndex] = useState(0);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -34,13 +36,28 @@ const HomeScreen = () => {
     fetchData();
   }, []);
 
+  useEffect(() => {
+    const fetchRecipeData = async () => {
+      try {
+        const recipes = await getTodaysRecipe();
+        setRecipeData(recipes.data.recipes);
+        console.log(recipes.data.recipes);
+      } catch (error) {
+        console.error('Error fetching todays recipe:', error);
+      }
+    };
+    fetchRecipeData();
+  }, []);
+
   const renderItem = ({item}) => <Item data={item} />;
+
+  const handleDotPress = index => {
+    setCurrentRecipeIndex(index);
+  };
 
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView style={styles.scrollView}>
-        {/* <TopBar /> */}
-        {/* <CustomHeader isHome={true} /> */}
         <View style={styles.backView}>
           <View style={styles.view1}>
             <View style={styles.view2}>
@@ -48,12 +65,42 @@ const HomeScreen = () => {
               <Text style={styles.text2}>2025년 01월 04일</Text>
             </View>
             <View style={styles.view3}>
-              <Text style={styles.text3}>새우 피자</Text>
+              <Text style={styles.text3}>
+                {recipeData.length > 0
+                  ? recipeData[currentRecipeIndex].name
+                  : '레시피 없음'}
+              </Text>
             </View>
           </View>
           <ImageBackground
-            source={require('../assets/icons/home/food-image.png')}
+            source={{
+              uri:
+                recipeData.length > 0
+                  ? recipeData[currentRecipeIndex].image
+                  : '',
+            }}
             style={styles.imageBackground}></ImageBackground>
+          {/* <View style={styles.ingredientsContainer}>
+            {recipeData[currentRecipeIndex].ingredients.map(
+              (ingredient, index) => (
+                <Text key={index} style={styles.ingredientText}>
+                  #{ingredient}
+                </Text>
+              ),
+            )}
+          </View> */}
+        </View>
+        <View style={styles.paginationContainer}>
+          {recipeData.map((_, index) => (
+            <TouchableOpacity key={index} onPress={() => handleDotPress(index)}>
+              <View
+                style={[
+                  styles.dot,
+                  currentRecipeIndex === index && styles.activeDot,
+                ]}
+              />
+            </TouchableOpacity>
+          ))}
         </View>
         <Divider />
         <View style={styles.dateAlertContainer}>
@@ -89,10 +136,10 @@ const styles = StyleSheet.create({
   },
   backView: {
     flex: 1,
-    height: 340,
     backgroundColor: '#28AA3B',
-    paddingTop: 34,
+    paddingTop: 8,
     paddingHorizontal: 24,
+    paddingBottom: 16,
     justifyContent: 'center',
     alignItems: 'center',
 
@@ -114,11 +161,15 @@ const styles = StyleSheet.create({
     gap: 6,
   },
   view3: {
-    width: 113,
+    paddingHorizontal: 8,
     height: 28,
     backgroundColor: '#FFFFFF',
     borderRadius: 30,
     justifyContent: 'center',
+    alignItems: 'center',
+  },
+  ingredient: {
+    justifyContent: 'flex-start',
     alignItems: 'center',
   },
   text1: {color: '#FFFFFF', fontSize: 18, fontWeight: 'bold', marginLeft: 4},
@@ -130,6 +181,32 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     width: 348,
     height: 204,
+  },
+  ingredientsContainer: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+
+    zIndex: 10,
+  },
+  ingredientText: {
+    color: '#000000',
+    fontSize: 16,
+    marginRight: 5,
+  },
+  paginationContainer: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    marginVertical: 10,
+  },
+  dot: {
+    width: 10,
+    height: 10,
+    borderRadius: 5,
+    backgroundColor: '#CCCCCC',
+    marginHorizontal: 5,
+  },
+  activeDot: {
+    backgroundColor: '#28AA3B',
   },
 });
 
