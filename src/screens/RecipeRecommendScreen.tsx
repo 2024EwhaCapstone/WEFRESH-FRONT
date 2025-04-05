@@ -1,6 +1,6 @@
-import React,  { useCallback, useMemo, useRef } from 'react';
+import React,  { useCallback,useState } from 'react';
 import { View, Text, StyleSheet, Image, Dimensions , TouchableOpacity } from 'react-native';
-import CloseButton from '../components/global/CloseButton'; // X 버튼 컴포넌트
+import CloseButton from '../components/global/CloseButton'; 
 import StarRating from '../components/global/StarRating';
 import IngredientTag from '../components/recipe/IngredientTag';
 import InfoCard from '../components/recipe/InfoCard';
@@ -11,10 +11,68 @@ import { RootStackParamList } from '../navigation/RootNavigator';
 
 const { width, height } = Dimensions.get('window');
 
+const mockRecipes = [
+  {
+    id: 1,
+    title: '연어 덮밥',
+    
+    rating: 4,
+    ingredients: [
+      { name: '연어', daysLeft: 1 },
+      { name: '대파', daysLeft: 4 },
+      { name: '양파', daysLeft: 24 },
+    ],
+    cookTime: '30분',
+    calories: '780 kcal',
+    likes: '100',
+    image: require('../assets/images/img_recipe1.png'),
+  },
+  {
+    id: 2,
+    title: '불고기 덮밥',
+    
+    rating: 5,
+    ingredients: [
+      { name: '소고기', daysLeft: 2 },
+      { name: '간장', daysLeft: 100 },
+      { name: '양파', daysLeft: 15 },
+    ],
+    cookTime: '25분',
+    calories: '650 kcal',
+    likes: '132',
+    image: require('../assets/images/img_recipe2.png'),
+  },
+  {
+    id: 3,
+    title: '김치찌개',
+   
+    rating: 3,
+    ingredients: [
+      { name: '김치', daysLeft: 3 },
+      { name: '돼지고기', daysLeft: 2 },
+      { name: '두부', daysLeft: 5 },
+    ],
+    cookTime: '40분',
+    calories: '590 kcal',
+    likes: '89',
+    image: require('../assets/images/img_recipe3.png'),
+  },
+];
+
 const RecipeRecommendScreen = () => {
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const recipe = mockRecipes[currentIndex];
 
  
+  const handleNext = () => {
+    setCurrentIndex((prev) => (prev + 1) % mockRecipes.length);
+  };
+
+  const handlePrev = () => {
+    setCurrentIndex((prev) => (prev - 1 + mockRecipes.length) % mockRecipes.length);
+  };
+
   const handleNavigateToDetail = useCallback(() => {
     navigation.navigate('RecipeDetailScreen', { recipeId: 1 });
   }, [navigation]);
@@ -32,18 +90,22 @@ const RecipeRecommendScreen = () => {
 
       
       <View style={styles.imageContainer}>
+      <TouchableOpacity onPress={handlePrev}>
         <Image 
           source={require('../assets/icons/double_right_icon.png')} 
           style={[styles.double_icon, { marginHorizontal: 30 }]} 
         />
+      </TouchableOpacity>
         <Image 
           source={require('../assets/images/img_recipe1.png')} 
           style={styles.food_image} 
         />
+        <TouchableOpacity onPress={handleNext}>
         <Image 
           source={require('../assets/icons/double_left_icon.png')} 
           style={[styles.double_icon, { marginHorizontal: 30 }]} 
         />
+        </TouchableOpacity>
       </View>
 
       
@@ -54,18 +116,17 @@ const RecipeRecommendScreen = () => {
 
       
       <View style={styles.content}>
-        <Text style={styles.recipeTitle}>연어 덮밥</Text>
-        <StarRating rating={4} />
+        <Text style={styles.recipeTitle}>{recipe.title}</Text>
+        <StarRating rating={recipe.rating}/>
         <View style={styles.ingredientsContainer}>
-          <IngredientTag name="연어" daysLeft={1} />
-          <IngredientTag name="대파" daysLeft={4} />
-          <IngredientTag name="양파" daysLeft={24} />
-          <IngredientTag name="당근" daysLeft={4} />
+        {recipe.ingredients.map((item, idx) => (
+            <IngredientTag key={idx} name={item.name} daysLeft={item.daysLeft} />
+          ))}
         </View>
         <View style={styles.infoContainer}>
-          <InfoCard value="30분" label="조리시간" />
-          <InfoCard value="780 kcal" label="칼로리" />
-          <InfoCard value="100" label="LIKES" />
+          <InfoCard value={recipe.cookTime} label="조리시간" />
+          <InfoCard value={recipe.calories} label="칼로리" />
+          <InfoCard value={recipe.likes} label="LIKES" />
         </View>
         
       
