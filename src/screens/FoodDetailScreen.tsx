@@ -15,7 +15,12 @@ import CategorySelector from '../components/addfood/CategorySelector';
 import {RouteProp} from '@react-navigation/native';
 import {RootStackParamList} from '../navigation/RootNavigator';
 import DetailNoticeBar from '../components/recipe/DetailNoticeBar';
-import {getFreshness, createFood, updateFood} from '../api/foodApi';
+import {
+  getFreshness,
+  createFood,
+  updateFood,
+  postFreshness,
+} from '../api/foodApi';
 import {useNavigation} from '@react-navigation/native';
 
 interface FoodDetailScreenProps {
@@ -47,7 +52,7 @@ const FoodDetailScreen: React.FC<FoodDetailScreenProps> = ({route}) => {
   const [isFoodMemoEditing, setIsFoodMemoEditing] = useState(false);
 
   const [isEditing, setIsEditing] = useState(false);
-  const {foodId , selectedImage} = route.params || {};
+  const {foodId, selectedImage} = route.params || {};
   const [image, setImage] = useState(selectedImage || null);
 
   interface FreshnessData {
@@ -110,6 +115,7 @@ const FoodDetailScreen: React.FC<FoodDetailScreenProps> = ({route}) => {
       Alert.alert('오류', '저장하는 중 문제가 발생했습니다.');
     }
   };
+
   useEffect(() => {
     const fetchFreshness = async () => {
       if (activeTab === 'freshness' && foodId) {
@@ -131,8 +137,7 @@ const FoodDetailScreen: React.FC<FoodDetailScreenProps> = ({route}) => {
         backgroundColor="#08A900"
         iconColor="white"
       />
-      {/* <Image source={require('../assets/images/img_recipe2.png')} style={styles.foodImage} /> */}
-
+     
       {image && <Image source={{uri: image.uri}} style={styles.foodImage} />}
       <View style={styles.contentContainer}>
         <Text style={styles.title}>{foodName || '식품 이름 없음'}</Text>
@@ -332,7 +337,7 @@ const FoodDetailScreen: React.FC<FoodDetailScreenProps> = ({route}) => {
           ) : (
             <View>
               <View style={{marginTop: 0, marginBottom: 32}}>
-                <DetailNoticeBar
+                {/* <DetailNoticeBar
                   title="신선도 다시 측정하기"
                   onPress={() => {
                     if (!foodId) {
@@ -340,6 +345,35 @@ const FoodDetailScreen: React.FC<FoodDetailScreenProps> = ({route}) => {
                     } else {
                       setFreshnessData(null);
                       getFreshness(foodId).then(setFreshnessData);
+                    }
+                  }}
+                /> */}
+                <DetailNoticeBar
+                  title="신선도 다시 측정하기"
+                  onPress={async () => {
+                    if (!foodId || !image) {
+                      Alert.alert(
+                        '안내',
+                        '등록된 식품과 이미지가 있어야 측정 가능합니다.',
+                      );
+                      return;
+                    }
+
+                    try {
+                      setFreshnessData(null);
+
+                      const result = await postFreshness(foodId, {
+                        uri: image.uri,
+                        name: image.fileName || 'image.jpg',
+                        type: image.type || 'image/jpeg',
+                      });
+
+                      setFreshnessData(result);
+                    } catch (err) {
+                      Alert.alert(
+                        '측정 실패',
+                        '신선도 분석 중 문제가 발생했습니다.',
+                      );
                     }
                   }}
                 />
@@ -378,39 +412,7 @@ const FoodDetailScreen: React.FC<FoodDetailScreenProps> = ({route}) => {
                     신선도 데이터를 불러오는 중입니다...
                   </Text>
                 )}
-                {/* <View style={styles.analysisBox}>
-                <Text style={styles.analysisTitle}> 하얀 점 (곰팡이일 가능성)</Text>
-                <View style={styles.analysisContainer}>
-                            <Image source={require('../assets/icons/green_dot_icon.png')} style={styles.dotIcon} />
-                            <Text style={styles.analysisText}>김치 표면에 하얀 점이 많다면, 이는 곰팡이(효모균)일 수도 있음.</Text>
-                          </View>
-              
-              </View>
-              <View style={styles.analysisBox}>
-                <Text style={styles.analysisTitle}> 하얀 점 (곰팡이일 가능성)</Text>
-                <View style={styles.analysisContainer}>
-                    <Image source={require('../assets/icons/green_dot_icon.png')} style={styles.dotIcon} />
-                    <Text style={styles.analysisText}>김치 표면에 하얀 점이 많다면, 이는 곰팡이(효모균)일 수도 있음.어쩌고 저쩌고</Text>
-                </View>
-                <View style={styles.analysisContainer}>
-                    <Image source={require('../assets/icons/green_dot_icon.png')} style={styles.dotIcon} />
-                    <Text style={styles.analysisText}>김치 표면에 하얀 점이 많다면, 이는 곰팡이(효모균)일 수도 있음.어쩌고 저쩌고 </Text>
-                </View>
-              
-              </View>
-              <View style={styles.analysisBox}>
-                <Text style={styles.analysisTitle}> 하얀 점 (곰팡이일 가능성)</Text>
-                <View style={styles.analysisContainer}>
-                    <Image source={require('../assets/icons/green_dot_icon.png')} style={styles.dotIcon} />
-                    <Text style={styles.analysisText}>김치 표면에 하얀 점이 많다면, 이는 곰팡이(효모균)일 수도 있음.어쩌고 저쩌고</Text>
-                </View>
-                <View style={styles.analysisContainer}>
-                    <Image source={require('../assets/icons/green_dot_icon.png')} style={styles.dotIcon} />
-                    <Text style={styles.analysisText}>김치 표면에 하얀 점이 많다면, 이는 곰팡이(효모균)일 수도 있음.어쩌고 저쩌고 </Text>
-                </View>
-              
-              </View>
-               */}
+                
               </ScrollView>
             </View>
           )}
@@ -418,9 +420,10 @@ const FoodDetailScreen: React.FC<FoodDetailScreenProps> = ({route}) => {
 
         {/* 버튼 영역 */}
         <View style={styles.buttonContainer}>
-          <GreenButton  title={isEditing ? '수정완료' : '수정하기'}
-                  onPress={isEditing ? handleCompleteEdit : handleEditMode}
-                />
+          <GreenButton
+            title={isEditing ? '수정완료' : '수정하기'}
+            onPress={isEditing ? handleCompleteEdit : handleEditMode}
+          />
           <GreenButton title="저장하기" onPress={handleSave} />
         </View>
       </View>
@@ -549,7 +552,6 @@ const styles = StyleSheet.create({
     borderRadius: 30,
     borderWidth: 2,
     borderColor: '#28AA3B',
-   
   },
   analysisTitle: {
     fontSize: 16,
