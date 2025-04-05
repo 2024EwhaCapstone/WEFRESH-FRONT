@@ -7,7 +7,7 @@ import RecipeDetailScreen from '../screens/RecipeDetailScreen';
 import AddFoodScreen from '../screens/AddFoodScreen';
 import FoodDetailScreen from '../screens/FoodDetailScreen';
 import LoadingScreen from '../screens/LoadingScreen';
-// import RecipeListScreen from '../screens/RecipeListScreen';
+import RecipeListScreen from '../screens/RecipeListScreen';
 import MyPageScreen from '../screens/MyPageScreen';
 import {Asset} from 'react-native-image-picker';
 
@@ -51,7 +51,7 @@ const RootNavigator = () => {
       <Stack.Screen name="AddFoodScreen" component={AddFoodScreen} />
       <Stack.Screen name="LoadingScreen" component={LoadingScreen} />
       <Stack.Screen name="FoodDetailScreen" component={FoodDetailScreen} />
-      {/* <Stack.Screen name="RecipeListScreen" component={RecipeListScreen} /> */}
+      <Stack.Screen name="RecipeListScreen" component={RecipeListScreen} />
       <Stack.Screen name="MyPageScreen" component={MyPageScreen} />
     </Stack.Navigator>
   );

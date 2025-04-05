@@ -1,13 +1,11 @@
 import React from 'react';
 import {View, Text, StyleSheet} from 'react-native';
-import {StackNavigationProp} from '@react-navigation/stack';
+import {RouteProp} from '@react-navigation/native';
 import {RootStackParamList} from '../navigation/RootNavigator';
-import {NavigationProp, useNavigation} from '@react-navigation/native';
 
-type NavigationProp = StackNavigationProp<
-  RootStackParamList,
-  'RecipeListScreen'
->;
+interface FoodDetailScreenProps {
+  route: RouteProp<RootStackParamList, 'FoodDetailScreen'>;
+}
 
 const RecipeListScreen = () => {
   return (
