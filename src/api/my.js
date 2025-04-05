@@ -11,6 +11,17 @@ export const getSixRecipe = async () => {
   }
 };
 
+//저장된 레시피 전체 조회
+export const getAllRecipes = async () => {
+  try {
+    const response = await api.get('bookmarks');
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching recipe list', error);
+    throw error;
+  }
+};
+
 //저장된 레시피 상세 조회
 export const getSavedRecipeDetail = async bookmarkId => {
   try {

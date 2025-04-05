@@ -54,11 +54,15 @@ const RootNavigator = () => {
         component={SavedRecipeDetailScreen}
         options={{presentation: 'card', headerShown: false}}
       />
+      <Stack.Screen
+        name="RecipeListScreen"
+        component={RecipeListScreen}
+        options={{presentation: 'card', headerShown: false}}
+      />
 
       <Stack.Screen name="AddFoodScreen" component={AddFoodScreen} />
       <Stack.Screen name="LoadingScreen" component={LoadingScreen} />
       <Stack.Screen name="FoodDetailScreen" component={FoodDetailScreen} />
-      <Stack.Screen name="RecipeListScreen" component={RecipeListScreen} />
       <Stack.Screen name="MyPageScreen" component={MyPageScreen} />
     </Stack.Navigator>
   );
