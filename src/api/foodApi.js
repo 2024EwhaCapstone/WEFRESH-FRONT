@@ -68,3 +68,12 @@ export const updateFood = async (foodId, foodData) => {
     throw error;
   }
 };
+export const deleteFood = async (foodId) => {
+  try {
+    const response = await api.delete(`/foods/${foodId}`);
+    return response.data;
+  } catch (error) {
+    console.error('Error deleting food:', error);
+    throw error;
+  }
+};

@@ -20,7 +20,9 @@ import {
   createFood,
   updateFood,
   postFreshness,
+  deleteFood
 } from '../api/foodApi';
+import TrashButton from '../components/addfood/TrashButton';
 import {useNavigation} from '@react-navigation/native';
 
 interface FoodDetailScreenProps {
@@ -115,7 +117,24 @@ const FoodDetailScreen: React.FC<FoodDetailScreenProps> = ({route}) => {
       Alert.alert('오류', '저장하는 중 문제가 발생했습니다.');
     }
   };
-
+  const handleDelete = async() => {
+    Alert.alert('삭제 확인', '정말 이 식품을 삭제하시겠습니까?', [
+      { text: '취소', style: 'cancel' },
+      {
+        text: '삭제',
+        style: 'destructive',
+        onPress: async () => {
+          try {
+            await deleteFood(foodId);
+            Alert.alert('삭제 완료', '식품이 삭제되었습니다.');
+            navigation.goBack();
+          } catch (error) {
+            Alert.alert('오류', '삭제 중 문제가 발생했습니다.');
+          }
+        },
+      },
+    ]);
+  }
   useEffect(() => {
     const fetchFreshness = async () => {
       if (activeTab === 'freshness' && foodId) {
@@ -137,7 +156,13 @@ const FoodDetailScreen: React.FC<FoodDetailScreenProps> = ({route}) => {
         backgroundColor="#08A900"
         iconColor="white"
       />
-     
+     {foodId && (
+  <TrashButton
+    style={{ position: 'absolute', top: 50, right: 20, zIndex: 10 }}
+    backgroundColor="#FF4D4D"
+    iconColor="white"
+    onPress={handleDelete} />
+)}
       {image && <Image source={{uri: image.uri}} style={styles.foodImage} />}
       <View style={styles.contentContainer}>
         <Text style={styles.title}>{foodName || '식품 이름 없음'}</Text>
@@ -434,6 +459,7 @@ const FoodDetailScreen: React.FC<FoodDetailScreenProps> = ({route}) => {
 const styles = StyleSheet.create({
   container: {flex: 1, backgroundColor: '#F5F5F5', alignItems: 'center'},
   closeButton: {position: 'absolute', top: 50, left: 20, zIndex: 10},
+  trashButton : { position: 'absolute', top: 50, right: 20, zIndex: 10 },
   foodImage: {width: '100%', height: '45%', resizeMode: 'cover'},
   contentContainer: {
     flex: 1,
