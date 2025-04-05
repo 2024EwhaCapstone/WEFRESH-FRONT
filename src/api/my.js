@@ -1,6 +1,6 @@
 import api from './api';
 
-export const getRecipeList = async () => {
+export const getSixRecipe = async () => {
   try {
     const response = await api.get('bookmarks/six');
     return response.data;

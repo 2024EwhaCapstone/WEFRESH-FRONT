@@ -32,7 +32,7 @@ const HomeScreen = () => {
       }
     };
     fetchData();
-  }, []); // 컴포넌트 마운트 시 데이터 가져오기
+  }, []);
 
   const renderItem = ({item}) => <Item data={item} />;
 
@@ -60,7 +60,7 @@ const HomeScreen = () => {
           <DateAlert />
         </View>
         <FlatList
-          data={data} // 상태에서 데이터 사용
+          data={data}
           renderItem={renderItem}
           keyExtractor={item => item.foodId.toString()}
           numColumns={2}

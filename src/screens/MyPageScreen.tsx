@@ -1,10 +1,26 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {View, Text, StyleSheet, FlatList, ScrollView} from 'react-native';
 import Recipe from '../components/my/Recipe';
 import Title from '../components/my/Title';
 import Post from '../components/my/Post';
-
+import {getSixRecipe} from '../api/my';
 const MyPageScreen = () => {
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const recipes = await getSixRecipe();
+        setData(recipes.data.bookmarks);
+      } catch (error) {
+        console.error('Error fetching main foods:', error);
+      }
+    };
+    fetchData();
+  }, []);
+
+  const renderItem = ({item}) => <Recipe data={item} />;
+
   return (
     <ScrollView style={styles.container}>
       <View style={styles.info}>
@@ -26,9 +42,9 @@ const MyPageScreen = () => {
         <Title text="저장한 레시피 모음" targetScreen="RecipeListScreen" />
         <View style={styles.recipeContainer}>
           <FlatList
-            data={[1, 2, 3, 4, 5, 6]}
-            renderItem={({item}) => <Recipe />}
-            keyExtractor={item => item.toString()}
+            data={data}
+            renderItem={({item}) => <Recipe data={item} />}
+            keyExtractor={item => item.bookmarkId.toString()}
             numColumns={3}
             columnWrapperStyle={{
               justifyContent: 'space-between',

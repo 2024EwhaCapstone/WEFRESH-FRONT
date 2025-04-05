@@ -1,15 +1,15 @@
 import React from 'react';
 import {View, Text, Image, StyleSheet, TouchableOpacity} from 'react-native';
 
-const Recipe = () => {
+const Recipe = ({data}) => {
   return (
     <TouchableOpacity style={styles.Recipe}>
       <Image
-        source={require('../../assets/icons/refrigerator/food.png')}
+        source={{uri: data.image}}
         style={{flex: 1, borderTopLeftRadius: 10, borderTopRightRadius: 10}}
       />
       <View style={styles.menu}>
-        <Text style={styles.text1}>연어 덮밥</Text>
+        <Text style={styles.text1}>{data.name}</Text>
       </View>
     </TouchableOpacity>
   );
