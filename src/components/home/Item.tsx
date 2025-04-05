@@ -1,15 +1,19 @@
 import React from 'react';
 import {View, Text, Image, StyleSheet, TouchableOpacity} from 'react-native';
+import {useNavigation} from '@react-navigation/native';
 
 const Item = ({data}) => {
+  const navigation = useNavigation();
+
   const handlePress = () => {
     // 아이템이 눌렸을 때의 동작을 여기에 추가
     console.log('아이템 클릭됨');
+    navigation.navigate('FoodDetailScreen', {foodId: data.foodId});
   };
 
   return (
     <TouchableOpacity onPress={handlePress} style={styles.item}>
-      <View style={styles.date}>
+      <View style={[styles.date, {backgroundColor: data.color}]}>
         <Text style={styles.text1}>D-{data.dday}</Text>
       </View>
       <View style={styles.content}>
@@ -36,7 +40,6 @@ const styles = StyleSheet.create({
   date: {
     width: 54,
     height: 18,
-    backgroundColor: '#F46161',
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 30,
