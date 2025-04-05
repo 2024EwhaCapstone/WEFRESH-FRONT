@@ -21,3 +21,14 @@ export const getSavedRecipeDetail = async bookmarkId => {
     throw error;
   }
 };
+
+//레시피 삭제
+export const deleteRecipe = async bookmarkId => {
+  try {
+    const response = await api.delete(`bookmarks/${bookmarkId}`);
+    return response.data;
+  } catch (error) {
+    console.error('Error deleting recipe:', error);
+    throw error;
+  }
+};

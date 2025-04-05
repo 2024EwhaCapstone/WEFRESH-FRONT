@@ -13,7 +13,7 @@ const MyPageScreen = () => {
         const recipes = await getSixRecipe();
         setData(recipes.data.bookmarks);
       } catch (error) {
-        console.error('Error fetching main foods:', error);
+        console.error('Error fetching main recipes:', error);
       }
     };
     fetchData();
@@ -47,7 +47,8 @@ const MyPageScreen = () => {
             keyExtractor={item => item.bookmarkId.toString()}
             numColumns={3}
             columnWrapperStyle={{
-              justifyContent: 'space-between',
+              justifyContent: 'justify-start',
+              gap: 4,
               paddingVertical: 5,
             }}
             scrollEnabled={false}
