@@ -40,7 +40,7 @@ const RootNavigator = () => {
       <Stack.Screen name="MainTabs" component={BottomTabNavigator} />
 
       <Stack.Screen
-        name="RecipeRecommend"
+        name="RecipeRecommendScreen"
         component={RecipeRecommendScreen}
         options={{presentation: 'card', headerShown: false}}
       />

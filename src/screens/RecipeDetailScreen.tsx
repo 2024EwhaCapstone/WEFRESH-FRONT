@@ -1,33 +1,43 @@
-import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, ActivityIndicator, Image, Alert } from 'react-native';
+import React, {useEffect, useState} from 'react';
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  ScrollView,
+  ActivityIndicator,
+  Image,
+  Alert,
+} from 'react-native';
 import CloseButton from '../components/global/CloseButton';
 import RecipeIngredients from '../components/recipe/RecipeIngredients';
 import RecipeSteps from '../components/recipe/RecipeSteps';
 import StarRating from '../components/global/StarRating';
 import InfoCard from '../components/recipe/InfoCard';
 import GreenButton from '../components/global/GreenButton';
-import { getRecipeDetail, saveRecipe } from '../api/recipeApi';
-import { RouteProp } from '@react-navigation/native';
-import { RootStackParamList } from '../navigation/RootNavigator';
-
+import {getRecipeDetail, saveRecipe} from '../api/recipeApi';
+import {RouteProp} from '@react-navigation/native';
+import {RootStackParamList} from '../navigation/RootNavigator';
 
 interface RecipeDetailScreenProps {
   route: RouteProp<RootStackParamList, 'RecipeDetailScreen'>;
 }
 
-const RecipeDetailScreen: React.FC<RecipeDetailScreenProps> = ({ route }) => {
+const RecipeDetailScreen: React.FC<RecipeDetailScreenProps> = ({route}) => {
   const recipeId = route?.params?.recipeId || null;
 
-  console.log("Route params:", route); 
+  console.log('Route params:', route);
 
-  const [activeTab, setActiveTab] = useState<'ingredients' | 'steps'>('ingredients');
-  const [recipe, setRecipe] = useState<{ 
+  const [activeTab, setActiveTab] = useState<'ingredients' | 'steps'>(
+    'ingredients',
+  );
+  const [recipe, setRecipe] = useState<{
     name: string;
     image: string;
     difficulty: number;
     time: number;
     calorie: number;
-    ingredients: { name: string; amount: string }[];
+    ingredients: {name: string; amount: string}[];
     recipe: string;
     likes: number;
   } | null>(null);
@@ -39,7 +49,7 @@ const RecipeDetailScreen: React.FC<RecipeDetailScreenProps> = ({ route }) => {
         const data = await getRecipeDetail(recipeId, 'general');
         setRecipe(data.data);
       } catch (error) {
-        console.error("Failed to fetch recipe", error);
+        console.error('Failed to fetch recipe', error);
       } finally {
         setLoading(false);
       }
@@ -50,17 +60,17 @@ const RecipeDetailScreen: React.FC<RecipeDetailScreenProps> = ({ route }) => {
 
   const handleSaveRecipe = async () => {
     if (!recipeId) {
-      Alert.alert("오류", "레시피 ID가 없습니다.");
+      Alert.alert('오류', '레시피 ID가 없습니다.');
       return;
     }
-  
+
     try {
       const response = await saveRecipe(recipeId, 'general');
-      console.log("Recipe saved successfully!", response);
-      Alert.alert("저장 완료", "레시피가 저장되었습니다.");
+      console.log('Recipe saved successfully!', response);
+      Alert.alert('저장 완료', '레시피가 저장되었습니다.');
     } catch (error) {
-      console.error("Error saving recipe:", error);
-      Alert.alert("저장 실패", "레시피 저장 중 오류가 발생했습니다.");
+      console.error('Error saving recipe:', error);
+      Alert.alert('저장 실패', '레시피 저장 중 오류가 발생했습니다.');
     }
   };
 
@@ -72,61 +82,66 @@ const RecipeDetailScreen: React.FC<RecipeDetailScreenProps> = ({ route }) => {
     );
   }
 
-  const steps = recipe?.recipe
-    ?.split(/Step\d+\./) 
-    ?.filter(Boolean) 
-    ?.map((step: string, index: number) => ({
-      id: index + 1,
-      title: `Step ${index + 1}`,
-      description: step.trim(),
-    })) || [];
+  const steps =
+    recipe?.recipe
+      ?.split(/Step\d+\./)
+      ?.filter(Boolean)
+      ?.map((step: string, index: number) => ({
+        id: index + 1,
+        title: `Step ${index + 1}`,
+        description: step.trim(),
+      })) || [];
 
   return (
     <View style={styles.container}>
-      
-      <CloseButton 
-        style={styles.closeButton} 
-        backgroundColor="#08A900"  
-        iconColor="white"  
+      <CloseButton
+        style={styles.closeButton}
+        backgroundColor="#08A900"
+        iconColor="white"
       />
-      <Image source={{ uri: recipe?.image } } style={styles.recipeImage} />
+      <Image source={{uri: recipe?.image}} style={styles.recipeImage} />
 
-      
       <View style={styles.contentContainer}>
         <Text style={styles.title}>{recipe?.name}</Text>
 
-        
         <StarRating rating={recipe?.difficulty ?? 0} />
         <View style={styles.infoContainer}>
-        <InfoCard value={`${recipe?.time || 0}분`} label="조리시간" />
+          <InfoCard value={`${recipe?.time || 0}분`} label="조리시간" />
           <InfoCard value={`${recipe?.calorie || 0} kcal`} label="칼로리" />
           <InfoCard value={`${recipe?.likes || 0}`} label="Likes" />
-          </View>
-       
+        </View>
+
         <View style={styles.tabContainer}>
           <TouchableOpacity
-            style={[styles.tabButton, activeTab === 'ingredients' && styles.activeTab]}
-            onPress={() => setActiveTab('ingredients')}
-          >
+            style={[
+              styles.tabButton,
+              activeTab === 'ingredients' && styles.activeTab,
+            ]}
+            onPress={() => setActiveTab('ingredients')}>
             <Text style={styles.tabText}>재료</Text>
           </TouchableOpacity>
           <TouchableOpacity
-            style={[styles.tabButton, activeTab === 'steps' && styles.activeTab]}
-            onPress={() => setActiveTab('steps')}
-          >
+            style={[
+              styles.tabButton,
+              activeTab === 'steps' && styles.activeTab,
+            ]}
+            onPress={() => setActiveTab('steps')}>
             <Text style={styles.tabText}>레시피</Text>
           </TouchableOpacity>
         </View>
 
-       
         <View style={styles.contentWrapper}>
-          {activeTab === 'ingredients' ? <RecipeIngredients ingredients={recipe?.ingredients || []} /> : <RecipeSteps steps={steps} />}
+          {activeTab === 'ingredients' ? (
+            <RecipeIngredients ingredients={recipe?.ingredients || []} />
+          ) : (
+            <RecipeSteps steps={steps} />
+          )}
         </View>
         <View style={styles.buttonContainer}>
           <GreenButton title="다른 음식 추천 받기" onPress={() => {}} />
           <GreenButton title="저장하기" onPress={handleSaveRecipe} />
         </View>
-        </View>
+      </View>
     </View>
   );
 };
@@ -137,8 +152,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#F5F5F5',
     alignItems: 'center',
   },
-  loadingContainer: { flex: 1, justifyContent: 'center', alignItems: 'center' },
-  
+  loadingContainer: {flex: 1, justifyContent: 'center', alignItems: 'center'},
+
   contentWrapper: {
     width: '100%',
     height: '40%',
@@ -162,7 +177,7 @@ const styles = StyleSheet.create({
     width: '100%',
     borderTopLeftRadius: 30,
     borderTopRightRadius: 30,
-    marginTop: -30, 
+    marginTop: -30,
     padding: 20,
     alignItems: 'center',
     elevation: 5,
@@ -175,7 +190,7 @@ const styles = StyleSheet.create({
   infoContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    width: '85%', 
+    width: '85%',
     alignSelf: 'center',
     marginTop: 15,
   },
@@ -202,7 +217,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     paddingHorizontal: 70,
     borderRadius: 20,
-    
   },
   activeTab: {
     backgroundColor: '#08A900',
@@ -217,11 +231,11 @@ const styles = StyleSheet.create({
     marginVertical: 10,
   },
   buttonContainer: {
-    flexDirection: 'row', 
-    justifyContent: 'space-between', 
+    flexDirection: 'row',
+    justifyContent: 'space-between',
     width: '90%',
     marginBottom: 20,
-    gap:20,
+    gap: 20,
   },
 });
 

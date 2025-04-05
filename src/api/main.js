@@ -49,3 +49,16 @@ export const getTodaysRecipe = async () => {
     throw error;
   }
 };
+
+//추천 레시피 불러오기
+export const getRecommendedRecipes = async foodIds => {
+  try {
+    const response = await api.get('/recipes', {
+      params: {foodIds: foodIds.join(',')}, // foodIds를 쉼표로 구분된 문자열로 변환하여 요청
+    });
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching recommended recipe:', error);
+    throw error;
+  }
+};

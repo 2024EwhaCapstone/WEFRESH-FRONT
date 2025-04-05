@@ -6,7 +6,7 @@ import CategoryNavBar from '../components/refrigerator/CategoryNavBar';
 import {useNavigation} from '@react-navigation/native';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {RootStackParamList} from '../navigation/RootNavigator';
-import {getAllFoods} from '../api/main';
+import {getAllFoods, getRecommendedRecipes} from '../api/main';
 
 type NavigationProp = StackNavigationProp<RootStackParamList, 'MainTabs'>;
 
@@ -15,6 +15,8 @@ const RefrigeratorScreen = () => {
   const [selectedCategory, setSelectedCategory] = useState('전체');
   const [searchTerm, setSearchTerm] = useState('');
   const [data, setData] = useState([]);
+  const [selectedItems, setSelectedItems] = useState<number[]>([]);
+  const [isSelecting, setIsSelecting] = useState(false);
 
   const fetchData = async () => {
     const foods = await getAllFoods(selectedCategory, searchTerm);
@@ -24,6 +26,33 @@ const RefrigeratorScreen = () => {
   useEffect(() => {
     fetchData();
   }, [selectedCategory, searchTerm]); // 카테고리나 검색어가 변경될 때마다 데이터 가져오기
+
+  const handleItemPress = (foodId: number) => {
+    setSelectedItems(prevSelected => {
+      if (prevSelected.includes(foodId)) {
+        return prevSelected.filter(id => id !== foodId);
+      } else {
+        return [...prevSelected, foodId];
+      }
+    });
+  };
+
+  const handleRecommendationPress = () => {
+    setIsSelecting(true);
+  };
+
+  const handleSelectionComplete = async () => {
+    if (selectedItems.length > 0) {
+      navigation.navigate('LoadingScreen'); // 로딩 화면으로 이동
+      try {
+        const recipes = await getRecommendedRecipes(selectedItems);
+        navigation.navigate('RecipeRecommendScreen', {recipes}); // 레시피 화면으로 이동
+      } catch (error) {
+        console.error('레시피 요청 중 오류 발생:', error);
+        // 오류 처리 로직 추가 가능
+      }
+    } else setIsSelecting(false);
+  };
 
   return (
     <View style={styles.container}>
@@ -36,15 +65,32 @@ const RefrigeratorScreen = () => {
         />
         <FlatList
           data={data}
-          renderItem={({item}) => <Item data={item} />}
+          renderItem={({item}) => (
+            <Item
+              data={item}
+              isSelected={selectedItems.includes(item.foodId)}
+              onPress={handleItemPress}
+              isSelecting={isSelecting}
+            />
+          )}
           keyExtractor={item => item.foodId.toString()}
           numColumns={2}
           columnWrapperStyle={styles.row}
         />
         <TouchableOpacity
-          style={styles.button}
-          onPress={() => navigation.navigate('RecipeRecommend')}>
-          <Text style={styles.buttonText}>레시피 추천</Text>
+          style={[
+            styles.button,
+            isSelecting ? styles.buttonSelected : styles.buttonDefault,
+          ]}
+          onPress={
+            isSelecting ? handleSelectionComplete : handleRecommendationPress
+          }>
+          <Text
+            style={
+              isSelecting ? styles.buttonTextSelected : styles.buttonTextDefault
+            }>
+            {isSelecting ? '선택 완료' : '레시피 추천'}
+          </Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -78,7 +124,6 @@ const styles = StyleSheet.create({
     position: 'absolute',
     right: 20,
     bottom: 30,
-    backgroundColor: '#4CAF50',
     paddingVertical: 10,
     paddingHorizontal: 20,
     borderRadius: 30,
@@ -87,8 +132,19 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.2,
     shadowRadius: 3,
   },
-  buttonText: {
+  buttonDefault: {
+    backgroundColor: '#4CAF50',
+  },
+  buttonSelected: {
+    backgroundColor: 'white',
+  },
+  buttonTextDefault: {
     color: 'white',
+    fontSize: 16,
+    fontWeight: 'bold',
+  },
+  buttonTextSelected: {
+    color: '#4CAF50',
     fontSize: 16,
     fontWeight: 'bold',
   },
@@ -98,6 +154,20 @@ const styles = StyleSheet.create({
     gap: 16,
     marginVertical: 10,
     paddingHorizontal: 10,
+  },
+  recipesContainer: {
+    marginTop: 20,
+    width: '100%',
+    paddingHorizontal: 16,
+  },
+  recipesTitle: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    marginBottom: 10,
+  },
+  recipeItem: {
+    fontSize: 16,
+    marginVertical: 5,
   },
 });
 

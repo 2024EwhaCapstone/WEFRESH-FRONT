@@ -2,11 +2,15 @@ import React from 'react';
 import {View, Text, Image, StyleSheet, TouchableOpacity} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 
-const Item = ({data}) => {
+const Item = ({data, isSelected, onPress, isSelecting}) => {
   const navigation = useNavigation();
 
   const handlePress = () => {
-    navigation.navigate('FoodDetailScreen', {foodId: data.foodId});
+    if (isSelecting) {
+      onPress(data.foodId); // 선택 모드일 경우 onPress 호출
+    } else {
+      navigation.navigate('FoodDetailScreen', {foodId: data.foodId}); // 선택 모드가 아닐 경우 상세 화면으로 이동
+    }
   };
 
   // dday 포맷팅 함수
@@ -15,7 +19,9 @@ const Item = ({data}) => {
   };
 
   return (
-    <TouchableOpacity onPress={handlePress} style={styles.item}>
+    <TouchableOpacity
+      onPress={handlePress}
+      style={[styles.item, isSelected && styles.selectedItem]}>
       <Image
         source={{uri: data.image}}
         style={{
@@ -53,6 +59,10 @@ const styles = StyleSheet.create({
     shadowOffset: {width: 0, height: 1},
     shadowRadius: 4,
     elevation: 3,
+  },
+  selectedItem: {
+    backgroundColor: 'rgba(0, 0, 0, 0.3)',
+    zIndex: 10,
   },
   view1: {
     flexDirection: 'row',
