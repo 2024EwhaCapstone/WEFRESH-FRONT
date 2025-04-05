@@ -1,16 +1,29 @@
 import React from 'react';
 import {View, Text, Image, StyleSheet, TouchableOpacity} from 'react-native';
+import {useNavigation} from '@react-navigation/native';
 
-const Item = () => {
+const Item = ({data, isSelected, onPress, isSelecting}) => {
+  const navigation = useNavigation();
+
   const handlePress = () => {
-    // 아이템이 눌렸을 때의 동작을 여기에 추가
-    console.log('아이템 클릭됨');
+    if (isSelecting) {
+      onPress(data.foodId); // 선택 모드일 경우 onPress 호출
+    } else {
+      navigation.navigate('FoodDetailScreen', {foodId: data.foodId}); // 선택 모드가 아닐 경우 상세 화면으로 이동
+    }
+  };
+
+  // dday 포맷팅 함수
+  const formatDday = dday => {
+    return dday >= 0 ? `${dday}일 지남` : `${-dday}일 남음`; // 음수일 경우 'D-4' 형식으로 표시
   };
 
   return (
-    <TouchableOpacity onPress={handlePress} style={styles.item}>
+    <TouchableOpacity
+      onPress={handlePress}
+      style={[styles.item, isSelected && styles.selectedItem]}>
       <Image
-        source={require('../../assets/icons/refrigerator/Garlic.png')}
+        source={{uri: data.image}}
         style={{
           width: 120,
           height: 130,
@@ -20,12 +33,12 @@ const Item = () => {
       />
       <View>
         <View style={styles.view1}>
-          <Text style={styles.text1}>양파아니다</Text>
-          <View style={styles.view2}>
-            <Text style={styles.text2}>4일 남음</Text>
+          <Text style={styles.text1}>{data.name}</Text>
+          <View style={[styles.view2, {backgroundColor: data.color}]}>
+            <Text style={styles.text2}>{formatDday(data.dday)}</Text>
           </View>
         </View>
-        <Text style={styles.text3}>2025년 02월 03일까지</Text>
+        <Text style={styles.text3}>{data.date}까지</Text>
       </View>
     </TouchableOpacity>
   );
@@ -47,6 +60,10 @@ const styles = StyleSheet.create({
     shadowRadius: 4,
     elevation: 3,
   },
+  selectedItem: {
+    backgroundColor: 'rgba(0, 0, 0, 0.3)',
+    zIndex: 10,
+  },
   view1: {
     flexDirection: 'row',
     gap: 4,
@@ -55,11 +72,10 @@ const styles = StyleSheet.create({
     marginBottom: 8,
   },
   view2: {
-    width: 47,
+    paddingHorizontal: 6,
     height: 15,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#F13939CC',
     borderRadius: 30,
   },
   text1: {

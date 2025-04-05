@@ -4,7 +4,6 @@ import {
   Text,
   StyleSheet,
   TouchableOpacity,
-  ScrollView,
   ActivityIndicator,
   Image,
   Alert,
@@ -18,13 +17,16 @@ import GreenButton from '../components/global/GreenButton';
 import {getRecipeDetail, saveRecipe} from '../api/recipeApi';
 import {RouteProp} from '@react-navigation/native';
 import {RootStackParamList} from '../navigation/RootNavigator';
+import {getSavedRecipeDetail} from '../api/my';
 
-interface RecipeDetailScreenProps {
-  route: RouteProp<RootStackParamList, 'RecipeDetailScreen'>;
+interface SavedRecipeDetailScreenProps {
+  route: RouteProp<RootStackParamList, 'SavedRecipeDetailScreen'>;
 }
 
-const RecipeDetailScreen: React.FC<RecipeDetailScreenProps> = ({route}) => {
-  const recipeId = route?.params?.recipeId || null;
+const SavedRecipeDetailScreen: React.FC<SavedRecipeDetailScreenProps> = ({
+  route,
+}) => {
+  const {bookmarkId} = route.params;
 
   console.log('Route params:', route);
 
@@ -46,33 +48,17 @@ const RecipeDetailScreen: React.FC<RecipeDetailScreenProps> = ({route}) => {
   useEffect(() => {
     const fetchRecipe = async () => {
       try {
-        const data = await getRecipeDetail(recipeId, 'general');
+        const data = await getSavedRecipeDetail(bookmarkId);
         setRecipe(data.data);
       } catch (error) {
-        console.error('Failed to fetch recipe', error);
+        console.error('Failed to fetchdddd recipe', error);
       } finally {
         setLoading(false);
       }
     };
 
     fetchRecipe();
-  }, [recipeId]);
-
-  const handleSaveRecipe = async () => {
-    if (!recipeId) {
-      Alert.alert('오류', '레시피 ID가 없습니다.');
-      return;
-    }
-
-    try {
-      const response = await saveRecipe(recipeId, 'general');
-      console.log('Recipe saved successfully!', response);
-      Alert.alert('저장 완료', '레시피가 저장되었습니다.');
-    } catch (error) {
-      console.error('Error saving recipe:', error);
-      Alert.alert('저장 실패', '레시피 저장 중 오류가 발생했습니다.');
-    }
-  };
+  }, [bookmarkId]);
 
   if (loading) {
     return (
@@ -136,10 +122,6 @@ const RecipeDetailScreen: React.FC<RecipeDetailScreenProps> = ({route}) => {
           ) : (
             <RecipeSteps steps={steps} />
           )}
-        </View>
-        <View style={styles.buttonContainer}>
-          <GreenButton title="다른 음식 추천 받기" onPress={() => {}} />
-          <GreenButton title="저장하기" onPress={handleSaveRecipe} />
         </View>
       </View>
     </View>
@@ -230,13 +212,6 @@ const styles = StyleSheet.create({
     width: '95%',
     marginVertical: 10,
   },
-  buttonContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    width: '90%',
-    marginBottom: 20,
-    gap: 20,
-  },
 });
 
-export default RecipeDetailScreen;
+export default SavedRecipeDetailScreen;
