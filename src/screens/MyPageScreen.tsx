@@ -63,7 +63,8 @@ const MyPageScreen = () => {
             keyExtractor={item => item.bookmarkId.toString()}
             numColumns={3}
             columnWrapperStyle={{
-              justifyContent: 'space-between',
+              justifyContent: 'justify-start',
+              gap: 6,
               paddingVertical: 5,
             }}
             scrollEnabled={false}

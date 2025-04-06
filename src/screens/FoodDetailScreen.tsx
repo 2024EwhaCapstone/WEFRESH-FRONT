@@ -31,45 +31,45 @@ interface FoodDetailScreenProps {
 }
 
 const FoodDetailScreen: React.FC<FoodDetailScreenProps> = ({route}) => {
-  const {foodId} = route.params;
-  const [foodName, setFoodName] = useState();
+  const {foodId, selectedImage} = route.params;
+  const [foodName, setFoodName] = useState(route.params.name || '알수없음');
   const [activeTab, setActiveTab] = useState<'info' | 'freshness'>('info');
-  const [category, setCategory] = useState();
-  const [foodCount, setFoodCount] = useState();
-  const [foodMemo, setFoodMemo] = useState();
+  const [category, setCategory] = useState(route.params.category || '미지정');
+  const [foodCount, setFoodCount] = useState(route.params.count || 0);
+  const [foodMemo, setFoodMemo] = useState(route.params.memo || '없음');
   const [expirationDate, setExpirationDate] = useState({
     year: '2025',
     month: '01',
     day: '01',
   });
-  const [image, setImage] = useState();
+  const [image, setImage] = useState(selectedImage?.uri || '');
   const navigation = useNavigation();
 
   useEffect(() => {
     const fetchFoodDetail = async () => {
-      try {
-        const detail = await getFoodDetail(foodId);
-        if (detail.isSuccess) {
-          const fetchedDetail = detail.data;
-          setFoodName(fetchedDetail.name || '알수없음');
-          setCategory(fetchedDetail.category || '미지정');
-          setFoodCount(fetchedDetail.count || 0);
-          setFoodMemo(fetchedDetail.memo || '없음');
-          const formattedDate = formatDate(fetchedDetail.date) || '정보 없음';
-          const [year, month, day] = formattedDate.split('-');
-          setExpirationDate({year, month, day});
-          setImage(fetchedDetail.image || '');
-        } else {
+      if (foodId) {
+        try {
+          const detail = await getFoodDetail(foodId);
+          if (detail.isSuccess) {
+            const fetchedDetail = detail.data;
+            setFoodName(fetchedDetail.name || '알수없음');
+            setCategory(fetchedDetail.category || '미지정');
+            setFoodCount(fetchedDetail.count || 0);
+            setFoodMemo(fetchedDetail.memo || '없음');
+            const formattedDate = formatDate(fetchedDetail.date) || '정보 없음';
+            const [year, month, day] = formattedDate.split('-');
+            setExpirationDate({year, month, day});
+            setImage(fetchedDetail.image || '');
+          } else {
+            Alert.alert('오류', '식품 정보를 불러오는 데 실패했습니다.');
+          }
+        } catch (error) {
           Alert.alert('오류', '식품 정보를 불러오는 데 실패했습니다.');
         }
-      } catch (error) {
-        Alert.alert('오류', '식품 정보를 불러오는 데 실패했습니다.');
       }
     };
 
-    if (foodId) {
-      fetchFoodDetail();
-    }
+    fetchFoodDetail();
   }, [foodId]);
 
   const [isCategoryEditing, setIsCategoryEditing] = useState(false);
@@ -81,7 +81,6 @@ const FoodDetailScreen: React.FC<FoodDetailScreenProps> = ({route}) => {
   const [isFoodMemoEditing, setIsFoodMemoEditing] = useState(false);
 
   const [isEditing, setIsEditing] = useState(false);
-  const {selectedImage} = route.params || {};
 
   interface FreshnessData {
     data: {
