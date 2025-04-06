@@ -23,8 +23,10 @@ import {
   deleteFood,
 } from '../api/foodApi';
 import TrashButton from '../components/addfood/TrashButton';
+import CameraButton from '../components/global/CameraButton';
 import {getFoodDetail} from '../api/main';
 import {useNavigation} from '@react-navigation/native';
+import {launchImageLibrary} from 'react-native-image-picker';
 
 interface FoodDetailScreenProps {
   route: RouteProp<RootStackParamList, 'FoodDetailScreen'>;
@@ -42,7 +44,7 @@ const FoodDetailScreen: React.FC<FoodDetailScreenProps> = ({route}) => {
     month: '01',
     day: '01',
   });
-  const [image, setImage] = useState(selectedImage?.uri || '');
+  const [image, setImage] = useState(selectedImage || null);
   const navigation = useNavigation();
 
   useEffect(() => {
@@ -51,19 +53,18 @@ const FoodDetailScreen: React.FC<FoodDetailScreenProps> = ({route}) => {
         try {
           const detail = await getFoodDetail(foodId);
           if (detail.isSuccess) {
-            const fetchedDetail = detail.data;
-            setFoodName(fetchedDetail.name || '알수없음');
-            setCategory(fetchedDetail.category || '미지정');
-            setFoodCount(fetchedDetail.count || 0);
-            setFoodMemo(fetchedDetail.memo || '없음');
-            const formattedDate = formatDate(fetchedDetail.date) || '정보 없음';
-            const [year, month, day] = formattedDate.split('-');
+            const data = detail.data;
+            setFoodName(data.name || '');
+            setCategory(data.category || '미지정');
+            setFoodCount(data.count || 0);
+            setFoodMemo(data.memo || '');
+            const [year, month, day] = formatDate(data.date).split('-');
             setExpirationDate({year, month, day});
-            setImage(fetchedDetail.image || '');
+            setImage(data.image ? {uri: data.image} : null);
           } else {
             Alert.alert('오류', '식품 정보를 불러오는 데 실패했습니다.');
           }
-        } catch (error) {
+        } catch {
           Alert.alert('오류', '식품 정보를 불러오는 데 실패했습니다.');
         }
       }
@@ -95,20 +96,20 @@ const FoodDetailScreen: React.FC<FoodDetailScreenProps> = ({route}) => {
 
   const handleEditMode = () => {
     setIsEditing(true);
-    setIsCategoryEditing(true);
-    setIsFoodNameEditing(true);
-    setIsFoodCountEditing(true);
-    setIsFoodMemoEditing(true);
-    setIsDateEditing(true);
+    // setIsCategoryEditing(true);
+    // setIsFoodNameEditing(true);
+    // setIsFoodCountEditing(true);
+    // setIsFoodMemoEditing(true);
+    // setIsDateEditing(true);
   };
 
   const handleCompleteEdit = () => {
     setIsEditing(false);
-    setIsCategoryEditing(false);
-    setIsFoodNameEditing(false);
-    setIsFoodCountEditing(false);
-    setIsFoodMemoEditing(false);
-    setIsDateEditing(false);
+    // setIsCategoryEditing(false);
+    // setIsFoodNameEditing(false);
+    // setIsFoodCountEditing(false);
+    // setIsFoodMemoEditing(false);
+    // setIsDateEditing(false);
     Alert.alert('수정 완료', '변경 사항이 저장되었습니다.');
   };
 
@@ -125,7 +126,7 @@ const FoodDetailScreen: React.FC<FoodDetailScreenProps> = ({route}) => {
       date: `${expirationDate.year}-${expirationDate.month}-${expirationDate.day}`,
       count: foodCount,
       memo: foodMemo,
-      image: selectedImage,
+      image,
     };
 
     try {
@@ -182,6 +183,13 @@ const FoodDetailScreen: React.FC<FoodDetailScreenProps> = ({route}) => {
     const day = monthDay[1].replace('일', '').trim();
     return `${year}-${month}-${day}`;
   };
+  const handleImagePick = () => {
+    launchImageLibrary({mediaType: 'photo'}, response => {
+      if (response.assets && response.assets.length > 0) {
+        setImage(response.assets[0]);
+      }
+    });
+  };
 
   return (
     <View style={styles.container}>
@@ -198,7 +206,17 @@ const FoodDetailScreen: React.FC<FoodDetailScreenProps> = ({route}) => {
           onPress={handleDelete}
         />
       )}
-      {image && <Image source={{uri: image}} style={styles.foodImage} />}
+      {image && <Image source={{uri: image.uri || image}}  style={[styles.foodImage, isEditing && {opacity: 0.4}]} />}
+      {isEditing && (
+         <CameraButton
+         style={{position: 'absolute', top: 200, zIndex: 10 , borderWidth: 2, borderColor: '#08A900',}}
+         backgroundColor="white"
+         iconColor="#08A900"
+         
+         onPress={handleImagePick}
+       />
+       
+      )}
       <View style={styles.contentContainer}>
         <Text style={styles.title}>{foodName}</Text>
 
@@ -482,7 +500,7 @@ const styles = StyleSheet.create({
     marginTop: 20,
     marginBottom: 20,
   },
-
+  imageUploadText: {color: 'white', fontWeight: 'bold'},
   foodName: {
     fontSize: 20,
     fontWeight: '700',
