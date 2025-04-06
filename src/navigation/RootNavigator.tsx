@@ -8,6 +8,7 @@ import AddFoodScreen from '../screens/AddFoodScreen';
 import FoodDetailScreen from '../screens/FoodDetailScreen';
 import LoadingScreen from '../screens/LoadingScreen';
 import RecipeListScreen from '../screens/RecipeListScreen';
+import RefrigeratorScreen from '../screens/RefrigeratorScreen';
 import MyPageScreen from '../screens/MyPageScreen';
 import SavedRecipeDetailScreen from '../screens/SavedRecipeDetailScreen';
 import {Asset} from 'react-native-image-picker';
@@ -16,6 +17,7 @@ export type RootStackParamList = {
   MainTabs: undefined;
   RecipeRecommend: undefined;
   RecipeDetailScreen: {recipeId: number};
+  RefrigeratorScreen: undefined;
   AddFoodScreen: undefined;
   LoadingScreen: undefined;
   FoodDetailScreen: {
@@ -59,6 +61,11 @@ const RootNavigator = () => {
         component={RecipeListScreen}
         options={{presentation: 'card', headerShown: false}}
       />
+      <Stack.Screen
+  name="RefrigeratorScreen"
+  component={RefrigeratorScreen}
+  options={{presentation: 'card', headerShown: false}} // 필요에 따라 headerShown 조절
+/>
 
       <Stack.Screen name="AddFoodScreen" component={AddFoodScreen} />
       <Stack.Screen name="LoadingScreen" component={LoadingScreen} />

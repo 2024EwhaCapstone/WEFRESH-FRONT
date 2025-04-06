@@ -1,5 +1,6 @@
-import React, {useState, useEffect} from 'react';
-import {View, Text, TouchableOpacity, StyleSheet, FlatList} from 'react-native';
+import React, {useState, useEffect,useCallback  } from 'react';
+import { useFocusEffect } from '@react-navigation/native';
+import {View, Text, TouchableOpacity, StyleSheet, FlatList } from 'react-native';
 import SearchBar from '../components/refrigerator/SearchBar';
 import Item from '../components/refrigerator/Item';
 import CategoryNavBar from '../components/refrigerator/CategoryNavBar';
@@ -22,10 +23,14 @@ const RefrigeratorScreen = () => {
     const foods = await getAllFoods(selectedCategory, searchTerm);
     setData(foods.data.foods);
   };
-
+  useFocusEffect(
+    useCallback(() => {
+      fetchData();
+    }, [selectedCategory, searchTerm])
+  );
   useEffect(() => {
     fetchData();
-  }, [selectedCategory, searchTerm]); // 카테고리나 검색어가 변경될 때마다 데이터 가져오기
+  }, [selectedCategory, searchTerm]); 
 
   const handleItemPress = (foodId: number) => {
     setSelectedItems(prevSelected => {
@@ -43,10 +48,10 @@ const RefrigeratorScreen = () => {
 
   const handleSelectionComplete = async () => {
     if (selectedItems.length > 0) {
-      navigation.navigate('LoadingScreen'); // 로딩 화면으로 이동
+      navigation.navigate('LoadingScreen'); 
       try {
         const recipes = await getRecommendedRecipes(selectedItems);
-        navigation.navigate('RecipeRecommendScreen', {recipes}); // 레시피 화면으로 이동
+        navigation.navigate('RecipeRecommendScreen', {recipes}); 
       } catch (error) {
         console.error('레시피 요청 중 오류 발생:', error);
         // 오류 처리 로직 추가 가능

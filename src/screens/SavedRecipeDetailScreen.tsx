@@ -70,7 +70,7 @@ const SavedRecipeDetailScreen: React.FC<SavedRecipeDetailScreenProps> = ({
 
   const steps =
     recipe?.recipe
-      ?.split(/Step\d+\./)
+      ?.split(/Step \d+\.\s*/)
       ?.filter(Boolean)
       ?.map((step: string, index: number) => ({
         id: index + 1,

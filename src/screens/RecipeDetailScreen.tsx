@@ -16,7 +16,7 @@ import StarRating from '../components/global/StarRating';
 import InfoCard from '../components/recipe/InfoCard';
 import GreenButton from '../components/global/GreenButton';
 import {getRecipeDetail, saveRecipe} from '../api/recipeApi';
-import {RouteProp} from '@react-navigation/native';
+import {RouteProp, useNavigation} from '@react-navigation/native';
 import {RootStackParamList} from '../navigation/RootNavigator';
 
 interface RecipeDetailScreenProps {
@@ -25,7 +25,7 @@ interface RecipeDetailScreenProps {
 
 const RecipeDetailScreen: React.FC<RecipeDetailScreenProps> = ({route}) => {
   const recipeId = route?.params?.recipeId || null;
-
+  const navigation = useNavigation();
   console.log('Route params:', route);
 
   const [activeTab, setActiveTab] = useState<'ingredients' | 'steps'>(
@@ -67,7 +67,12 @@ const RecipeDetailScreen: React.FC<RecipeDetailScreenProps> = ({route}) => {
     try {
       const response = await saveRecipe(recipeId, 'general');
       console.log('Recipe saved successfully!', response);
-      Alert.alert('저장 완료', '레시피가 저장되었습니다.');
+      Alert.alert('저장 완료', '레시피가 저장되었습니다.', [
+        {
+          text: '확인',
+          onPress: () => navigation.navigate('MainTabs', { screen: '냉장고' }),
+        },
+      ]);
     } catch (error) {
       console.error('Error saving recipe:', error);
       Alert.alert('저장 실패', '레시피 저장 중 오류가 발생했습니다.');
@@ -84,7 +89,7 @@ const RecipeDetailScreen: React.FC<RecipeDetailScreenProps> = ({route}) => {
 
   const steps =
     recipe?.recipe
-      ?.split(/Step\d+\./)
+      ?.split(/Step \d+\.\s*/)
       ?.filter(Boolean)
       ?.map((step: string, index: number) => ({
         id: index + 1,
