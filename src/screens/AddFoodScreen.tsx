@@ -12,6 +12,7 @@ const AddFoodScreen = () => {
   const navigation = useNavigation<NavigationProp>();
   const [selectedImage, setSelectedImage] = useState<Asset | null>(null);
 
+
   const pickImage = () => {
     launchImageLibrary({mediaType: 'photo'}, response => {
       if (!response.didCancel && response.assets) {
@@ -21,6 +22,7 @@ const AddFoodScreen = () => {
           foodId: null,
           selectedImage: asset,
         });
+
       }
     });
   };

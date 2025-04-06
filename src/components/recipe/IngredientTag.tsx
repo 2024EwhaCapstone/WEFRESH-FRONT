@@ -18,9 +18,14 @@ const IngredientTag: React.FC<IngredientTagProps> = ({ name, daysLeft }) => {
   return (
     <View style={styles.container}>
       <Text style={styles.name}>{name}</Text>
-      <View style={[styles.badge, { backgroundColor }]}>
+      {daysLeft != null && (
+    <View style={[styles.badge, { backgroundColor }]}>
+      <Text style={styles.badgeText}>{daysLeft}일 남음</Text>
+    </View>
+  )}
+      {/* <View style={[styles.badge, { backgroundColor }]}>
         <Text style={styles.badgeText}>{daysLeft}일 남음</Text>
-      </View>
+      </View> */}
     </View>
   );
 };
