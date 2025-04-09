@@ -27,6 +27,7 @@ import CameraButton from '../components/global/CameraButton';
 import {getFoodDetail} from '../api/main';
 import {useNavigation} from '@react-navigation/native';
 import {launchImageLibrary} from 'react-native-image-picker';
+import InlineLoading from '../components/global/InlineLoadingProps';
 
 interface FoodDetailScreenProps {
   route: RouteProp<RootStackParamList, 'FoodDetailScreen'>;
@@ -46,7 +47,7 @@ const FoodDetailScreen: React.FC<FoodDetailScreenProps> = ({route}) => {
   });
   const [image, setImage] = useState(selectedImage || null);
   const navigation = useNavigation();
-
+  const [loading, setLoading] = useState(false);
   useEffect(() => {
     const fetchFoodDetail = async () => {
       if (foodId) {
@@ -96,20 +97,12 @@ const FoodDetailScreen: React.FC<FoodDetailScreenProps> = ({route}) => {
 
   const handleEditMode = () => {
     setIsEditing(true);
-    // setIsCategoryEditing(true);
-    // setIsFoodNameEditing(true);
-    // setIsFoodCountEditing(true);
-    // setIsFoodMemoEditing(true);
-    // setIsDateEditing(true);
+    
   };
 
   const handleCompleteEdit = () => {
     setIsEditing(false);
-    // setIsCategoryEditing(false);
-    // setIsFoodNameEditing(false);
-    // setIsFoodCountEditing(false);
-    // setIsFoodMemoEditing(false);
-    // setIsDateEditing(false);
+    
     Alert.alert('수정 완료', '변경 사항이 저장되었습니다.');
   };
 
@@ -120,6 +113,8 @@ const FoodDetailScreen: React.FC<FoodDetailScreenProps> = ({route}) => {
       Alert.alert('오류', '식품 이름을 입력해주세요.');
       return;
     }
+    setLoading(true);
+    
     const foodData = {
       name: foodName,
       category: category,
@@ -141,6 +136,8 @@ const FoodDetailScreen: React.FC<FoodDetailScreenProps> = ({route}) => {
       navigation.goBack();
     } catch (error) {
       Alert.alert('오류', '저장하는 중 문제가 발생했습니다.');
+    }finally {
+      setLoading(false); 
     }
   };
   const handleDelete = async () => {
@@ -193,6 +190,9 @@ const FoodDetailScreen: React.FC<FoodDetailScreenProps> = ({route}) => {
 
   return (
     <View style={styles.container}>
+      
+        {loading && <InlineLoading message="업데이트 중..."/>}
+      
       <CloseButton
         style={styles.closeButton}
         backgroundColor="#08A900"
@@ -479,7 +479,7 @@ const FoodDetailScreen: React.FC<FoodDetailScreenProps> = ({route}) => {
 };
 
 const styles = StyleSheet.create({
-  container: {flex: 1, backgroundColor: '#F5F5F5', alignItems: 'center'},
+  container: {flex: 1, backgroundColor: '#F5F5F5', alignItems: 'center',  position: 'relative'},
   closeButton: {position: 'absolute', top: 50, left: 20, zIndex: 10},
   trashButton: {position: 'absolute', top: 50, right: 20, zIndex: 10},
   foodImage: {width: '100%', height: '45%', resizeMode: 'cover'},
@@ -632,6 +632,25 @@ const styles = StyleSheet.create({
     marginTop: 20,
     gap: 20,
   },
+  loadingOverlay: {
+    flex: 1,
+    backgroundColor: 'rgba(0,0,0,0.3)',
+    justifyContent: 'center',
+    alignItems: 'center',
+    zIndex: 999,
+  },
+  loadingBox: {
+    backgroundColor: 'white',
+    padding: 30,
+    borderRadius: 16,
+    alignItems: 'center',
+  },
+  loadingText: {
+    marginTop: 10,
+    fontSize: 16,
+    color: '#333',
+  },
+
 });
 
 export default FoodDetailScreen;
