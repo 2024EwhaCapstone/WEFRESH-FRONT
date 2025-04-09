@@ -8,6 +8,8 @@ import {
   TextInput,
   Alert,
   ScrollView,
+  KeyboardAvoidingView,
+  Platform
 } from 'react-native';
 import CloseButton from '../components/global/CloseButton';
 import GreenButton from '../components/global/GreenButton';
@@ -23,8 +25,11 @@ import {
   deleteFood,
 } from '../api/foodApi';
 import TrashButton from '../components/addfood/TrashButton';
+import CameraButton from '../components/global/CameraButton';
 import {getFoodDetail} from '../api/main';
 import {useNavigation} from '@react-navigation/native';
+import {launchImageLibrary} from 'react-native-image-picker';
+import InlineLoading from '../components/global/InlineLoadingProps';
 
 interface FoodDetailScreenProps {
   route: RouteProp<RootStackParamList, 'FoodDetailScreen'>;
@@ -42,28 +47,27 @@ const FoodDetailScreen: React.FC<FoodDetailScreenProps> = ({route}) => {
     month: '01',
     day: '01',
   });
-  const [image, setImage] = useState(selectedImage?.uri || '');
+  const [image, setImage] = useState(selectedImage || null);
   const navigation = useNavigation();
-
+  const [loading, setLoading] = useState(false);
   useEffect(() => {
     const fetchFoodDetail = async () => {
       if (foodId) {
         try {
           const detail = await getFoodDetail(foodId);
           if (detail.isSuccess) {
-            const fetchedDetail = detail.data;
-            setFoodName(fetchedDetail.name || '알수없음');
-            setCategory(fetchedDetail.category || '미지정');
-            setFoodCount(fetchedDetail.count || 0);
-            setFoodMemo(fetchedDetail.memo || '없음');
-            const formattedDate = formatDate(fetchedDetail.date) || '정보 없음';
-            const [year, month, day] = formattedDate.split('-');
+            const data = detail.data;
+            setFoodName(data.name || '');
+            setCategory(data.category || '미지정');
+            setFoodCount(data.count || 0);
+            setFoodMemo(data.memo || '');
+            const [year, month, day] = formatDate(data.date).split('-');
             setExpirationDate({year, month, day});
-            setImage(fetchedDetail.image || '');
+            setImage(data.image ? {uri: data.image} : null);
           } else {
             Alert.alert('오류', '식품 정보를 불러오는 데 실패했습니다.');
           }
-        } catch (error) {
+        } catch {
           Alert.alert('오류', '식품 정보를 불러오는 데 실패했습니다.');
         }
       }
@@ -95,20 +99,12 @@ const FoodDetailScreen: React.FC<FoodDetailScreenProps> = ({route}) => {
 
   const handleEditMode = () => {
     setIsEditing(true);
-    setIsCategoryEditing(true);
-    setIsFoodNameEditing(true);
-    setIsFoodCountEditing(true);
-    setIsFoodMemoEditing(true);
-    setIsDateEditing(true);
+    
   };
 
   const handleCompleteEdit = () => {
     setIsEditing(false);
-    setIsCategoryEditing(false);
-    setIsFoodNameEditing(false);
-    setIsFoodCountEditing(false);
-    setIsFoodMemoEditing(false);
-    setIsDateEditing(false);
+    
     Alert.alert('수정 완료', '변경 사항이 저장되었습니다.');
   };
 
@@ -119,13 +115,15 @@ const FoodDetailScreen: React.FC<FoodDetailScreenProps> = ({route}) => {
       Alert.alert('오류', '식품 이름을 입력해주세요.');
       return;
     }
+    setLoading(true);
+    
     const foodData = {
       name: foodName,
       category: category,
       date: `${expirationDate.year}-${expirationDate.month}-${expirationDate.day}`,
       count: foodCount,
       memo: foodMemo,
-      image: selectedImage,
+      image,
     };
 
     try {
@@ -140,6 +138,8 @@ const FoodDetailScreen: React.FC<FoodDetailScreenProps> = ({route}) => {
       navigation.goBack();
     } catch (error) {
       Alert.alert('오류', '저장하는 중 문제가 발생했습니다.');
+    }finally {
+      setLoading(false); 
     }
   };
   const handleDelete = async () => {
@@ -182,9 +182,23 @@ const FoodDetailScreen: React.FC<FoodDetailScreenProps> = ({route}) => {
     const day = monthDay[1].replace('일', '').trim();
     return `${year}-${month}-${day}`;
   };
+  const handleImagePick = () => {
+    launchImageLibrary({mediaType: 'photo'}, response => {
+      if (response.assets && response.assets.length > 0) {
+        setImage(response.assets[0]);
+      }
+    });
+  };
 
   return (
+    <KeyboardAvoidingView
+  behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+  style={{flex: 1}}
+>
     <View style={styles.container}>
+      
+        {loading && <InlineLoading message="업데이트 중..."/>}
+      
       <CloseButton
         style={styles.closeButton}
         backgroundColor="#08A900"
@@ -198,7 +212,17 @@ const FoodDetailScreen: React.FC<FoodDetailScreenProps> = ({route}) => {
           onPress={handleDelete}
         />
       )}
-      {image && <Image source={{uri: image}} style={styles.foodImage} />}
+      {image && <Image source={{uri: image.uri || image}}  style={[styles.foodImage, isEditing && {opacity: 0.4}]} />}
+      {isEditing && (
+         <CameraButton
+         style={{position: 'absolute', top: 200, zIndex: 10 , borderWidth: 2, borderColor: '#08A900',}}
+         backgroundColor="white"
+         iconColor="#08A900"
+         
+         onPress={handleImagePick}
+       />
+       
+      )}
       <View style={styles.contentContainer}>
         <Text style={styles.title}>{foodName}</Text>
 
@@ -457,11 +481,12 @@ const FoodDetailScreen: React.FC<FoodDetailScreenProps> = ({route}) => {
         </View>
       </View>
     </View>
+    </KeyboardAvoidingView>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {flex: 1, backgroundColor: '#F5F5F5', alignItems: 'center'},
+  container: {flex: 1, backgroundColor: '#F5F5F5', alignItems: 'center',  position: 'relative'},
   closeButton: {position: 'absolute', top: 50, left: 20, zIndex: 10},
   trashButton: {position: 'absolute', top: 50, right: 20, zIndex: 10},
   foodImage: {width: '100%', height: '45%', resizeMode: 'cover'},
@@ -482,7 +507,7 @@ const styles = StyleSheet.create({
     marginTop: 20,
     marginBottom: 20,
   },
-
+  imageUploadText: {color: 'white', fontWeight: 'bold'},
   foodName: {
     fontSize: 20,
     fontWeight: '700',
@@ -614,6 +639,25 @@ const styles = StyleSheet.create({
     marginTop: 20,
     gap: 20,
   },
+  loadingOverlay: {
+    flex: 1,
+    backgroundColor: 'rgba(0,0,0,0.3)',
+    justifyContent: 'center',
+    alignItems: 'center',
+    zIndex: 999,
+  },
+  loadingBox: {
+    backgroundColor: 'white',
+    padding: 30,
+    borderRadius: 16,
+    alignItems: 'center',
+  },
+  loadingText: {
+    marginTop: 10,
+    fontSize: 16,
+    color: '#333',
+  },
+
 });
 
 export default FoodDetailScreen;

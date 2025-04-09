@@ -54,9 +54,35 @@ export const postFreshness = async (foodId, image) => {
   return response.data;
 };
 
+// export const updateFood = async (foodId, foodData) => {
+//   try {
+//     const response = await api.put(`/foods/${foodId}`, foodData, {
+//       headers: {
+//         'Content-Type': 'multipart/form-data',
+//       },
+//     });
+
+//     return response.data;
+//   } catch (error) {
+//     console.error('Error updating food:', error);
+//     throw error;
+//   }
+// };
 export const updateFood = async (foodId, foodData) => {
   try {
-    const response = await api.put(`/foods/${foodId}`, foodData, {
+    const formData = new FormData();
+    formData.append('image', {
+      uri: foodData.image.uri,
+      name: foodData.image.fileName || 'image.jpg',
+      type: foodData.image.type || 'image/jpeg',
+    });
+    formData.append('name', foodData.name);
+    formData.append('category', foodData.category);
+    formData.append('date', foodData.date);
+    formData.append('count', String(foodData.count));
+    formData.append('memo', foodData.memo);
+
+    const response = await api.put(`/foods/${foodId}`, formData, {
       headers: {
         'Content-Type': 'multipart/form-data',
       },
@@ -64,7 +90,7 @@ export const updateFood = async (foodId, foodData) => {
 
     return response.data;
   } catch (error) {
-    console.error('Error updating food:', error);
+    console.error('Error updating food:', error?.response || error);
     throw error;
   }
 };

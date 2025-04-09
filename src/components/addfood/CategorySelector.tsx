@@ -6,7 +6,7 @@ interface CategorySelectorProps {
   onSelectCategory: (category: string) => void;
 }
 
-const categories = ['과일', '육류', '냉동식품', '채소', '반찬'];
+const categories = ['과일', '고기', '냉동식품', '채소', '반찬'];
 
 const CategorySelector: React.FC<CategorySelectorProps> = ({ selectedCategory, onSelectCategory }) => {
   return (
