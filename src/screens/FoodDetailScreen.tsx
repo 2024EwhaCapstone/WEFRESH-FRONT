@@ -8,6 +8,8 @@ import {
   TextInput,
   Alert,
   ScrollView,
+  KeyboardAvoidingView,
+  Platform
 } from 'react-native';
 import CloseButton from '../components/global/CloseButton';
 import GreenButton from '../components/global/GreenButton';
@@ -189,6 +191,10 @@ const FoodDetailScreen: React.FC<FoodDetailScreenProps> = ({route}) => {
   };
 
   return (
+    <KeyboardAvoidingView
+  behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+  style={{flex: 1}}
+>
     <View style={styles.container}>
       
         {loading && <InlineLoading message="업데이트 중..."/>}
@@ -475,6 +481,7 @@ const FoodDetailScreen: React.FC<FoodDetailScreenProps> = ({route}) => {
         </View>
       </View>
     </View>
+    </KeyboardAvoidingView>
   );
 };
 
