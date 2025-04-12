@@ -88,16 +88,18 @@ const HomeScreen = () => {
                   ? recipeData[currentRecipeIndex].image
                   : '',
             }}
-            style={styles.imageBackground}></ImageBackground>
-          {/* <View style={styles.ingredientsContainer}>
-            {recipeData[currentRecipeIndex].ingredients.map(
-              (ingredient, index) => (
-                <Text key={index} style={styles.ingredientText}>
-                  #{ingredient}
-                </Text>
-              ),
-            )}
-          </View> */}
+            style={styles.imageBackground}>
+            <View style={styles.ingredientsContainer}>
+              {recipeData.length > 0 &&
+                recipeData[currentRecipeIndex].ingredients
+                  .slice(0, 3)
+                  .map((ingredient, index) => (
+                    <View key={index} style={styles.ingredientBox}>
+                      <Text style={styles.ingredientText}>#{ingredient}</Text>
+                    </View>
+                  ))}
+            </View>
+          </ImageBackground>
         </View>
         <View style={styles.paginationContainer}>
           {recipeData.map((_, index) => (
@@ -192,15 +194,22 @@ const styles = StyleSheet.create({
     height: 204,
   },
   ingredientsContainer: {
+    position: 'absolute',
+    bottom: 10,
+    left: 10,
     flexDirection: 'row',
     flexWrap: 'wrap',
-
-    zIndex: 10,
+  },
+  ingredientBox: {
+    backgroundColor: 'rgba(255, 255, 255, 0.7)',
+    borderRadius: 5,
+    padding: 5,
+    marginRight: 5,
+    marginBottom: 5,
   },
   ingredientText: {
-    color: '#000000',
-    fontSize: 16,
-    marginRight: 5,
+    color: '#000',
+    fontSize: 14,
   },
   paginationContainer: {
     flexDirection: 'row',
