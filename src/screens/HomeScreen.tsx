@@ -23,6 +23,15 @@ const HomeScreen = () => {
   const [data, setData] = useState([]);
   const [recipeData, setRecipeData] = useState([]);
   const [currentRecipeIndex, setCurrentRecipeIndex] = useState(0);
+  const [currentDate, setCurrentDate] = useState('');
+
+  useEffect(() => {
+    const today = new Date();
+    const formattedDate = `${today.getFullYear()}년 ${String(
+      today.getMonth() + 1,
+    ).padStart(2, '0')}월 ${String(today.getDate()).padStart(2, '0')}일`;
+    setCurrentDate(formattedDate);
+  }, []);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -62,7 +71,7 @@ const HomeScreen = () => {
           <View style={styles.view1}>
             <View style={styles.view2}>
               <Text style={styles.text1}>오늘의 메뉴</Text>
-              <Text style={styles.text2}>2025년 01월 04일</Text>
+              <Text style={styles.text2}>{currentDate}</Text>
             </View>
             <View style={styles.view3}>
               <Text style={styles.text3}>
@@ -79,16 +88,18 @@ const HomeScreen = () => {
                   ? recipeData[currentRecipeIndex].image
                   : '',
             }}
-            style={styles.imageBackground}></ImageBackground>
-          {/* <View style={styles.ingredientsContainer}>
-            {recipeData[currentRecipeIndex].ingredients.map(
-              (ingredient, index) => (
-                <Text key={index} style={styles.ingredientText}>
-                  #{ingredient}
-                </Text>
-              ),
-            )}
-          </View> */}
+            style={styles.imageBackground}>
+            <View style={styles.ingredientsContainer}>
+              {recipeData.length > 0 &&
+                recipeData[currentRecipeIndex].ingredients
+                  .slice(0, 3)
+                  .map((ingredient, index) => (
+                    <View key={index} style={styles.ingredientBox}>
+                      <Text style={styles.ingredientText}>#{ingredient}</Text>
+                    </View>
+                  ))}
+            </View>
+          </ImageBackground>
         </View>
         <View style={styles.paginationContainer}>
           {recipeData.map((_, index) => (
@@ -183,15 +194,22 @@ const styles = StyleSheet.create({
     height: 204,
   },
   ingredientsContainer: {
+    position: 'absolute',
+    bottom: 10,
+    left: 10,
     flexDirection: 'row',
     flexWrap: 'wrap',
-
-    zIndex: 10,
+  },
+  ingredientBox: {
+    backgroundColor: 'rgba(255, 255, 255, 0.7)',
+    borderRadius: 5,
+    padding: 5,
+    marginRight: 5,
+    marginBottom: 5,
   },
   ingredientText: {
-    color: '#000000',
-    fontSize: 16,
-    marginRight: 5,
+    color: '#000',
+    fontSize: 14,
   },
   paginationContainer: {
     flexDirection: 'row',

@@ -1,6 +1,13 @@
-import React, {useState, useEffect,useCallback  } from 'react';
-import { useFocusEffect } from '@react-navigation/native';
-import {View, Text, TouchableOpacity, StyleSheet, FlatList } from 'react-native';
+import React, {useState, useEffect, useCallback} from 'react';
+import {useFocusEffect} from '@react-navigation/native';
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  StyleSheet,
+  FlatList,
+  ScrollView,
+} from 'react-native';
 import SearchBar from '../components/refrigerator/SearchBar';
 import Item from '../components/refrigerator/Item';
 import CategoryNavBar from '../components/refrigerator/CategoryNavBar';
@@ -26,11 +33,11 @@ const RefrigeratorScreen = () => {
   useFocusEffect(
     useCallback(() => {
       fetchData();
-    }, [selectedCategory, searchTerm])
+    }, [selectedCategory, searchTerm]),
   );
   useEffect(() => {
     fetchData();
-  }, [selectedCategory, searchTerm]); 
+  }, [selectedCategory, searchTerm]);
 
   const handleItemPress = (foodId: number) => {
     setSelectedItems(prevSelected => {
@@ -48,10 +55,10 @@ const RefrigeratorScreen = () => {
 
   const handleSelectionComplete = async () => {
     if (selectedItems.length > 0) {
-      navigation.navigate('LoadingScreen'); 
+      navigation.navigate('LoadingScreen');
       try {
         const recipes = await getRecommendedRecipes(selectedItems);
-        navigation.navigate('RecipeRecommendScreen', {recipes}); 
+        navigation.navigate('RecipeRecommendScreen', {recipes});
       } catch (error) {
         console.error('레시피 요청 중 오류 발생:', error);
         // 오류 처리 로직 추가 가능
@@ -63,11 +70,17 @@ const RefrigeratorScreen = () => {
     <View style={styles.container}>
       <SearchBar onSearch={setSearchTerm} />
       <View style={styles.view1}>
-        <CategoryNavBar
-          categories={['전체', '과일', '고기', '채소', '반찬']}
-          selectedCategory={selectedCategory}
-          onSelectCategory={setSelectedCategory}
-        />
+        <ScrollView
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          style={[styles.scrollview1]}>
+          <CategoryNavBar
+            categories={['전체', '과일', '고기', '냉동식품', '채소', '반찬']}
+            selectedCategory={selectedCategory}
+            onSelectCategory={setSelectedCategory}
+          />
+        </ScrollView>
+
         <FlatList
           data={data}
           renderItem={({item}) => (
@@ -81,6 +94,7 @@ const RefrigeratorScreen = () => {
           keyExtractor={item => item.foodId.toString()}
           numColumns={2}
           columnWrapperStyle={styles.row}
+          contentContainerStyle={styles.contentContainer}
         />
         <TouchableOpacity
           style={[
@@ -105,8 +119,8 @@ const RefrigeratorScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: 'flex-start',
+    alignItems: 'flex-start',
     backgroundColor: 'white',
     gap: 20,
     paddingHorizontal: 16,
@@ -114,8 +128,8 @@ const styles = StyleSheet.create({
   },
   view1: {
     flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: 'flex-start',
+    alignItems: 'flex-start',
     flex: 1,
     gap: 16,
     paddingHorizontal: 8,
@@ -173,6 +187,17 @@ const styles = StyleSheet.create({
   recipeItem: {
     fontSize: 16,
     marginVertical: 5,
+  },
+  contentContainer: {
+    alignItems: 'flex-start',
+    justifyContent: 'space-between',
+    paddingHorizontal: 10,
+  },
+  scrollview1: {
+    flexGrow: 0,
+    flexShrink: 1,
+    paddingVertical: 0,
+    marginVertical: 0,
   },
 });
 
