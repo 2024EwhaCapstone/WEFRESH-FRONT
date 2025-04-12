@@ -23,6 +23,15 @@ const HomeScreen = () => {
   const [data, setData] = useState([]);
   const [recipeData, setRecipeData] = useState([]);
   const [currentRecipeIndex, setCurrentRecipeIndex] = useState(0);
+  const [currentDate, setCurrentDate] = useState('');
+
+  useEffect(() => {
+    const today = new Date();
+    const formattedDate = `${today.getFullYear()}년 ${String(
+      today.getMonth() + 1,
+    ).padStart(2, '0')}월 ${String(today.getDate()).padStart(2, '0')}일`;
+    setCurrentDate(formattedDate);
+  }, []);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -62,7 +71,7 @@ const HomeScreen = () => {
           <View style={styles.view1}>
             <View style={styles.view2}>
               <Text style={styles.text1}>오늘의 메뉴</Text>
-              <Text style={styles.text2}>2025년 01월 04일</Text>
+              <Text style={styles.text2}>{currentDate}</Text>
             </View>
             <View style={styles.view3}>
               <Text style={styles.text3}>
