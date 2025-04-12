@@ -31,8 +31,9 @@ const CategoryNavBar: React.FC<{
 
 const styles = StyleSheet.create({
   container: {
-    // paddingHorizontal: 8,
     flexDirection: 'row',
+    alignItems: 'center',
+    height: 42,
   },
   selected: {
     width: 74,
@@ -57,7 +58,7 @@ const styles = StyleSheet.create({
   unselectedText: {
     color: '#C1C1C1',
     fontSize: 15,
-    fontWeight: 500,
+    fontWeight: '500',
   },
 });
 
