@@ -15,7 +15,7 @@ import {Asset} from 'react-native-image-picker';
 
 export type RootStackParamList = {
   MainTabs: undefined;
-  RecipeRecommend: undefined;
+  RecipeRecommend: { recipes: any };
   RecipeDetailScreen: {recipeId: number};
   RefrigeratorScreen: undefined;
   AddFoodScreen: undefined;
@@ -42,7 +42,7 @@ const RootNavigator = () => {
       <Stack.Screen name="MainTabs" component={BottomTabNavigator} />
 
       <Stack.Screen
-        name="RecipeRecommendScreen"
+        name="RecipeRecommend"
         component={RecipeRecommendScreen}
         options={{presentation: 'card', headerShown: false}}
       />
