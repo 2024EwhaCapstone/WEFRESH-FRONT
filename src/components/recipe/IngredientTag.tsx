@@ -4,28 +4,21 @@ import { View, Text, StyleSheet } from 'react-native';
 interface IngredientTagProps {
   name: string;
   daysLeft: number;
+  color: string; // 서버에서 전달받는 색상 추가
 }
 
-const IngredientTag: React.FC<IngredientTagProps> = ({ name, daysLeft }) => {
-  let backgroundColor = '#0ABF00B0'; 
-  
-  if (daysLeft <= 3) {
-    backgroundColor = '#F13A3ACC'; 
-  } else if (daysLeft <= 10) {
-    backgroundColor = '#FFD15B'; 
-  }
+const IngredientTag: React.FC<IngredientTagProps> = ({ name, daysLeft, color }) => {
+  const displayDays = Math.abs(daysLeft); 
+  const backgroundColor = color || '#0ABF00B0'; 
 
   return (
     <View style={styles.container}>
       <Text style={styles.name}>{name}</Text>
       {daysLeft != null && (
     <View style={[styles.badge, { backgroundColor }]}>
-      <Text style={styles.badgeText}>{daysLeft}일 남음</Text>
+      <Text style={styles.badgeText}>{displayDays}일 남음</Text>
     </View>
   )}
-      {/* <View style={[styles.badge, { backgroundColor }]}>
-        <Text style={styles.badgeText}>{daysLeft}일 남음</Text>
-      </View> */}
     </View>
   );
 };
@@ -34,9 +27,8 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
     backgroundColor: 'white',
-   
-    width:112,
-    height:31,
+    width: 112,
+    height: 31,
     borderRadius: 8,
     alignItems: 'center',
     justifyContent: 'center',
@@ -58,7 +50,6 @@ const styles = StyleSheet.create({
   },
   badgeText: {
     fontSize: 10,
-    
     color: 'white',
     textAlign: 'center',
   },
