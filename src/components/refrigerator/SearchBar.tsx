@@ -8,13 +8,21 @@ const SearchBar = ({onSearch}) => {
     onSearch(searchTerm); // 부모 컴포넌트에 검색어 전달
   };
 
+  const handleChangeText = (text: string) => {
+    setSearchTerm(text);
+    if (text === '') {
+      onSearch('');
+    }
+    // onSearch(text);
+  };
+
   return (
     <View style={styles.container}>
       <TextInput
         style={styles.input}
         placeholder="궁금한 식재료를 검색해보세요"
         placeholderTextColor="#9C9292"
-        onChangeText={setSearchTerm}
+        onChangeText={handleChangeText}
         onSubmitEditing={handleSearch} // Enter 키로 검색
       />
       <Image
