@@ -189,9 +189,9 @@ const styles = StyleSheet.create({
     marginVertical: 5,
   },
   contentContainer: {
-    alignItems: 'flex-start',
-    justifyContent: 'flex-start',
-    paddingHorizontal: 10,
+    // alignItems: 'flex-start',
+    // justifyContent: 'space-between',
+    // paddingHorizontal: 10,
   },
   scrollview1: {
     flexGrow: 0,
