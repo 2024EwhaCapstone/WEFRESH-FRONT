@@ -190,7 +190,7 @@ const styles = StyleSheet.create({
   },
   contentContainer: {
     alignItems: 'flex-start',
-    justifyContent: 'space-between',
+    justifyContent: 'flex-start',
     paddingHorizontal: 10,
   },
   scrollview1: {
