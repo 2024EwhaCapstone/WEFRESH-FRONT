@@ -56,12 +56,17 @@ const RecipeRecommendScreen = ({route}) => {
 
   return (
     <View style={styles.container}>
-      <CloseButton
+      {/* <CloseButton
         style={styles.closeButton}
         backgroundColor="white"
         iconColor="#08A900"
-      />
-
+      /> */}
+      <CloseButton
+  onPress={() => navigation.navigate('MainTabs', { screen: '냉장고' })}
+  style={styles.closeButton}
+  backgroundColor="white"
+  iconColor="#08A900"
+/>
       <View style={styles.imageContainer}>
         <TouchableOpacity onPress={handlePrev}>
           <Image
