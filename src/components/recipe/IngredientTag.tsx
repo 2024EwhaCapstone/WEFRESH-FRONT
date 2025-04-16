@@ -4,7 +4,10 @@ import { View, Text, StyleSheet } from 'react-native';
 interface IngredientTagProps {
   name: string;
   daysLeft: number;
-  color: string; // 서버에서 전달받는 색상 추가
+
+  color: string; 
+
+
 }
 
 const IngredientTag: React.FC<IngredientTagProps> = ({ name, daysLeft, color }) => {
