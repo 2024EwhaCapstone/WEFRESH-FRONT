@@ -58,7 +58,7 @@ const RefrigeratorScreen = () => {
       navigation.navigate('LoadingScreen');
       try {
         const recipes = await getRecommendedRecipes(selectedItems);
-        navigation.navigate('RecipeRecommendScreen', {recipes});
+        navigation.navigate('RecipeRecommend', { recipes });
       } catch (error) {
         console.error('레시피 요청 중 오류 발생:', error);
         // 오류 처리 로직 추가 가능

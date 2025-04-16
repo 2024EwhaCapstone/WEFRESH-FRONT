@@ -70,7 +70,8 @@ const RecipeDetailScreen: React.FC<RecipeDetailScreenProps> = ({route}) => {
       Alert.alert('저장 완료', '레시피가 저장되었습니다.', [
         {
           text: '확인',
-          onPress: () => navigation.navigate('MainTabs', { screen: '냉장고' }),
+          // onPress: () => navigation.navigate('MainTabs', { screen: '냉장고' }),
+          onPress: () => navigation.goBack(),
         },
       ]);
     } catch (error) {

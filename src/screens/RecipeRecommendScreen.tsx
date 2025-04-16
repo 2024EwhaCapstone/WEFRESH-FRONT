@@ -19,54 +19,7 @@ import {RootStackParamList} from '../navigation/RootNavigator';
 
 const {width, height} = Dimensions.get('window');
 
-const mockRecipes = [
-  {
-    id: 1,
-    title: '연어 덮밥',
 
-    rating: 4,
-    ingredients: [
-      {name: '연어', daysLeft: 1},
-      {name: '대파', daysLeft: 4},
-      {name: '양파', daysLeft: 24},
-      {name: '양파', daysLeft: 24},
-    ],
-    cookTime: '30분',
-    calories: '780 kcal',
-    likes: '100',
-    image: require('../assets/images/img_recipe1.png'),
-  },
-  {
-    id: 2,
-    title: '불고기 덮밥',
-
-    rating: 5,
-    ingredients: [
-      {name: '소고기', daysLeft: 2},
-      {name: '간장', daysLeft: 10},
-      {name: '양파', daysLeft: 15},
-    ],
-    cookTime: '25분',
-    calories: '650 kcal',
-    likes: '132',
-    image: require('../assets/images/img_recipe2.png'),
-  },
-  {
-    id: 3,
-    title: '김치찌개',
-
-    rating: 3,
-    ingredients: [
-      {name: '김치', daysLeft: 3},
-      {name: '돼지고기', daysLeft: 2},
-      {name: '두부', daysLeft: 5},
-    ],
-    cookTime: '40분',
-    calories: '590 kcal',
-    likes: '89',
-    image: require('../assets/images/img_recipe2.png'),
-  },
-];
 
 const RecipeRecommendScreen = ({route}) => {
   const {recipes} = route.params;
@@ -96,19 +49,24 @@ const RecipeRecommendScreen = ({route}) => {
 
   const handleNavigateToDetail = useCallback(() => {
     navigation.navigate('RecipeDetailScreen', {recipeId: recipe.recipeId});
-  }, [navigation]);
+  }, [navigation, recipe ]);
 
   // // 실제 레시피 데이터에서 recipes 배열 추출
   // const recipeList = recipes.data.recipes;
 
   return (
     <View style={styles.container}>
-      <CloseButton
+      {/* <CloseButton
         style={styles.closeButton}
         backgroundColor="white"
         iconColor="#08A900"
-      />
-
+      /> */}
+      <CloseButton
+  onPress={() => navigation.navigate('MainTabs', { screen: '냉장고' })}
+  style={styles.closeButton}
+  backgroundColor="white"
+  iconColor="#08A900"
+/>
       <View style={styles.imageContainer}>
         <TouchableOpacity onPress={handlePrev}>
           <Image
@@ -135,7 +93,7 @@ const RecipeRecommendScreen = ({route}) => {
         {/* <StarRating rating={recipe.rating} /> */}
         <View style={styles.ingredientsContainer}>
           {recipe.ingredients.map((item, idx) => (
-            <IngredientTag key={idx} name={item.name} daysLeft={item.dday} />
+            <IngredientTag key={idx} name={item.name} daysLeft={item.dday} color={item.color}/>
           ))}
         </View>
         <View style={styles.infoContainer}>

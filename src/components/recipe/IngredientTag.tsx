@@ -4,7 +4,10 @@ import { View, Text, StyleSheet } from 'react-native';
 interface IngredientTagProps {
   name: string;
   daysLeft: number;
+
   color: string; 
+
+
 }
 
 const IngredientTag: React.FC<IngredientTagProps> = ({ name, daysLeft, color }) => {
