@@ -6,7 +6,7 @@ const CustomHeader = () => {
     <SafeAreaView style={styles.safeArea}>
       <View style={styles.header}>
         <Image
-          source={require('../../assets/images/wefresh-white.png')}
+          source={require('../../assets/images/COOKiT.png')}
           style={styles.header_logo}
         />
       </View>
@@ -16,7 +16,7 @@ const CustomHeader = () => {
 
 const styles = StyleSheet.create({
   safeArea: {
-    backgroundColor: '#28AA3B',
+    backgroundColor: '#FFFFFF',
   },
   header: {
     height: 55,

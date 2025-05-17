@@ -12,7 +12,6 @@ const AddFoodScreen = () => {
   const navigation = useNavigation<NavigationProp>();
   const [selectedImage, setSelectedImage] = useState<Asset | null>(null);
 
-
   const pickImage = () => {
     launchImageLibrary({mediaType: 'photo'}, response => {
       if (!response.didCancel && response.assets) {
@@ -22,7 +21,6 @@ const AddFoodScreen = () => {
           foodId: null,
           selectedImage: asset,
         });
-
       }
     });
   };
@@ -59,7 +57,7 @@ const styles = StyleSheet.create({
   button: {
     position: 'absolute',
     bottom: 30,
-    backgroundColor: '#4CAF50',
+    backgroundColor: '#F46161',
     paddingVertical: 10,
     paddingHorizontal: 20,
     borderRadius: 30,

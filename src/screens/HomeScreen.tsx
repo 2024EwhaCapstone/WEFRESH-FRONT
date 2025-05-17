@@ -147,7 +147,7 @@ const styles = StyleSheet.create({
   },
   backView: {
     flex: 1,
-    backgroundColor: '#28AA3B',
+    backgroundColor: '#F46161',
     paddingTop: 8,
     paddingHorizontal: 24,
     paddingBottom: 16,
@@ -224,7 +224,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 5,
   },
   activeDot: {
-    backgroundColor: '#28AA3B',
+    backgroundColor: '#F46161',
   },
 });
 

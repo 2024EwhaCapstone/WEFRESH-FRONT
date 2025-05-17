@@ -1,7 +1,7 @@
 import React from 'react';
-import { View, StyleSheet, Image } from 'react-native';
+import {View, StyleSheet, Image} from 'react-native';
 
-const StarRating = ({ rating }: { rating: number }) => {
+const StarRating = ({rating}: {rating: number}) => {
   const totalStars = 5;
   return (
     <View style={styles.starContainer}>
@@ -10,8 +10,8 @@ const StarRating = ({ rating }: { rating: number }) => {
           key={index}
           source={
             index < rating
-              ? require('../../assets/icons/star_icon_green.png') 
-              : require('../../assets/icons/star_icon.png') 
+              ? require('../../assets/icons/star_icon_pink.png')
+              : require('../../assets/icons/star_icon.png')
           }
           style={styles.star}
         />

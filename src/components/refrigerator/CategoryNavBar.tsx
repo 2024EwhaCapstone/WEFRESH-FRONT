@@ -40,7 +40,7 @@ const styles = StyleSheet.create({
     height: 32,
     justifyContent: 'center',
     alignItems: 'center',
-    borderColor: '#068100',
+    borderColor: '#F46161',
     borderWidth: 1,
     borderRadius: 20,
   },
@@ -51,7 +51,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   selectedText: {
-    color: '#068100',
+    color: '#F46161',
     fontSize: 16,
     fontWeight: 'bold',
   },

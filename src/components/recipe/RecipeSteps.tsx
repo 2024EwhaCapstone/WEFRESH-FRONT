@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, ScrollView, Image } from 'react-native';
+import {View, Text, StyleSheet, ScrollView, Image} from 'react-native';
 
 interface Step {
   id: number;
@@ -11,14 +11,13 @@ interface RecipeStepsProps {
   steps: Step[];
 }
 
-const RecipeSteps: React.FC<RecipeStepsProps> = ({ steps }) => {
+const RecipeSteps: React.FC<RecipeStepsProps> = ({steps}) => {
   return (
     <ScrollView contentContainerStyle={styles.scrollContent}>
-      {steps.map((item) => (
+      {steps.map(item => (
         <View key={item.id} style={styles.analysisBox}>
           <Text style={styles.analysisTitle}>{item.title}</Text>
           <View style={styles.analysisContainer}>
-            
             <Text style={styles.analysisText}>{item.description}</Text>
           </View>
         </View>
@@ -42,10 +41,10 @@ const styles = StyleSheet.create({
   },
   analysisTitle: {
     fontSize: 16,
-    fontWeight: "500",
-    fontFamily: "Inter-Medium",
-    color: "#28aa3b",
-    textAlign: "left",
+    fontWeight: '500',
+    fontFamily: 'Inter-Medium',
+    color: '#F46161',
+    textAlign: 'left',
     paddingBottom: 5,
   },
   analysisContainer: {

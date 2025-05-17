@@ -19,8 +19,6 @@ import {RootStackParamList} from '../navigation/RootNavigator';
 
 const {width, height} = Dimensions.get('window');
 
-
-
 const RecipeRecommendScreen = ({route}) => {
   const {recipes} = route.params;
 
@@ -49,7 +47,7 @@ const RecipeRecommendScreen = ({route}) => {
 
   const handleNavigateToDetail = useCallback(() => {
     navigation.navigate('RecipeDetailScreen', {recipeId: recipe.recipeId});
-  }, [navigation, recipe ]);
+  }, [navigation, recipe]);
 
   // // 실제 레시피 데이터에서 recipes 배열 추출
   // const recipeList = recipes.data.recipes;
@@ -59,14 +57,14 @@ const RecipeRecommendScreen = ({route}) => {
       {/* <CloseButton
         style={styles.closeButton}
         backgroundColor="white"
-        iconColor="#08A900"
+        iconColor="#F46161"
       /> */}
       <CloseButton
-  onPress={() => navigation.navigate('MainTabs', { screen: '냉장고' })}
-  style={styles.closeButton}
-  backgroundColor="white"
-  iconColor="#08A900"
-/>
+        onPress={() => navigation.navigate('MainTabs', {screen: '냉장고'})}
+        style={styles.closeButton}
+        backgroundColor="white"
+        iconColor="#F46161"
+      />
       <View style={styles.imageContainer}>
         <TouchableOpacity onPress={handlePrev}>
           <Image
@@ -93,7 +91,12 @@ const RecipeRecommendScreen = ({route}) => {
         {/* <StarRating rating={recipe.rating} /> */}
         <View style={styles.ingredientsContainer}>
           {recipe.ingredients.map((item, idx) => (
-            <IngredientTag key={idx} name={item.name} daysLeft={item.dday} color={item.color}/>
+            <IngredientTag
+              key={idx}
+              name={item.name}
+              daysLeft={item.dday}
+              color={item.color}
+            />
           ))}
         </View>
         <View style={styles.infoContainer}>
@@ -125,7 +128,7 @@ const styles = StyleSheet.create({
     zIndex: 10,
   },
   header: {
-    backgroundColor: '#08A900',
+    backgroundColor: '#F46161',
     width: '100%',
     height: height * 0.5,
     borderBottomLeftRadius: 196,
