@@ -63,7 +63,6 @@ const RefrigeratorScreen = () => {
         navigation.navigate('RecipeRecommend', {recipes});
       } catch (error) {
         console.error('레시피 요청 중 오류 발생:', error);
-        // 오류 처리 로직 추가 가능
       }
     } else setIsSelecting(false);
   };
@@ -154,7 +153,7 @@ const styles = StyleSheet.create({
     shadowRadius: 3,
   },
   buttonDefault: {
-    backgroundColor: '#4CAF50',
+    backgroundColor: '#F46161',
   },
   buttonSelected: {
     backgroundColor: 'white',
@@ -165,7 +164,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   buttonTextSelected: {
-    color: '#4CAF50',
+    color: '#F46161',
     fontSize: 16,
     fontWeight: 'bold',
   },

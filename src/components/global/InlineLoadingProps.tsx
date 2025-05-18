@@ -1,6 +1,12 @@
 // components/global/InlineLoading.tsx
 import React from 'react';
-import {View, Text, ActivityIndicator, StyleSheet, Dimensions} from 'react-native';
+import {
+  View,
+  Text,
+  ActivityIndicator,
+  StyleSheet,
+  Dimensions,
+} from 'react-native';
 
 interface InlineLoadingProps {
   message?: string;
@@ -9,7 +15,7 @@ interface InlineLoadingProps {
 
 const InlineLoading: React.FC<InlineLoadingProps> = ({
   message = '저장 중입니다...',
-  color = '#08A900',
+  color = '#F46161',
 }) => {
   return (
     <View style={styles.overlay}>
@@ -28,7 +34,7 @@ const styles = StyleSheet.create({
     left: 0,
     width: Dimensions.get('window').width,
     height: Dimensions.get('window').height,
-    backgroundColor: 'rgba(0, 0, 0, 0.25)', 
+    backgroundColor: 'rgba(0, 0, 0, 0.25)',
     justifyContent: 'center',
     alignItems: 'center',
     zIndex: 100,

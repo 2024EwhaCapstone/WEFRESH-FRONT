@@ -1,14 +1,17 @@
 import React from 'react';
-import { TouchableOpacity, Text, StyleSheet } from 'react-native';
+import {TouchableOpacity, Text, StyleSheet} from 'react-native';
 
 interface GreenButtonProps {
   title: string;
   onPress: () => void;
 }
 
-const GreenButton: React.FC<GreenButtonProps> = ({ title, onPress }) => {
+const GreenButton: React.FC<GreenButtonProps> = ({title, onPress}) => {
   return (
-    <TouchableOpacity style={styles.button} onPress={onPress} activeOpacity={0.7}>
+    <TouchableOpacity
+      style={styles.button}
+      onPress={onPress}
+      activeOpacity={0.7}>
       <Text style={styles.buttonText}>{title}</Text>
     </TouchableOpacity>
   );
@@ -16,22 +19,20 @@ const GreenButton: React.FC<GreenButtonProps> = ({ title, onPress }) => {
 
 const styles = StyleSheet.create({
   button: {
-    backgroundColor: '#08A900',
-    height:35,
-    width:160,
+    backgroundColor: '#F46161',
+    height: 35,
+    width: 160,
     borderRadius: 50,
     alignItems: 'center',
     justifyContent: 'center',
-    shadowColor: "rgba(0, 0, 0, 0.25)",
+    shadowColor: 'rgba(0, 0, 0, 0.25)',
     shadowOffset: {
-    width: 0,
-    height: 4
+      width: 0,
+      height: 4,
     },
     shadowRadius: 4,
     elevation: 4,
     shadowOpacity: 1,
-    
-    
   },
   buttonText: {
     fontSize: 16,

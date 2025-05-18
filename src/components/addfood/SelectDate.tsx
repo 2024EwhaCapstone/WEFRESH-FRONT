@@ -1,6 +1,6 @@
-import React, { useState } from "react";
-import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
-import DateTimePicker from "@react-native-community/datetimepicker";
+import React, {useState} from 'react';
+import {View, Text, TouchableOpacity, StyleSheet} from 'react-native';
+import DateTimePicker from '@react-native-community/datetimepicker';
 
 interface SelectDateProps {
   expirationDate: string;
@@ -8,14 +8,19 @@ interface SelectDateProps {
   isEditing: boolean;
 }
 
-const SelectDate: React.FC<SelectDateProps> = ({ expirationDate, setExpirationDate, isEditing }) => {
+const SelectDate: React.FC<SelectDateProps> = ({
+  expirationDate,
+  setExpirationDate,
+  isEditing,
+}) => {
   const [showPicker, setShowPicker] = useState(false);
   const [date, setDate] = useState(new Date());
 
   const handleConfirm = (event: any, selectedDate?: Date) => {
     setShowPicker(false);
     if (selectedDate) {
-      const formattedDate = selectedDate.toISOString().split("T")[0].replace(/-/g, "년 ") + "일";
+      const formattedDate =
+        selectedDate.toISOString().split('T')[0].replace(/-/g, '년 ') + '일';
       setExpirationDate(formattedDate);
     }
   };
@@ -23,7 +28,9 @@ const SelectDate: React.FC<SelectDateProps> = ({ expirationDate, setExpirationDa
   return (
     <View>
       <TouchableOpacity onPress={() => isEditing && setShowPicker(true)}>
-        <Text style={[styles.dateText, isEditing && styles.editableText]}>{expirationDate}</Text>
+        <Text style={[styles.dateText, isEditing && styles.editableText]}>
+          {expirationDate}
+        </Text>
       </TouchableOpacity>
 
       {showPicker && (
@@ -41,11 +48,11 @@ const SelectDate: React.FC<SelectDateProps> = ({ expirationDate, setExpirationDa
 const styles = StyleSheet.create({
   dateText: {
     fontSize: 16,
-    color: "#666",
+    color: '#666',
   },
   editableText: {
-    color: "#4CAF50",
-    fontWeight: "bold",
+    color: '#F46161',
+    fontWeight: 'bold',
   },
 });
 

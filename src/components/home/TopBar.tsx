@@ -26,7 +26,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
   },
   Logo: {
-    color: '#28AA3B',
+    color: '#F46161',
     fontSize: 32,
     fontWeight: 'bold',
   },

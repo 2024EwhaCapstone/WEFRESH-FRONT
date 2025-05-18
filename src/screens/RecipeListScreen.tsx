@@ -31,7 +31,7 @@ const RecipeListScreen: React.FC<RecipeListScreenProps> = () => {
     <View style={styles.container}>
       <CloseButton
         style={styles.closeButton}
-        backgroundColor="#08A900"
+        backgroundColor="#F46161"
         iconColor="white"
       />
       <View style={styles.refrigerator}>
@@ -72,10 +72,10 @@ const styles = StyleSheet.create({
     // justifyContent: 'center',
     alignItems: 'center',
     width: '100%',
-    backgroundColor: '#28AA3B',
+    backgroundColor: '#F46161',
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
-    borderColor: '#28AA3B',
+    borderColor: '#F46161',
     borderWidth: 1,
     paddingHorizontal: 12,
     paddingBottom: 16,

@@ -63,7 +63,7 @@ const SavedRecipeDetailScreen: React.FC<SavedRecipeDetailScreenProps> = ({
   if (loading) {
     return (
       <View style={styles.loadingContainer}>
-        <ActivityIndicator size="large" color="#08A900" />
+        <ActivityIndicator size="large" color="#F46161" />
       </View>
     );
   }
@@ -82,7 +82,7 @@ const SavedRecipeDetailScreen: React.FC<SavedRecipeDetailScreenProps> = ({
     <View style={styles.container}>
       <CloseButton
         style={styles.closeButton}
-        backgroundColor="#08A900"
+        backgroundColor="#F46161"
         iconColor="white"
       />
       <Image source={{uri: recipe?.image}} style={styles.recipeImage} />
@@ -201,7 +201,7 @@ const styles = StyleSheet.create({
     borderRadius: 20,
   },
   activeTab: {
-    backgroundColor: '#08A900',
+    backgroundColor: '#F46161',
   },
   tabText: {
     fontSize: 15,

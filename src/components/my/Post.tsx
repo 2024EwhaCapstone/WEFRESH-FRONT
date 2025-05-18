@@ -27,7 +27,7 @@ const styles = StyleSheet.create({
     elevation: 4,
   },
   text1: {
-    color: '#28AA3B',
+    color: '#F46161',
     fontSize: 14,
     fontWeight: 'bold',
   },

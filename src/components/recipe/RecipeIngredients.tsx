@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, Image, ScrollView } from 'react-native';
+import {View, Text, StyleSheet, Image, ScrollView} from 'react-native';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
 interface Ingredient {
@@ -11,20 +11,23 @@ interface RecipeIngredientsProps {
   ingredients: Ingredient[];
 }
 
-const RecipeIngredients: React.FC<RecipeIngredientsProps> = ({ ingredients }) => {
+const RecipeIngredients: React.FC<RecipeIngredientsProps> = ({ingredients}) => {
   return (
     <ScrollView contentContainerStyle={styles.scrollContent}>
-    <View style={styles.container}>
-      {ingredients.map((item, index) => (
-        <View key={index} style={styles.ingredientRow}>
-          <View style={styles.ingredientNameContainer}>
-            <Image source={require('../../assets/icons/green_dot_icon.png')} style={styles.dotIcon} />
-            <Text style={styles.ingredientName}>{item.name}</Text>
+      <View style={styles.container}>
+        {ingredients.map((item, index) => (
+          <View key={index} style={styles.ingredientRow}>
+            <View style={styles.ingredientNameContainer}>
+              <Image
+                source={require('../../assets/icons/pink_dot_icon.png')}
+                style={styles.dotIcon}
+              />
+              <Text style={styles.ingredientName}>{item.name}</Text>
+            </View>
+            <Text style={styles.ingredientAmount}>{item.amount}</Text>
           </View>
-          <Text style={styles.ingredientAmount}>{item.amount}</Text>
-        </View>
-      ))}
-    </View>
+        ))}
+      </View>
     </ScrollView>
   );
 };
@@ -44,7 +47,6 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     paddingVertical: 8,
-    
   },
   ingredientNameContainer: {
     flexDirection: 'row',
@@ -52,7 +54,6 @@ const styles = StyleSheet.create({
   },
   dotIcon: {
     marginRight: 8,
-    
   },
   ingredientName: {
     fontSize: 16,
