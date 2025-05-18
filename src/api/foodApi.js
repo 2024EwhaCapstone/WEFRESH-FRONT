@@ -1,6 +1,6 @@
-import api, { ACCESS_TOKEN } from './api';
+import api, {ACCESS_TOKEN} from './api';
 
-export const createFood = async (foodData) => {
+export const createFood = async foodData => {
   try {
     const formData = new FormData();
     formData.append('image', {
@@ -27,7 +27,7 @@ export const createFood = async (foodData) => {
   }
 };
 
-export const getFreshness = async (foodId) => {
+export const getFreshness = async foodId => {
   try {
     const response = await api.get(`/foods/${foodId}/freshness`);
     return response.data;
@@ -94,12 +94,34 @@ export const updateFood = async (foodId, foodData) => {
     throw error;
   }
 };
-export const deleteFood = async (foodId) => {
+export const deleteFood = async foodId => {
   try {
     const response = await api.delete(`/foods/${foodId}`);
     return response.data;
   } catch (error) {
     console.error('Error deleting food:', error);
+    throw error;
+  }
+};
+
+export const analyzeFoodImage = async image => {
+  try {
+    const formData = new FormData();
+    formData.append('image', {
+      uri: image.uri,
+      name: image.fileName || 'image.jpg',
+      type: image.type || 'image/jpeg',
+    });
+
+    const response = await api.post('/foods/image', formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
+
+    return response.data; // { isSuccess: true, data: { name: "...", expirationDate: "..." }, error: null }
+  } catch (error) {
+    console.error('Error analyzing food image:', error?.response || error);
     throw error;
   }
 };

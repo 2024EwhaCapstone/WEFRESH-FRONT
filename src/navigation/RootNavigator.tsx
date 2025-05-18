@@ -15,7 +15,7 @@ import {Asset} from 'react-native-image-picker';
 
 export type RootStackParamList = {
   MainTabs: undefined;
-  RecipeRecommend: { recipes: any };
+  RecipeRecommend: {recipes: any};
   RecipeDetailScreen: {recipeId: number};
   RefrigeratorScreen: undefined;
   AddFoodScreen: undefined;
@@ -24,7 +24,8 @@ export type RootStackParamList = {
     foodId: number | null;
     foodName?: string;
     category?: string;
-    expirationDate?: {year: string; month: string; day: string};
+    name?: string;
+    expirationDate?: {year: string; month: string; day: string} | null;
     foodCount?: number;
     foodMemo?: string;
     selectedImage?: Asset;
@@ -62,10 +63,10 @@ const RootNavigator = () => {
         options={{presentation: 'card', headerShown: false}}
       />
       <Stack.Screen
-  name="RefrigeratorScreen"
-  component={RefrigeratorScreen}
-  options={{presentation: 'card', headerShown: false}} // 필요에 따라 headerShown 조절
-/>
+        name="RefrigeratorScreen"
+        component={RefrigeratorScreen}
+        options={{presentation: 'card', headerShown: false}} // 필요에 따라 headerShown 조절
+      />
 
       <Stack.Screen name="AddFoodScreen" component={AddFoodScreen} />
       <Stack.Screen name="LoadingScreen" component={LoadingScreen} />

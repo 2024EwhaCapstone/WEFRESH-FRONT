@@ -36,20 +36,46 @@ interface FoodDetailScreenProps {
 }
 
 const FoodDetailScreen: React.FC<FoodDetailScreenProps> = ({route}) => {
+  const formatKoreanDateToParts = (
+    dateString: string,
+  ): {year: string; month: string; day: string} => {
+    const match = dateString.match(/(\d{4})년\s*(\d{1,2})월\s*(\d{1,2})일/);
+    if (match) {
+      const [, year, month, day] = match;
+      return {
+        year,
+        month: month.padStart(2, '0'),
+        day: day.padStart(2, '0'),
+      };
+    }
+    return {year: '2025', month: '01', day: '01'};
+  };
   const {foodId, selectedImage} = route.params;
   const [foodName, setFoodName] = useState(route.params.name || '알수없음');
   const [activeTab, setActiveTab] = useState<'info' | 'freshness'>('info');
   const [category, setCategory] = useState(route.params.category || '미지정');
-  const [foodCount, setFoodCount] = useState(route.params.count || 0);
+  const [foodCount, setFoodCount] = useState(route.params.count || 1);
   const [foodMemo, setFoodMemo] = useState(route.params.memo || '없음');
-  const [expirationDate, setExpirationDate] = useState({
-    year: '2025',
-    month: '01',
-    day: '01',
+  // const [expirationDate, setExpirationDate] = useState(() => {
+  //   // year: '2025',
+  //   // month: '01',
+  //   // day: '01',
+  //   const rawDate = route.params.expirationDate;
+  //   if (rawDate && typeof rawDate === 'string' && rawDate.includes('년')) {
+  //     const parsed = parseKoreanDate(rawDate);
+  //     return parsed;
+  //   } else {
+  //     return {year: '2025', month: '01', day: '01'};
+  //   }
+  // });
+  const [expirationDate, setExpirationDate] = useState(() => {
+    return formatKoreanDateToParts(route.params.expirationDate || '');
   });
+
   const [image, setImage] = useState(selectedImage || null);
   const navigation = useNavigation();
   const [loading, setLoading] = useState(false);
+
   useEffect(() => {
     const fetchFoodDetail = async () => {
       if (foodId) {

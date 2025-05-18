@@ -5,6 +5,7 @@ import {StackNavigationProp} from '@react-navigation/stack';
 import {RootStackParamList} from '../navigation/RootNavigator';
 import FoodDetailScreen from './FoodDetailScreen';
 import {launchImageLibrary, Asset} from 'react-native-image-picker';
+import {analyzeFoodImage} from '../api/foodApi';
 
 type NavigationProp = StackNavigationProp<RootStackParamList, 'MainTabs'>;
 
@@ -12,15 +13,29 @@ const AddFoodScreen = () => {
   const navigation = useNavigation<NavigationProp>();
   const [selectedImage, setSelectedImage] = useState<Asset | null>(null);
 
-  const pickImage = () => {
-    launchImageLibrary({mediaType: 'photo'}, response => {
+  const pickImage = async () => {
+    launchImageLibrary({mediaType: 'photo'}, async response => {
       if (!response.didCancel && response.assets) {
         const asset = response.assets[0];
         setSelectedImage(asset);
-        navigation.navigate('FoodDetailScreen', {
-          foodId: null,
-          selectedImage: asset,
-        });
+
+        try {
+          const result = await analyzeFoodImage(asset);
+          if (result.isSuccess) {
+            const {name, expirationDate} = result.data;
+
+            navigation.navigate('FoodDetailScreen', {
+              foodId: null,
+              selectedImage: asset,
+              name,
+              expirationDate,
+            });
+          } else {
+            console.error('분석 실패:', result.error);
+          }
+        } catch (error) {
+          console.error('이미지 분석 오류:', error);
+        }
       }
     });
   };
