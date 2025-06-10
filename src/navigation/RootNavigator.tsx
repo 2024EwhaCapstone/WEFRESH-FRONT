@@ -11,10 +11,15 @@ import RecipeListScreen from '../screens/RecipeListScreen';
 import RefrigeratorScreen from '../screens/RefrigeratorScreen';
 import MyPageScreen from '../screens/MyPageScreen';
 import SavedRecipeDetailScreen from '../screens/SavedRecipeDetailScreen';
+import LoginScreen from '../screens/LoginScreen';
+import OnboardingScreen from '../screens/OnboardingScreen';
+import ProfileCompleteScreen from '../screens/ProfileCompleteScreen';
 import {Asset} from 'react-native-image-picker';
 
 export type RootStackParamList = {
   MainTabs: undefined;
+  LoginScreen: undefined;
+  OnboardingScreen: undefined;
   RecipeRecommend: {recipes: any};
   RecipeDetailScreen: {recipeId: number};
   RefrigeratorScreen: undefined;
@@ -39,9 +44,26 @@ const Stack = createStackNavigator<RootStackParamList>();
 
 const RootNavigator = () => {
   return (
-    <Stack.Navigator screenOptions={{headerShown: false}}>
+    <Stack.Navigator
+      initialRouteName="LoginScreen"
+      screenOptions={{headerShown: false}}>
       <Stack.Screen name="MainTabs" component={BottomTabNavigator} />
+      <Stack.Screen
+        name="LoginScreen"
+        component={LoginScreen}
+        options={{presentation: 'card', headerShown: false}}
+      />
+      <Stack.Screen
+        name="ProfileCompleteScreen"
+        component={ProfileCompleteScreen}
+        options={{presentation: 'card', headerShown: false}}
+      />
 
+      <Stack.Screen
+        name="OnboardingScreen"
+        component={OnboardingScreen}
+        options={{presentation: 'card', headerShown: false}}
+      />
       <Stack.Screen
         name="RecipeRecommend"
         component={RecipeRecommendScreen}

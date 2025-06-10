@@ -11,7 +11,9 @@ end
 
 target 'wefresh' do
   config = use_native_modules!
-
+  pod 'KakaoSDKCommon'
+  pod 'KakaoSDKAuth'
+  pod 'KakaoSDKUser'
   use_react_native!(
     :path => config[:reactNativePath],
     # An absolute path to your application root.
