@@ -45,7 +45,7 @@ const Stack = createStackNavigator<RootStackParamList>();
 const RootNavigator = () => {
   return (
     <Stack.Navigator
-      initialRouteName="LoginScreen"
+      initialRouteName="OnboardingScreen"
       screenOptions={{headerShown: false}}>
       <Stack.Screen name="MainTabs" component={BottomTabNavigator} />
       <Stack.Screen
