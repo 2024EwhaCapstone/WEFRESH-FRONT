@@ -16,7 +16,7 @@ const {height: SCREEN_HEIGHT} = Dimensions.get('window');
 
 const OnboardingScreen = () => {
   const [nickname, setNickname] = useState('');
-  const [name, setName] = useState('윤진');
+  const [name, setName] = useState('');
   const navigation = useNavigation();
 
   const isValid = nickname.trim().length >= 1 && name.trim().length >= 1;
