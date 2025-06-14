@@ -82,7 +82,9 @@
       buildConfiguration = "Debug">
    </AnalyzeAction>
    <ArchiveAction
-      buildConfiguration = "Release"
-      revealArchiveInOrganizer = "YES">
+      buildConfiguration = "Debug"
+      customArchiveName = "cookit"
+      revealArchiveInOrganizer = "NO"
+      allowsArchivingForSimulator = "YES">
    </ArchiveAction>
 </Scheme>
