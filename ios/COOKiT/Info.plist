@@ -2,16 +2,14 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>KAKAO_APP_KEY</key>
-	<string>00dc886ff406c3da347cc507b54a1adf</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
-	<string>wefresh</string>
+	<string>COOKiT</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
-	<string>org.reactjs.native.yoonjinchoi.wefresh</string>
+	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
@@ -22,20 +20,12 @@
 	<string>$(MARKETING_VERSION)</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
-	<key>URL Types</key>
-	<array>
-		<dict>
-			<key>CFBundleTypeRole</key>
-			<string>Editor</string>
-			<key>CFBundleURLSchemes</key>
-			<array>
-				<string>kakao008864063347507541</string>
-				<string>kakao008864063347507541://oauth</string>
-			</array>
-		</dict>
-	</array>
 	<key>CFBundleVersion</key>
 	<string>$(CURRENT_PROJECT_VERSION)</string>
+	<key>KAKAO_APP_KEY</key>
+	<string>00dc886ff406c3da347cc507b54a1adf</string>
+	<key>KAKAO_APP_SCHEME</key>
+	<string>kakao008864063347507541</string>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
 		<string>kakao008864063347507541</string>
@@ -70,9 +60,19 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
-	<key>KAKAO_APP_SCHEME</key>
-	<string>kakao008864063347507541</string>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+	<key>URL Types</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>kakao008864063347507541</string>
+				<string>kakao008864063347507541://oauth</string>
+			</array>
+		</dict>
+	</array>
 </dict>
 </plist>

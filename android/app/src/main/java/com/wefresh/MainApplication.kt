@@ -1,4 +1,4 @@
-package com.wefresh
+package com.COOKiT
 
 import android.app.Application
 import com.facebook.react.PackageList

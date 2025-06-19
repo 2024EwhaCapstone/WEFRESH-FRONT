@@ -9,23 +9,23 @@
 /* Begin PBXBuildFile section */
 		0C2EC8BD4EADBAA63FC9AB29 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB81A68108700A75B9A /* PrivacyInfo.xcprivacy */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
-		37FD5F46DE1E79CF00D0F135 /* libPods-wefresh.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E304B88822801D9623FDA0CD /* libPods-wefresh.a */; };
+		37FD5F46DE1E79CF00D0F135 /* libPods-COOKiT.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E304B88822801D9623FDA0CD /* libPods-COOKiT.a */; };
 		761780ED2CA45674006654EE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 761780EC2CA45674006654EE /* AppDelegate.swift */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		FEA2C7342DFDD6A000D03DFD /* main.jsbundle in Resources */ = {isa = PBXBuildFile; fileRef = FEA2C7332DFDD6A000D03DFD /* main.jsbundle */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		13B07F961A680F5B00A75B9A /* wefresh.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = wefresh.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = wefresh/Images.xcassets; sourceTree = "<group>"; };
-		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = wefresh/Info.plist; sourceTree = "<group>"; };
-		13B07FB81A68108700A75B9A /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = PrivacyInfo.xcprivacy; path = wefresh/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
-		3203F29B2DECB4A9005E1D49 /* wefresh-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "wefresh-Bridging-Header.h"; path = "../wefresh-Bridging-Header.h"; sourceTree = "<group>"; };
-		761780EC2CA45674006654EE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = wefresh/AppDelegate.swift; sourceTree = "<group>"; };
-		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = wefresh/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		91DC94ECF05BCE5CC9F79FFB /* Pods-wefresh.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-wefresh.release.xcconfig"; path = "Target Support Files/Pods-wefresh/Pods-wefresh.release.xcconfig"; sourceTree = "<group>"; };
-		ACA22C97BA7409D7B61FE501 /* Pods-wefresh.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-wefresh.debug.xcconfig"; path = "Target Support Files/Pods-wefresh/Pods-wefresh.debug.xcconfig"; sourceTree = "<group>"; };
-		E304B88822801D9623FDA0CD /* libPods-wefresh.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-wefresh.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		13B07F961A680F5B00A75B9A /* COOKiT.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = COOKiT.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = COOKiT/Images.xcassets; sourceTree = "<group>"; };
+		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = COOKiT/Info.plist; sourceTree = "<group>"; };
+		13B07FB81A68108700A75B9A /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = PrivacyInfo.xcprivacy; path = COOKiT/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
+		3203F29B2DECB4A9005E1D49 /* COOKiT-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "COOKiT-Bridging-Header.h"; path = "../COOKiT-Bridging-Header.h"; sourceTree = "<group>"; };
+		761780EC2CA45674006654EE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = COOKiT/AppDelegate.swift; sourceTree = "<group>"; };
+		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = COOKiT/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		91DC94ECF05BCE5CC9F79FFB /* Pods-COOKiT.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-COOKiT.release.xcconfig"; path = "Target Support Files/Pods-COOKiT/Pods-COOKiT.release.xcconfig"; sourceTree = "<group>"; };
+		ACA22C97BA7409D7B61FE501 /* Pods-COOKiT.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-COOKiT.debug.xcconfig"; path = "Target Support Files/Pods-COOKiT/Pods-COOKiT.debug.xcconfig"; sourceTree = "<group>"; };
+		E304B88822801D9623FDA0CD /* libPods-COOKiT.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-COOKiT.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		FEA2C7332DFDD6A000D03DFD /* main.jsbundle */ = {isa = PBXFileReference; lastKnownFileType = text; path = main.jsbundle; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -35,14 +35,14 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				37FD5F46DE1E79CF00D0F135 /* libPods-wefresh.a in Frameworks */,
+				37FD5F46DE1E79CF00D0F135 /* libPods-COOKiT.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		13B07FAE1A68108700A75B9A /* wefresh */ = {
+		13B07FAE1A68108700A75B9A /* COOKiT */ = {
 			isa = PBXGroup;
 			children = (
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
@@ -51,14 +51,14 @@
 				81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */,
 				13B07FB81A68108700A75B9A /* PrivacyInfo.xcprivacy */,
 			);
-			name = wefresh;
+			name = COOKiT;
 			sourceTree = "<group>";
 		};
 		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
-				E304B88822801D9623FDA0CD /* libPods-wefresh.a */,
+				E304B88822801D9623FDA0CD /* libPods-COOKiT.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -74,8 +74,8 @@
 			isa = PBXGroup;
 			children = (
 				FEA2C7332DFDD6A000D03DFD /* main.jsbundle */,
-				3203F29B2DECB4A9005E1D49 /* wefresh-Bridging-Header.h */,
-				13B07FAE1A68108700A75B9A /* wefresh */,
+				3203F29B2DECB4A9005E1D49 /* COOKiT-Bridging-Header.h */,
+				13B07FAE1A68108700A75B9A /* COOKiT */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
@@ -89,7 +89,7 @@
 		83CBBA001A601CBA00E9B192 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				13B07F961A680F5B00A75B9A /* wefresh.app */,
+				13B07F961A680F5B00A75B9A /* COOKiT.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -97,8 +97,8 @@
 		BBD78D7AC51CEA395F1C20DB /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				ACA22C97BA7409D7B61FE501 /* Pods-wefresh.debug.xcconfig */,
-				91DC94ECF05BCE5CC9F79FFB /* Pods-wefresh.release.xcconfig */,
+				ACA22C97BA7409D7B61FE501 /* Pods-COOKiT.debug.xcconfig */,
+				91DC94ECF05BCE5CC9F79FFB /* Pods-COOKiT.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -106,9 +106,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		13B07F861A680F5B00A75B9A /* wefresh */ = {
+		13B07F861A680F5B00A75B9A /* COOKiT */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "wefresh" */;
+			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "COOKiT" */;
 			buildPhases = (
 				0300404526942CCA0F30A951 /* [CP] Check Pods Manifest.lock */,
 				13B07F871A680F5B00A75B9A /* Sources */,
@@ -121,9 +121,9 @@
 			);
 			dependencies = (
 			);
-			name = wefresh;
-			productName = wefresh;
-			productReference = 13B07F961A680F5B00A75B9A /* wefresh.app */;
+			name = COOKiT;
+			productName = COOKiT;
+			productReference = 13B07F961A680F5B00A75B9A /* COOKiT.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -140,7 +140,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "wefresh" */;
+			buildConfigurationList = 83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "COOKiT" */;
 			compatibilityVersion = "Xcode 12.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -153,7 +153,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				13B07F861A680F5B00A75B9A /* wefresh */,
+				13B07F861A680F5B00A75B9A /* COOKiT */,
 			);
 		};
 /* End PBXProject section */
@@ -204,7 +204,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-wefresh-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-COOKiT-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -217,15 +217,19 @@
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-wefresh/Pods-wefresh-resources-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-COOKiT/Pods-COOKiT-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			inputPaths = (
 			);
 			name = "[CP] Copy Pods Resources";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-wefresh/Pods-wefresh-resources-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-COOKiT/Pods-COOKiT-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-wefresh/Pods-wefresh-resources.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-COOKiT/Pods-COOKiT-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -244,15 +248,16 @@
 /* Begin XCBuildConfiguration section */
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = ACA22C97BA7409D7B61FE501 /* Pods-wefresh.debug.xcconfig */;
+			baseConfigurationReference = ACA22C97BA7409D7B61FE501 /* Pods-COOKiT.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = Z9HQ2K9VHU;
+				DEVELOPMENT_TEAM = 35NK57K484;
 				ENABLE_BITCODE = NO;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
-				INFOPLIST_FILE = wefresh/Info.plist;
+				INFOPLIST_FILE = COOKiT/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = COOKiT;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -264,8 +269,8 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = org.reactjs.native.yoonjinchoi.wefresh;
-				PRODUCT_NAME = wefresh;
+				PRODUCT_BUNDLE_IDENTIFIER = org.reactjs.native.cookit.cookit;
+				PRODUCT_NAME = COOKiT;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -274,14 +279,15 @@
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 91DC94ECF05BCE5CC9F79FFB /* Pods-wefresh.release.xcconfig */;
+			baseConfigurationReference = 91DC94ECF05BCE5CC9F79FFB /* Pods-COOKiT.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = Z9HQ2K9VHU;
+				DEVELOPMENT_TEAM = 35NK57K484;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
-				INFOPLIST_FILE = wefresh/Info.plist;
+				INFOPLIST_FILE = COOKiT/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = COOKiT;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -293,8 +299,8 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = org.reactjs.native.yoonjinchoi.wefresh;
-				PRODUCT_NAME = wefresh;
+				PRODUCT_BUNDLE_IDENTIFIER = org.reactjs.native.cookit.cookit;
+				PRODUCT_NAME = COOKiT;
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -370,10 +376,7 @@
 					"-DFOLLY_CFG_NO_COROUTINES=1",
 					"-DFOLLY_HAVE_CLOCK_GETTIME=1",
 				);
-				OTHER_LDFLAGS = (
-					"$(inherited)",
-					" ",
-				);
+				OTHER_LDFLAGS = "$(inherited)  ";
 				REACT_NATIVE_PATH = "${PODS_ROOT}/../../node_modules/react-native";
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) DEBUG";
@@ -443,10 +446,7 @@
 					"-DFOLLY_CFG_NO_COROUTINES=1",
 					"-DFOLLY_HAVE_CLOCK_GETTIME=1",
 				);
-				OTHER_LDFLAGS = (
-					"$(inherited)",
-					" ",
-				);
+				OTHER_LDFLAGS = "$(inherited)  ";
 				REACT_NATIVE_PATH = "${PODS_ROOT}/../../node_modules/react-native";
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
@@ -458,7 +458,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "wefresh" */ = {
+		13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "COOKiT" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				13B07F941A680F5B00A75B9A /* Debug */,
@@ -467,7 +467,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "wefresh" */ = {
+		83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "COOKiT" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				83CBBA201A601CBA00E9B192 /* Debug */,

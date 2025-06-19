@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-               BuildableName = "wefresh.app"
-               BlueprintName = "wefresh"
-               ReferencedContainer = "container:wefresh.xcodeproj">
+               BuildableName = "COOKiT.app"
+               BlueprintName = "COOKiT"
+               ReferencedContainer = "container:COOKiT.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -33,9 +33,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "00E356ED1AD99517003FC87E"
-               BuildableName = "wefreshTests.xctest"
-               BlueprintName = "wefreshTests"
-               ReferencedContainer = "container:wefresh.xcodeproj">
+               BuildableName = "COOKiTTests.xctest"
+               BlueprintName = "COOKiTTests"
+               ReferencedContainer = "container:COOKiT.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -55,9 +55,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "wefresh.app"
-            BlueprintName = "wefresh"
-            ReferencedContainer = "container:wefresh.xcodeproj">
+            BuildableName = "COOKiT.app"
+            BlueprintName = "COOKiT"
+            ReferencedContainer = "container:COOKiT.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -72,9 +72,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "wefresh.app"
-            BlueprintName = "wefresh"
-            ReferencedContainer = "container:wefresh.xcodeproj">
+            BuildableName = "COOKiT.app"
+            BlueprintName = "COOKiT"
+            ReferencedContainer = "container:COOKiT.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

@@ -10,7 +10,7 @@ import KakaoSDKUser
 @main
 class AppDelegate: RCTAppDelegate {
   override func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
-    self.moduleName = "wefresh"
+    self.moduleName = "COOKiT"
     self.dependencyProvider = RCTAppDependencyProvider()
     print("Bundle ID: \(Bundle.main.bundleIdentifier ?? "nil")")
     KakaoSDK.initSDK(appKey: "00dc886ff406c3da347cc507b54a1adf")

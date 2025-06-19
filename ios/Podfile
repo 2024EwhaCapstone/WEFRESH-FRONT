@@ -9,7 +9,7 @@ if linkage != nil
   use_frameworks! :linkage => linkage.to_sym
 end
 
-target 'wefresh' do
+target 'COOKiT' do
   config = use_native_modules!
   pod 'KakaoSDKCommon'
   pod 'KakaoSDKAuth'
