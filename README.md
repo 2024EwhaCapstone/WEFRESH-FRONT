@@ -13,9 +13,47 @@ COOKiT은 요리 초보자를 위한 AI 기반의 요리 지원 서비스로, �
 
 ### Frontend (📱 React Native 기반 모바일 앱 (iOS))
 
-- 프레임워크로 리액트 네이티브를 사용하여 iOS 대상으로 하여 개발하며 typescript를 통해 안정성 있는 개발을 한다.
-- AWS Amplify를 통해 배포하여 CI/CD 자동화와 애자일 방식의 개발을 목표로 한다.
+- 프레임워크로 리액트 네이티브를 사용하여 iOS 대상으로 하여 개발하며 typescript를 통해 안정성 있는 개발.
+- 공통 UI 컴포넌트 분리, 네비게이션 구조화, 상태 관리 효율화 등을 통해 모듈화된 구조로 개발.
+- UI/UX 개선, 앱 아이콘, Splash 이미지 등 시각적 요소도 실제 사용 환경을 고려하여 구성.
+- AWS Amplify를 통해 배포하여 CI/CD 자동화와 애자일 방식의 개발을 목표로 함.
+- 디버그 및 기능 테스트를 위한 .app 바이너리 파일을 아카이브하여 iOS 시뮬레이터에서 실행 가능한 상태로 제공.
 
+---
+## 📱 How to build
+레포지토리 클론해서 프로젝트 돌리기
+
+```bash
+git clone https://github.com/2024EwhaCapstone/WEFRESH-FRONT.git
+cd WEFRESH-FRONT
+npm install
+cd ios
+pod install
+cd ..
+npx react-native bundle \
+  --entry-file index.js \
+  --platform ios \
+  --dev false \
+  --bundle-output ios/main.jsbundle \
+  --assets-dest ios
+npx react-native run-ios
+```
+
+## 🛠️ How to test
+####  iOS 시뮬레이터에서 `.app` 바이너리 실행 (빌드된 앱 테스트)
+
+1. xcode 실행
+2. `.app` 바이너리 파일 준비 (예: `000.app`)
+   (cookit.app binary file 설치)
+  [📦 Download cookit.zip](https://github.com/2024EwhaCapstone/Growth/releases/download/v1.0.0/cookit.zip)
+3. 다음의 명령어 실행
+```bash
+open -a Simulator
+xcrun simctl install booted ~/app파일 주소
+xcrun simctl launch booted org.reactjs.native.yoonjinchoi.wefresh
+```
+
+## 📁 Folder 구조
 <pre>
 
 <code>
@@ -64,37 +102,3 @@ src/                             # Main source code directory
 </code>
 
 </pre>
-
----
-## 📱 How to build
-레포지토리 클론해서 프로젝트 돌리기
-
-```bash
-git clone https://github.com/2024EwhaCapstone/WEFRESH-FRONT.git
-cd WEFRESH-FRONT
-npm install
-cd ios
-pod install
-cd ..
-npx react-native bundle \
-  --entry-file index.js \
-  --platform ios \
-  --dev false \
-  --bundle-output ios/main.jsbundle \
-  --assets-dest ios
-npx react-native run-ios
-```
-
-## 🛠️ How to test
-####  iOS 시뮬레이터에서 `.app` 바이너리 실행 (빌드된 앱 테스트)
-
-1. xcode 실행
-2. `.app` 바이너리 파일 준비 (예: `000.app`)
-   (cookit.app binary file 설치)
-  [📦 Download cookit.zip](https://github.com/2024EwhaCapstone/Growth/releases/download/v1.0.0/cookit.zip)
-3. 다음의 명령어 실행
-```bash
-open -a Simulator
-xcrun simctl install booted ~/app파일 주소
-xcrun simctl launch booted org.reactjs.native.yoonjinchoi.wefresh
-```
